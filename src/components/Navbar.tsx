@@ -1,6 +1,6 @@
 
 import { useState, useEffect } from "react";
-import { Menu, X, ChevronDown } from "lucide-react";
+import { Menu, X, Shield } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const Navbar = () => {
@@ -29,6 +29,9 @@ const Navbar = () => {
         <div className="flex justify-between items-center py-4 md:py-6">
           <div className="flex items-center">
             <a href="#" className="flex items-center space-x-2">
+              <div className="text-primary">
+                <Shield className="h-6 w-6" />
+              </div>
               <span className="text-xl md:text-2xl font-heading font-bold">
                 <span className="text-primary">Ezton</span> E & E
               </span>
