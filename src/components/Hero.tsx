@@ -12,25 +12,6 @@ const Hero = () => {
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <div className="max-w-4xl mx-auto">
-          {/* Logo and company name container */}
-          <div className="flex items-center justify-center mb-8 animate-fade-in opacity-0" 
-               style={{ animationDelay: "0.1s", animationFillMode: "forwards" }}>
-            <div className="mr-4">
-              {/* Company logo - using a placeholder shield icon */}
-              <div className="bg-primary text-white p-3 rounded-lg">
-                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10" />
-                </svg>
-              </div>
-            </div>
-            <div className="text-center sm:text-left">
-              <h2 className="text-3xl md:text-4xl font-bold font-heading">
-                Ezton E & E
-              </h2>
-              <p className="text-sm text-muted-foreground">Quality with Standards</p>
-            </div>
-          </div>
-          
           <div className="text-center">
             <div className="inline-block animate-fade-in opacity-0" style={{ animationDelay: "0.3s", animationFillMode: "forwards" }}>
               <span className="inline-flex items-center py-1 px-3 text-sm font-medium text-primary bg-primary/10 rounded-full mb-6">
