@@ -1,30 +1,17 @@
-
 import { useState, useEffect } from "react";
 import { Menu, X, Shield } from "lucide-react";
 import { cn } from "@/lib/utils";
-
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 10);
     };
-    
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  return (
-    <header 
-      className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-        isScrolled 
-          ? "bg-white/90 backdrop-blur-md shadow-sm" 
-          : "bg-transparent"
-      )}
-    >
+  return <header className={cn("fixed top-0 left-0 right-0 z-50 transition-all duration-300", isScrolled ? "bg-white/90 backdrop-blur-md shadow-sm" : "bg-transparent")}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center py-4 md:py-6">
           <div className="flex items-center">
@@ -34,7 +21,7 @@ const Navbar = () => {
                   <Shield className="h-6 w-6" />
                 </div>
                 <span className="text-xl md:text-2xl font-heading font-bold">
-                  <span className="text-primary">Ezton</span> E & E
+                  <span className="text-red-700">Ezton</span> E & E
                 </span>
               </div>
               <span className="text-xs text-muted-foreground ml-8">
@@ -59,27 +46,14 @@ const Navbar = () => {
           </div>
           
           {/* Mobile menu button */}
-          <button
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="md:hidden text-foreground"
-            aria-label="Toggle menu"
-          >
-            {isMenuOpen ? (
-              <X className="h-6 w-6" />
-            ) : (
-              <Menu className="h-6 w-6" />
-            )}
+          <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="md:hidden text-foreground" aria-label="Toggle menu">
+            {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
         </div>
       </div>
       
       {/* Mobile menu */}
-      <div
-        className={cn(
-          "md:hidden overflow-hidden transition-all duration-300 ease-in-out",
-          isMenuOpen ? "max-h-96 border-t border-border/40" : "max-h-0"
-        )}
-      >
+      <div className={cn("md:hidden overflow-hidden transition-all duration-300 ease-in-out", isMenuOpen ? "max-h-96 border-t border-border/40" : "max-h-0")}>
         <div className="px-4 pb-5 pt-2 space-y-3 bg-background/95 backdrop-blur-md">
           <a href="#services" className="block py-2 nav-link" onClick={() => setIsMenuOpen(false)}>Services</a>
           <a href="#products" className="block py-2 nav-link" onClick={() => setIsMenuOpen(false)}>Products</a>
@@ -91,8 +65,6 @@ const Navbar = () => {
           </a>
         </div>
       </div>
-    </header>
-  );
+    </header>;
 };
-
 export default Navbar;
