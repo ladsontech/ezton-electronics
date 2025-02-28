@@ -28,17 +28,19 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center py-4 md:py-6">
           <div className="flex items-center">
-            <a href="#" className="flex items-center space-x-2">
-              <div className="text-primary">
-                <Shield className="h-6 w-6" />
+            <a href="#" className="flex flex-col">
+              <div className="flex items-center space-x-2">
+                <div className="text-primary">
+                  <Shield className="h-6 w-6" />
+                </div>
+                <span className="text-xl md:text-2xl font-heading font-bold">
+                  <span className="text-primary">Ezton</span> E & E
+                </span>
               </div>
-              <span className="text-xl md:text-2xl font-heading font-bold">
-                <span className="text-primary">Ezton</span> E & E
+              <span className="text-xs text-muted-foreground ml-8">
+                Quality with Standards
               </span>
             </a>
-            <span className="ml-2 text-xs text-muted-foreground hidden md:inline-block">
-              Quality with Standards
-            </span>
           </div>
           
           {/* Desktop Navigation */}
