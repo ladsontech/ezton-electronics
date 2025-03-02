@@ -3,6 +3,11 @@ import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { MessageSquare, X } from "lucide-react";
 
+// WhatsApp number - you can replace this with your actual number
+const whatsappNumber = "+256700000000";
+const whatsappMessage = "Hello, I'm interested in your services and would like more information.";
+const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
+
 const FloatingCTA = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
@@ -45,11 +50,13 @@ const FloatingCTA = () => {
               Have questions about our products or services? Get in touch with us!
             </p>
             <a 
-              href="#contact" 
+              href={whatsappLink}
+              target="_blank"
+              rel="noopener noreferrer"
               className="block text-center py-2 px-4 rounded-lg font-medium transition-colors w-full bg-primary text-white hover:bg-primary/90"
               onClick={() => setIsOpen(false)}
             >
-              Send a Message
+              Chat on WhatsApp
             </a>
           </div>
         </div>

@@ -47,6 +47,11 @@ const products = [
   }
 ];
 
+// WhatsApp number - you can replace this with your actual number
+const whatsappNumber = "+256700000000";
+const whatsappMessage = "Hello, I'm interested in your products and would like more information.";
+const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
+
 const Products = () => {
   const [hoveredId, setHoveredId] = useState<number | null>(null);
 
@@ -72,7 +77,7 @@ const Products = () => {
               onMouseEnter={() => setHoveredId(product.id)}
               onMouseLeave={() => setHoveredId(null)}
             >
-              <div className="relative overflow-hidden aspect-[4/3]">
+              <div className="relative overflow-hidden aspect-[3/4]">
                 <img 
                   src={product.image} 
                   alt={product.name}
@@ -88,7 +93,9 @@ const Products = () => {
                 <div className="flex items-center justify-between">
                   <span className="text-lg font-semibold text-primary">{product.price}</span>
                   <a 
-                    href="#contact" 
+                    href={whatsappLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="btn-outline py-2 px-4 text-sm"
                   >
                     Inquire
