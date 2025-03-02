@@ -1,9 +1,12 @@
+
 import { useState, useEffect } from "react";
-import { Menu, X, Shield } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
+
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 10);
@@ -11,14 +14,15 @@ const Navbar = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+  
   return <header className={cn("fixed top-0 left-0 right-0 z-50 transition-all duration-300", isScrolled ? "bg-white/90 backdrop-blur-md shadow-sm" : "bg-transparent")}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center py-4 md:py-6">
           <div className="flex items-center">
             <a href="#" className="flex flex-col">
               <div className="flex items-center space-x-2">
-                <div className="text-primary">
-                  <Shield className="h-6 w-6" />
+                <div className="w-8 h-8">
+                  <img src="/images/ezton_logo.png" alt="Ezton Logo" className="w-full h-full object-contain" />
                 </div>
                 <span className="text-xl md:text-2xl font-heading font-bold">
                   <span className="text-red-700">Ezton</span> E & E
@@ -67,4 +71,5 @@ const Navbar = () => {
       </div>
     </header>;
 };
+
 export default Navbar;

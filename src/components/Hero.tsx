@@ -6,11 +6,11 @@ import { cn } from "@/lib/utils";
 const Hero = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   
-  // Sample images for the carousel - you can replace these with your actual images
+  // Actual images from the public/images directory
   const carouselImages = [
-    "/placeholder.svg",
-    "/placeholder.svg",
-    "/placeholder.svg"
+    "/images/hero1.jpeg",
+    "/images/hero2.jpeg",
+    "/images/hero3.jpeg"
   ];
 
   const goToNextSlide = () => {
@@ -79,7 +79,7 @@ const Hero = () => {
                   >
                     <img 
                       src={image} 
-                      alt={`Solution showcase ${index + 1}`} 
+                      alt={`Security solution showcase ${index + 1}`} 
                       className="w-full h-full object-cover"
                     />
                   </div>
