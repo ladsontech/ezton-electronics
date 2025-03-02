@@ -4,9 +4,9 @@ import { cn } from "@/lib/utils";
 
 const Footer = () => {
   return (
-    <footer className="bg-secondary/80 pt-16 pb-6">
+    <footer className="bg-secondary/80 pt-12 pb-6">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10 pb-10">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 pb-8">
           <div>
             <div className="flex items-center mb-4">
               <h2 className="text-2xl font-heading font-bold">
@@ -62,11 +62,11 @@ const Footer = () => {
               </li>
               <li className="flex items-start">
                 <Phone className="h-5 w-5 text-primary mr-3 shrink-0 mt-0.5" />
-                <span className="text-muted-foreground">+256 123 456 789</span>
+                <span className="text-muted-foreground">+256 778 648157</span>
               </li>
               <li className="flex items-start">
                 <MapPin className="h-5 w-5 text-primary mr-3 shrink-0 mt-0.5" />
-                <span className="text-muted-foreground">123 Tech Lane, Kampala, Uganda</span>
+                <span className="text-muted-foreground">OPP-JALIA TOWER, UMOJA HOUSE, Kampala, Uganda</span>
               </li>
             </ul>
           </div>
@@ -77,14 +77,14 @@ const Footer = () => {
             © {new Date().getFullYear()} Ezton E & E Ltd. All rights reserved.
           </p>
           <div className="mt-4 md:mt-0">
-            <button 
+            <a 
+              href={`https://wa.me/256778648157?text=${encodeURIComponent("Hello, I'm interested in your services and would like more information.")}`}
+              target="_blank"
+              rel="noopener noreferrer"
               className="bg-primary/10 text-primary py-2 px-4 rounded-full text-sm hover:bg-primary/20 transition-colors"
-              onClick={() => {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-              }}
             >
               Chat with us
-            </button>
+            </a>
           </div>
         </div>
       </div>

@@ -93,6 +93,10 @@
     @apply border-border;
   }
 
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
     @apply bg-background text-foreground;
     font-feature-settings: "rlig" 1, "calt" 1;
@@ -105,19 +109,19 @@
 
 @layer components {
   .section-container {
-    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24;
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20;
   }
   
   .section-title {
-    @apply text-3xl md:text-4xl font-bold text-center mb-4;
+    @apply text-2xl md:text-4xl font-bold text-center mb-3 md:mb-4;
   }
   
   .section-subtitle {
-    @apply text-lg text-muted-foreground text-center max-w-3xl mx-auto mb-12;
+    @apply text-base md:text-lg text-muted-foreground text-center max-w-3xl mx-auto mb-8 md:mb-12;
   }
   
   .feature-card {
-    @apply bg-white rounded-2xl p-6 shadow-sm transition-all duration-300 hover:shadow-md border border-border/40;
+    @apply bg-white rounded-2xl p-4 sm:p-6 shadow-sm transition-all duration-300 hover:shadow-md border border-border/40;
   }
   
   .product-card {
@@ -125,23 +129,23 @@
   }
   
   .btn-primary {
-    @apply bg-primary text-primary-foreground hover:bg-primary/90 px-6 py-3 rounded-lg font-medium transition-colors;
+    @apply bg-primary text-primary-foreground hover:bg-primary/90 px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-medium transition-colors;
   }
   
   .btn-secondary {
-    @apply bg-secondary text-secondary-foreground hover:bg-secondary/80 px-6 py-3 rounded-lg font-medium transition-colors;
+    @apply bg-secondary text-secondary-foreground hover:bg-secondary/80 px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-medium transition-colors;
   }
   
   .btn-outline {
-    @apply border border-primary/20 text-primary hover:bg-primary/5 px-6 py-3 rounded-lg font-medium transition-colors;
+    @apply border border-primary/20 text-primary hover:bg-primary/5 px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-medium transition-colors;
   }
   
   .nav-link {
-    @apply text-foreground/70 hover:text-foreground transition-colors font-medium;
+    @apply text-foreground/70 hover:text-foreground transition-colors font-medium text-sm sm:text-base;
   }
 
   .form-input {
-    @apply w-full px-4 py-3 rounded-lg bg-background border border-border focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary;
+    @apply w-full px-3 sm:px-4 py-2 sm:py-3 rounded-lg bg-background border border-border focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary;
   }
 }
 
@@ -177,4 +181,23 @@
 
 .text-balance {
   text-wrap: balance;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+@media (max-width: 640px) {
+  .btn-primary, .btn-secondary, .btn-outline {
+    @apply text-sm py-2 px-4;
+  }
+  
+  .feature-card, .product-card {
+    @apply p-4;
+  }
 }
