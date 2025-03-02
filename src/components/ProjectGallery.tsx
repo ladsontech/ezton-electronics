@@ -7,32 +7,32 @@ const projects = [
   {
     title: "Professional CCTV Installation",
     category: "CCTV Installation",
-    image: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&w=800&q=80"
+    image: "/images/sample1.jpg"
   },
   {
     title: "Solar Energy Solutions",
     category: "Solar Panel Setup",
-    image: "https://images.unsplash.com/photo-1605810230434-7631ac76ec81?auto=format&fit=crop&w=800&q=80"
+    image: "/images/sample2.jpg"
   },
   {
     title: "Advanced Security Systems",
     category: "Security System",
-    image: "https://images.unsplash.com/photo-1473091534298-04dcbce3278c?auto=format&fit=crop&w=800&q=80"
+    image: "/images/sample3.jpg"
   },
   {
     title: "Network Infrastructure",
     category: "Network Installation",
-    image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=800&q=80"
+    image: "/images/sample4.jpg"
   },
   {
     title: "Smart Home Integration",
     category: "Smart Home",
-    image: "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?auto=format&fit=crop&w=800&q=80"
+    image: "/images/sample5.jpg"
   },
   {
     title: "Access Control Systems",
     category: "Access Control",
-    image: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80"
+    image: "/images/sample6.jpg"
   }
 ];
 

@@ -8,42 +8,42 @@ const products = [
     name: "Hikvision Color HD CCTV Camera",
     description: "Professional-grade HD CCTV camera with night vision and color imaging technology.",
     price: "UGX 450,000",
-    image: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80"
+    image: "/images/hikvision.jpg"
   },
   {
     id: 2,
     name: "PTZ Dual Lens Power Heavy Siren Camera",
     description: "Advanced dual lens PTZ camera with built-in siren and motion detection.",
     price: "UGX 850,000",
-    image: "https://images.unsplash.com/photo-1473091534298-04dcbce3278c?auto=format&fit=crop&w=800&q=80"
+    image: "/images/solar_ptz.jpg"
   },
   {
     id: 3,
     name: "Solar Star Street Light",
     description: "High-efficiency solar-powered street light with automatic dusk-to-dawn operation.",
     price: "UGX 350,000",
-    image: "https://images.unsplash.com/photo-1605810230434-7631ac76ec81?auto=format&fit=crop&w=800&q=80"
+    image: "/images/solar_power.jpg"
   },
   {
     id: 4,
     name: "Solar Automatic Flood Lights",
     description: "2,300W solar flood light with motion sensor and wide coverage area.",
     price: "UGX 280,000",
-    image: "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?auto=format&fit=crop&w=800&q=80"
+    image: "/images/solar_flood_light.jpg"
   },
   {
     id: 5,
     name: "EzFinder Tracking Chip Technology",
     description: "Advanced GPS tracking solution for vehicles and assets.",
     price: "UGX 150,000",
-    image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=800&q=80"
+    image: "/images/gps_tracker.jpg"
   },
   {
     id: 6,
     name: "4G Router Pro",
     description: "High-speed 4G router with dual-band WiFi and extensive coverage.",
     price: "UGX 200,000",
-    image: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&w=800&q=80"
+    image: "/images/router.jpg"
   }
 ];
 
