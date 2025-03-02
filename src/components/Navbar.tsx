@@ -1,12 +1,9 @@
-
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
-
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 10);
@@ -14,10 +11,9 @@ const Navbar = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-  
   return <header className={cn("fixed top-0 left-0 right-0 z-50 transition-all duration-300", isScrolled ? "bg-white/90 backdrop-blur-md shadow-sm" : "bg-transparent")}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center py-3 md:py-4">
+        <div className="flex justify-between items-center py-3 md:py-4 bg-slate-100">
           <div className="flex items-center">
             <a href="#" className="flex flex-col">
               <div className="flex items-center space-x-1 sm:space-x-2">
@@ -44,12 +40,7 @@ const Navbar = () => {
           </nav>
           
           <div className="hidden md:block">
-            <a 
-              href={`https://wa.me/256778648157?text=${encodeURIComponent("Hello, I'm interested in your services.")}`}
-              target="_blank" 
-              rel="noopener noreferrer" 
-              className="btn-primary text-sm py-2"
-            >
+            <a href={`https://wa.me/256778648157?text=${encodeURIComponent("Hello, I'm interested in your services.")}`} target="_blank" rel="noopener noreferrer" className="btn-primary text-sm py-2">
               Get Started
             </a>
           </div>
@@ -69,18 +60,11 @@ const Navbar = () => {
           <a href="#packages" className="block py-2 nav-link" onClick={() => setIsMenuOpen(false)}>Packages</a>
           <a href="#projects" className="block py-2 nav-link" onClick={() => setIsMenuOpen(false)}>Projects</a>
           <a href="#contact" className="block py-2 nav-link" onClick={() => setIsMenuOpen(false)}>Contact</a>
-          <a 
-            href={`https://wa.me/256778648157?text=${encodeURIComponent("Hello, I'm interested in your services.")}`}
-            target="_blank" 
-            rel="noopener noreferrer" 
-            className="block py-2 btn-primary text-center mt-3" 
-            onClick={() => setIsMenuOpen(false)}
-          >
+          <a href={`https://wa.me/256778648157?text=${encodeURIComponent("Hello, I'm interested in your services.")}`} target="_blank" rel="noopener noreferrer" className="block py-2 btn-primary text-center mt-3" onClick={() => setIsMenuOpen(false)}>
             Get Started
           </a>
         </div>
       </div>
     </header>;
 };
-
 export default Navbar;
