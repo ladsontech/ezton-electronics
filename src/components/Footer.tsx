@@ -1,10 +1,7 @@
-
 import { Facebook, Twitter, Instagram, Linkedin, Mail, Phone, MapPin } from "lucide-react";
 import { cn } from "@/lib/utils";
-
 const Footer = () => {
-  return (
-    <footer className="bg-secondary/80 pt-12 pb-6">
+  return <footer className="bg-secondary/80 pt-12 pb-6">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 pb-8">
           <div>
@@ -66,7 +63,7 @@ const Footer = () => {
               </li>
               <li className="flex items-start">
                 <MapPin className="h-5 w-5 text-primary mr-3 shrink-0 mt-0.5" />
-                <span className="text-muted-foreground">OPP-JALIA TOWER, UMOJA HOUSE, Kampala, Uganda</span>
+                <span className="text-muted-foreground">OPP-JALIA TOWER, UMOJA HOUSE,  BANDA Kampala, Uganda</span>
               </li>
             </ul>
           </div>
@@ -77,19 +74,12 @@ const Footer = () => {
             © {new Date().getFullYear()} Ezton E & E Ltd. All rights reserved.
           </p>
           <div className="mt-4 md:mt-0">
-            <a 
-              href={`https://wa.me/256778648157?text=${encodeURIComponent("Hello, I'm interested in your services and would like more information.")}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-primary/10 text-primary py-2 px-4 rounded-full text-sm hover:bg-primary/20 transition-colors"
-            >
+            <a href={`https://wa.me/256778648157?text=${encodeURIComponent("Hello, I'm interested in your services and would like more information.")}`} target="_blank" rel="noopener noreferrer" className="bg-primary/10 text-primary py-2 px-4 rounded-full text-sm hover:bg-primary/20 transition-colors">
               Chat with us
             </a>
           </div>
         </div>
       </div>
-    </footer>
-  );
+    </footer>;
 };
-
 export default Footer;
