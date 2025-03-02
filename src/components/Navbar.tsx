@@ -25,7 +25,7 @@ const Navbar = () => {
                   <img src="/images/ezton_logo.png" alt="Ezton Logo" className="w-full h-full object-contain" />
                 </div>
                 <span className="text-xl md:text-2xl font-heading font-bold">
-                  <span className="text-red-700">Ezton</span> E & E
+                  <span className="text-red-700">Ezton</span> E & E Ltd.
                 </span>
               </div>
               <span className="text-xs text-muted-foreground ml-8">

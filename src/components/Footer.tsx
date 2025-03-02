@@ -10,7 +10,7 @@ const Footer = () => {
           <div>
             <div className="flex items-center mb-4">
               <h2 className="text-2xl font-heading font-bold">
-                <span className="text-primary">Ezton</span> E & E
+                <span className="text-primary">Ezton</span> E & E Ltd.
               </h2>
             </div>
             <p className="text-muted-foreground mb-6">
@@ -74,7 +74,7 @@ const Footer = () => {
         
         <div className="border-t border-border/40 pt-6 flex flex-col md:flex-row justify-between items-center">
           <p className="text-muted-foreground text-sm">
-            © {new Date().getFullYear()} Ezton E & E. All rights reserved.
+            © {new Date().getFullYear()} Ezton E & E Ltd. All rights reserved.
           </p>
           <div className="mt-4 md:mt-0">
             <button 

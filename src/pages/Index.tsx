@@ -14,7 +14,7 @@ import FloatingCTA from '@/components/FloatingCTA';
 const Index = () => {
   useEffect(() => {
     // Update document title
-    document.title = "Ezton E & E - Security & Electrical Solutions";
+    document.title = "Ezton E & E Ltd. - Security & Electrical Solutions";
   }, []);
 
   return (
