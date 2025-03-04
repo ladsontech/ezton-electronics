@@ -47,10 +47,10 @@ const products = [
   }
 ];
 
-// WhatsApp number - you can replace this with your actual number
-const whatsappNumber = "+256700000000";
+// Updated WhatsApp number
+const whatsappNumber = "+256778648157";
 const whatsappMessage = "Hello, I'm interested in your products and would like more information.";
-const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
+const whatsappLink = `https://wa.me/${whatsappNumber.replace('+', '')}?text=${encodeURIComponent(whatsappMessage)}`;
 
 const Products = () => {
   const [hoveredId, setHoveredId] = useState<number | null>(null);
