@@ -109,13 +109,6 @@ const ProjectGallery = () => {
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                     />
                   </div>
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-80 transition-opacity group-hover:opacity-90" />
-                  <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4 text-white">
-                    <span className="text-xs sm:text-sm font-medium inline-block mb-1 bg-primary/90 py-0.5 px-2 sm:py-1 sm:px-3 rounded-full">
-                      {project.category}
-                    </span>
-                    <h3 className="text-base sm:text-lg font-semibold">{project.title}</h3>
-                  </div>
                 </a>
               </div>
             ))}

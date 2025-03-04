@@ -70,6 +70,10 @@ const packages = [
 ];
 
 const Packages = () => {
+  // WhatsApp information
+  const whatsappNumber = "256778648157";
+  const baseWhatsappLink = `https://wa.me/${whatsappNumber}?text=`;
+
   return (
     <section id="packages" className="py-16 md:py-24 relative">
       <div className="absolute left-0 top-0 w-72 h-72 bg-primary/5 rounded-full blur-3xl -z-10" />
@@ -119,7 +123,9 @@ const Packages = () => {
                 </ul>
                 
                 <a 
-                  href="#contact" 
+                  href={`${baseWhatsappLink}${encodeURIComponent(`Hello, I'm interested in your ${pkg.title}. Can you provide more information?`)}`} 
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className={cn(
                     "block text-center py-3 px-6 rounded-lg font-medium transition-colors w-full",
                     pkg.featured 
