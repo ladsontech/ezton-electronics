@@ -37,7 +37,7 @@ const services = [
 
 const Services = () => {
   return (
-    <section id="services" className="py-16 md:py-24 relative">
+    <section id="services" className="py-16 md:py-24 relative bg-white">
       <div className="absolute right-0 top-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl -z-10" />
       <div className="absolute left-0 bottom-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl -z-10" />
       
