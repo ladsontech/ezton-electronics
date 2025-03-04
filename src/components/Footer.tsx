@@ -7,7 +7,7 @@ const Footer = () => {
           <div>
             <div className="flex items-center mb-4">
               <h2 className="text-2xl font-heading font-bold">
-                <span className="text-primary">Ezton</span> E & E Ltd.
+                <span className="text-red-700">Ezton</span> E & E Ltd.
               </h2>
             </div>
             <p className="text-muted-foreground mb-6">
