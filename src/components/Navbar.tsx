@@ -21,14 +21,14 @@ const Navbar = () => {
         {/* Logo section with white background */}
         <div className="w-full md:w-auto">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex justify-between items-center py-3 md:py-4 bg-sky-200">
+            <div className="flex justify-between items-center py-3 md:py-4 bg-sky-200 rounded-lg">
               <div className="flex items-center">
                 <a href="#" className="flex flex-col">
                   <div className="flex items-center space-x-1 sm:space-x-2">
                     <div className="w-6 h-6 sm:w-8 sm:h-8">
                       <img src="/images/ezton_logo.png" alt="Ezton Logo" className="w-full h-full object-cover" />
                     </div>
-                    <span className="text-lg sm:text-xl md:text-2xl font-heading font-bold text-slate-800 drop-shadow-md">
+                    <span className="text-lg sm:text-xl md:text-2xl font-heading text-slate-800 drop-shadow-md font-extrabold">
                       <span className="text-red-700 font-bold px-1 rounded">Ezton</span> E & E Ltd.
                     </span>
                   </div>
