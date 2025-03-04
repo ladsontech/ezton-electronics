@@ -92,7 +92,7 @@ const ProjectGallery = () => {
                 key={project.title}
                 className={cn(
                   "flex-shrink-0 w-[180px] sm:w-[220px] md:w-[250px] rounded-xl overflow-hidden shadow-sm relative snap-start group cursor-pointer",
-                  "opacity-0 animate-fade-in"
+                  "opacity-0 animate-fade-in hover:shadow-md transition-all duration-300"
                 )}
                 style={{ animationDelay: `${0.1 + index * 0.1}s`, animationFillMode: "forwards" }}
               >
@@ -102,12 +102,22 @@ const ProjectGallery = () => {
                   rel="noopener noreferrer"
                   className="block"
                 >
-                  <div className="aspect-[3/4] overflow-hidden">
+                  <div className="aspect-[3/4] overflow-hidden relative">
                     <img 
                       src={project.image} 
                       alt={project.title}
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                     />
+                    {/* Blurred Logo Watermark */}
+                    <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                      <div className="w-24 h-24 opacity-15 transform rotate-12">
+                        <img 
+                          src="/images/ezton_logo.png" 
+                          alt="Ezton Watermark" 
+                          className="w-full h-full object-contain filter blur-[1px]"
+                        />
+                      </div>
+                    </div>
                   </div>
                 </a>
               </div>

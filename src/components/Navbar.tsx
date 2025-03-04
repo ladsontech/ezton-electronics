@@ -1,9 +1,12 @@
+
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
+
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 10);
@@ -16,23 +19,25 @@ const Navbar = () => {
   const whatsappNumber = "+256778648157";
   const whatsappMessage = "Hello, I'm interested in your services.";
   const whatsappLink = `https://wa.me/${whatsappNumber.replace('+', '')}?text=${encodeURIComponent(whatsappMessage)}`;
+  
   return <header className={cn("fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-white", isScrolled ? "shadow-md" : "")}>
       <div className="flex flex-col md:flex-row">
         {/* Logo section with white background */}
         <div className="w-full md:w-auto">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex justify-between items-center py-3 md:py-4 bg-sky-200 rounded-lg">
+            <div className="flex justify-between items-center py-3 md:py-4 bg-gradient-to-r from-sky-100 to-sky-200 rounded-lg shadow-sm">
               <div className="flex items-center">
                 <a href="#" className="flex flex-col">
                   <div className="flex items-center space-x-1 sm:space-x-2">
-                    <div className="w-6 h-6 sm:w-8 sm:h-8">
+                    <div className="w-6 h-6 sm:w-8 sm:h-8 bg-white p-1 rounded-full shadow-sm">
                       <img src="/images/ezton_logo.png" alt="Ezton Logo" className="w-full h-full object-cover" />
                     </div>
-                    <span className="text-lg sm:text-xl md:text-2xl font-heading text-slate-800 drop-shadow-md font-extrabold">
-                      <span className="text-red-700 font-bold px-1 rounded">Ezton</span> E & E Ltd.
+                    <span className="text-lg sm:text-xl md:text-2xl font-heading text-slate-800 font-extrabold">
+                      <span className="text-red-700 font-bold px-1 rounded bg-white/30 backdrop-blur-sm shadow-sm">Ezton</span>
+                      <span className="drop-shadow-[0_1px_1px_rgba(0,0,0,0.3)]"> E & E Ltd.</span>
                     </span>
                   </div>
-                  <span className="text-[10px] sm:text-xs text-gray-600 ml-8 text-center">
+                  <span className="text-[10px] sm:text-xs text-gray-600 ml-8 text-center italic">
                     Quality with Standards
                   </span>
                 </a>
@@ -82,4 +87,5 @@ const Navbar = () => {
       </div>
     </header>;
 };
+
 export default Navbar;
