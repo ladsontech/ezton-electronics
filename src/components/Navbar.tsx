@@ -24,7 +24,7 @@ const Navbar = () => {
                   <span className="text-red-700">Ezton</span> E & E Ltd.
                 </span>
               </div>
-              <span className="text-[10px] sm:text-xs text-gray-300 ml-8">
+              <span className="text-[10px] sm:text-xs text-gray-300 ml-8 text-center">
                 Quality with Standards
               </span>
             </a>
