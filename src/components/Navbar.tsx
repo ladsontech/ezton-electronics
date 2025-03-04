@@ -1,12 +1,9 @@
-
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
-
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 10);
@@ -14,10 +11,8 @@ const Navbar = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  return <header className={cn("fixed top-0 left-0 right-0 z-50 transition-all duration-300", 
-    isScrolled ? "bg-slate-800/95 backdrop-blur-md shadow-md" : "bg-slate-800")}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  return <header className={cn("fixed top-0 left-0 right-0 z-50 transition-all duration-300", isScrolled ? "bg-slate-800/95 backdrop-blur-md shadow-md" : "bg-slate-800")}>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 bg-neutral-400">
         <div className="flex justify-between items-center py-3 md:py-4">
           <div className="flex items-center">
             <a href="#" className="flex flex-col">
@@ -26,7 +21,7 @@ const Navbar = () => {
                   <img src="/images/ezton_logo.png" alt="Ezton Logo" className="w-full h-full object-contain" />
                 </div>
                 <span className="text-lg sm:text-xl md:text-2xl font-heading font-bold text-white">
-                  <span className="text-red-500">Ezton</span> E & E Ltd.
+                  <span className="text-red-700">Ezton</span> E & E Ltd.
                 </span>
               </div>
               <span className="text-[10px] sm:text-xs text-gray-300 ml-8">
@@ -58,8 +53,7 @@ const Navbar = () => {
       </div>
       
       {/* Mobile menu */}
-      <div className={cn("md:hidden overflow-hidden transition-all duration-300 ease-in-out", 
-        isMenuOpen ? "max-h-96 border-t border-slate-700" : "max-h-0")}>
+      <div className={cn("md:hidden overflow-hidden transition-all duration-300 ease-in-out", isMenuOpen ? "max-h-96 border-t border-slate-700" : "max-h-0")}>
         <div className="px-4 pb-4 pt-2 space-y-2 bg-slate-800/95 backdrop-blur-md">
           <a href="#services" className="block py-2 text-gray-200 hover:text-white" onClick={() => setIsMenuOpen(false)}>Services</a>
           <a href="#products" className="block py-2 text-gray-200 hover:text-white" onClick={() => setIsMenuOpen(false)}>Products</a>
@@ -73,5 +67,4 @@ const Navbar = () => {
       </div>
     </header>;
 };
-
 export default Navbar;
