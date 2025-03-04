@@ -21,7 +21,7 @@ const Navbar = () => {
         {/* Logo section with white background */}
         <div className="w-full md:w-auto">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 bg-slate-900">
-            <div className="flex justify-between items-center py-3 md:py-4 bg-gradient-to-r from-sky-100 to-sky-200 rounded-lg shadow-sm bg-slate-900">
+            <div className="flex justify-between items-center py-3 md:py-4 bg-gradient-to-r from-sky-100 to-sky-200 rounded-lg shadow-sm bg-blue-100">
               <div className="flex items-center">
                 <a href="#" className="flex flex-col">
                   <div className="flex items-center space-x-1 sm:space-x-2">
