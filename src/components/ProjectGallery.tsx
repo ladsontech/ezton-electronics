@@ -107,7 +107,7 @@ const ProjectGallery = () => {
               <div 
                 key={project.title}
                 className={cn(
-                  "flex-shrink-0 w-[180px] sm:w-[220px] md:w-[250px] rounded-xl overflow-hidden shadow-sm relative snap-start group cursor-pointer",
+                  "flex-shrink-0 w-[160px] sm:w-[220px] md:w-[250px] rounded-xl overflow-hidden shadow-sm relative snap-start group cursor-pointer",
                   "opacity-0 animate-fade-in hover:shadow-md transition-all duration-300"
                 )}
                 style={{ animationDelay: `${0.1 + index * 0.1}s`, animationFillMode: "forwards" }}
@@ -119,13 +119,13 @@ const ProjectGallery = () => {
                     alt={project.title}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                   />
-                  {/* Enhanced Blurred Logo Watermark */}
+                  {/* Reduced Size Blurred Logo Watermark */}
                   <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                    <div className="w-32 h-32 md:w-40 md:h-40 opacity-40 transform rotate-12">
+                    <div className="w-20 h-20 md:w-24 md:h-24 opacity-60 transform rotate-12">
                       <img 
                         src="/images/ezton_logo.png" 
                         alt="Ezton Watermark" 
-                        className="w-full h-full object-contain filter blur-[1px]"
+                        className="w-full h-full object-contain filter blur-sm"
                       />
                     </div>
                   </div>
@@ -144,41 +144,41 @@ const ProjectGallery = () => {
         </div>
       </div>
 
-      {/* Lightbox */}
+      {/* Improved Mobile Responsive Lightbox */}
       {selectedImage && (
         <div 
-          className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4 animate-fade-in"
+          className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-2 sm:p-4 animate-fade-in"
           onClick={closeLightbox}
         >
           <button 
-            className="absolute top-4 right-4 text-white hover:text-gray-300 transition-colors"
+            className="absolute top-2 right-2 sm:top-4 sm:right-4 text-white hover:text-gray-300 transition-colors"
             onClick={closeLightbox}
             aria-label="Close lightbox"
           >
-            <X className="w-8 h-8" />
+            <X className="w-6 h-6 sm:w-8 sm:h-8" />
           </button>
           
-          <div className="max-w-5xl max-h-[90vh] overflow-hidden relative" onClick={(e) => e.stopPropagation()}>
+          <div className="max-w-5xl max-h-[85vh] sm:max-h-[90vh] overflow-hidden relative" onClick={(e) => e.stopPropagation()}>
             <img 
               src={selectedImage} 
               alt={selectedTitle || "Project image"} 
-              className="object-contain max-h-[90vh] w-auto mx-auto"
+              className="object-contain max-h-[85vh] sm:max-h-[90vh] w-auto mx-auto"
             />
             
-            {/* Watermark in lightbox */}
+            {/* Smaller Watermark in lightbox */}
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-              <div className="w-80 h-80 opacity-30 transform rotate-12">
+              <div className="w-48 h-48 sm:w-64 sm:h-64 opacity-30 transform rotate-12">
                 <img 
                   src="/images/ezton_logo.png" 
                   alt="Ezton Watermark" 
-                  className="w-full h-full object-contain filter blur-[1px]"
+                  className="w-full h-full object-contain filter blur-[2px]"
                 />
               </div>
             </div>
             
             {selectedTitle && (
-              <div className="absolute bottom-0 left-0 right-0 bg-black/70 text-white p-3 text-center">
-                <h3 className="font-medium">{selectedTitle}</h3>
+              <div className="absolute bottom-0 left-0 right-0 bg-black/70 text-white p-2 sm:p-3 text-center">
+                <h3 className="font-medium text-sm sm:text-base">{selectedTitle}</h3>
               </div>
             )}
           </div>
