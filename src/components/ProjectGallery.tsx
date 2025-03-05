@@ -108,13 +108,13 @@ const ProjectGallery = () => {
                       alt={project.title}
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                     />
-                    {/* Blurred Logo Watermark */}
+                    {/* Enhanced Blurred Logo Watermark */}
                     <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                      <div className="w-24 h-24 opacity-15 transform rotate-12">
+                      <div className="w-36 h-36 md:w-48 md:h-48 opacity-20 transform rotate-12">
                         <img 
                           src="/images/ezton_logo.png" 
                           alt="Ezton Watermark" 
-                          className="w-full h-full object-contain filter blur-[1px]"
+                          className="w-full h-full object-contain filter blur-[2px]"
                         />
                       </div>
                     </div>
