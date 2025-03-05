@@ -167,7 +167,7 @@ const ProjectGallery = () => {
             
             {/* Smaller Watermark in lightbox */}
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-              <div className="w-48 h-48 sm:w-64 sm:h-64 opacity- transform rotate-12">
+              <div className="w-48 h-48 sm:w-64 sm:h-64 opacity-60 transform rotate-12">
                 <img 
                   src="/images/ezton_logo.png" 
                   alt="Ezton Watermark" 
