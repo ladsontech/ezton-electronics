@@ -1,7 +1,7 @@
 
 import { useRef, useState } from "react";
 import { cn } from "@/lib/utils";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, X } from "lucide-react";
 
 const projects = [
   {
@@ -39,6 +39,8 @@ const projects = [
 const ProjectGallery = () => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [scrollPosition, setScrollPosition] = useState(0);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [selectedTitle, setSelectedTitle] = useState<string | null>(null);
   
   const handleScroll = () => {
     if (scrollContainerRef.current) {
@@ -56,6 +58,20 @@ const ProjectGallery = () => {
     if (scrollContainerRef.current) {
       scrollContainerRef.current.scrollBy({ left: 250, behavior: 'smooth' });
     }
+  };
+
+  const openLightbox = (image: string, title: string) => {
+    setSelectedImage(image);
+    setSelectedTitle(title);
+    // Prevent body scrolling when lightbox is open
+    document.body.style.overflow = 'hidden';
+  };
+  
+  const closeLightbox = () => {
+    setSelectedImage(null);
+    setSelectedTitle(null);
+    // Restore body scrolling
+    document.body.style.overflow = 'auto';
   };
 
   return (
@@ -95,31 +111,25 @@ const ProjectGallery = () => {
                   "opacity-0 animate-fade-in hover:shadow-md transition-all duration-300"
                 )}
                 style={{ animationDelay: `${0.1 + index * 0.1}s`, animationFillMode: "forwards" }}
+                onClick={() => openLightbox(project.image, project.title)}
               >
-                <a 
-                  href={`https://wa.me/256778648157?text=${encodeURIComponent(`Hello, I'm interested in your ${project.category} services. Can you provide more information?`)}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block"
-                >
-                  <div className="aspect-[3/4] overflow-hidden relative">
-                    <img 
-                      src={project.image} 
-                      alt={project.title}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                    />
-                    {/* Enhanced Blurred Logo Watermark */}
-                    <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                      <div className="w-36 h-36 md:w-48 md:h-48 opacity-20 transform rotate-12">
-                        <img 
-                          src="/images/ezton_logo.png" 
-                          alt="Ezton Watermark" 
-                          className="w-full h-full object-contain filter blur-[2px]"
-                        />
-                      </div>
+                <div className="aspect-[3/4] overflow-hidden relative">
+                  <img 
+                    src={project.image} 
+                    alt={project.title}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
+                  {/* Enhanced Blurred Logo Watermark */}
+                  <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                    <div className="w-32 h-32 md:w-40 md:h-40 opacity-40 transform rotate-12">
+                      <img 
+                        src="/images/ezton_logo.png" 
+                        alt="Ezton Watermark" 
+                        className="w-full h-full object-contain filter blur-[1px]"
+                      />
                     </div>
                   </div>
-                </a>
+                </div>
               </div>
             ))}
           </div>
@@ -133,6 +143,47 @@ const ProjectGallery = () => {
           </button>
         </div>
       </div>
+
+      {/* Lightbox */}
+      {selectedImage && (
+        <div 
+          className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4 animate-fade-in"
+          onClick={closeLightbox}
+        >
+          <button 
+            className="absolute top-4 right-4 text-white hover:text-gray-300 transition-colors"
+            onClick={closeLightbox}
+            aria-label="Close lightbox"
+          >
+            <X className="w-8 h-8" />
+          </button>
+          
+          <div className="max-w-5xl max-h-[90vh] overflow-hidden relative" onClick={(e) => e.stopPropagation()}>
+            <img 
+              src={selectedImage} 
+              alt={selectedTitle || "Project image"} 
+              className="object-contain max-h-[90vh] w-auto mx-auto"
+            />
+            
+            {/* Watermark in lightbox */}
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+              <div className="w-80 h-80 opacity-30 transform rotate-12">
+                <img 
+                  src="/images/ezton_logo.png" 
+                  alt="Ezton Watermark" 
+                  className="w-full h-full object-contain filter blur-[1px]"
+                />
+              </div>
+            </div>
+            
+            {selectedTitle && (
+              <div className="absolute bottom-0 left-0 right-0 bg-black/70 text-white p-3 text-center">
+                <h3 className="font-medium">{selectedTitle}</h3>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
     </section>
   );
 };
