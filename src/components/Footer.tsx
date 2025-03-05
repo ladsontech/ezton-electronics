@@ -1,14 +1,21 @@
+
 import { Facebook, Twitter, Instagram, Linkedin, Mail, Phone, MapPin } from "lucide-react";
 import { cn } from "@/lib/utils";
+
 const Footer = () => {
   return <footer className="bg-secondary/80 pt-12 pb-6">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 pb-8">
           <div>
             <div className="flex items-center mb-4">
-              <h2 className="text-2xl font-heading font-bold">
-                <span className="text-red-700">Ezton</span> E & E Ltd.
-              </h2>
+              <div className="flex items-center">
+                <div className="w-8 h-8 mr-2">
+                  <img src="/images/ezton_logo.png" alt="Ezton Logo" className="w-full h-full object-cover" />
+                </div>
+                <h2 className="text-2xl font-heading font-bold">
+                  <span className="text-red-700">Ezton</span> E & E Ltd.
+                </h2>
+              </div>
             </div>
             <p className="text-muted-foreground mb-6">
               Your trusted partner in security and electrical solutions.
@@ -82,4 +89,5 @@ const Footer = () => {
       </div>
     </footer>;
 };
+
 export default Footer;

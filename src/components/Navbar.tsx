@@ -31,10 +31,10 @@ const Navbar = () => {
               <div className="flex items-center">
                 <a href="#" className="flex flex-col">
                   <div className="flex items-center space-x-1 sm:space-x-2">
-                    <div className="w-6 h-6 sm:w-8 sm:h-8">
+                    <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12">
                       <img src="/images/ezton_logo.png" alt="Ezton Logo" className="w-full h-full object-cover" />
                     </div>
-                    <span className="text-lg sm:text-xl md:text-2xl font-heading text-slate-800 font-extrabold">
+                    <span className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-heading text-slate-800 font-extrabold">
                       <span className="text-red-700 font-bold">Ezton</span>
                       <span className="drop-shadow-[0_1px_1px_rgba(0,0,0,0.3)]"> E & E Ltd.</span>
                     </span>
