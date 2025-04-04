@@ -79,7 +79,7 @@ const Products = () => {
               onMouseLeave={() => setHoveredId(null)}
             >
               <div className="relative overflow-hidden">
-                <AspectRatio ratio={1} className="bg-muted">
+                <AspectRatio ratio={1} className="bg-muted w-full">
                   <img 
                     src={product.image} 
                     alt={product.name}

@@ -1,12 +1,13 @@
-
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -47,9 +48,11 @@ const Navbar = () => {
               </div>
               
               {/* Mobile menu button */}
-              <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="md:hidden text-slate-800" aria-label="Toggle menu">
-                {isMenuOpen ? <X className="h-5 w-5 sm:h-6 sm:w-6" /> : <Menu className="h-5 w-5 sm:h-6 sm:w-6" />}
-              </button>
+              {/* {!isMobile && (
+                <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="md:hidden text-slate-800" aria-label="Toggle menu">
+                  {isMenuOpen ? <X className="h-5 w-5 sm:h-6 sm:w-6" /> : <Menu className="h-5 w-5 sm:h-6 sm:w-6" />}
+                </button>
+              )} */}
             </div>
           </div>
         </div>
@@ -73,7 +76,7 @@ const Navbar = () => {
         </div>
       </div>
       
-      {/* Mobile menu */}
+      {/* Only show mobile menu if menu is open - we keep this but hide the trigger button */}
       <div className={cn("md:hidden overflow-hidden transition-all duration-300 ease-in-out bg-white", 
         isMenuOpen ? "max-h-96 border-t border-slate-200" : "max-h-0")}>
         <div className="px-4 pb-4 pt-2 space-y-2">
