@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -29,7 +30,7 @@ const Navbar = () => {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 bg-white">
             <div className="flex justify-between items-center py-3 md:py-4 bg-white">
               <div className="flex items-center">
-                <a href="#" className="flex flex-col">
+                <Link to="/" className="flex flex-col">
                   <div className="flex items-center space-x-1 sm:space-x-2">
                     <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12">
                       <img src="/images/ezton_logo.png" alt="Ezton Logo" className="w-full h-full object-cover" />
@@ -42,7 +43,7 @@ const Navbar = () => {
                   <span className="text-[10px] sm:text-xs text-gray-600 ml-8 text-center italic">
                     Quality with Standards
                   </span>
-                </a>
+                </Link>
               </div>
               
               {/* Mobile menu button */}
@@ -58,11 +59,9 @@ const Navbar = () => {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-full">
             {/* Desktop Navigation */}
             <nav className="flex space-x-6 lg:space-x-8">
-              <a href="#services" className="nav-link text-gray-800 hover:text-primary py-4">Services</a>
-              <a href="#products" className="nav-link text-gray-800 hover:text-primary py-4">Products</a>
-              <a href="#packages" className="nav-link text-gray-800 hover:text-primary py-4">Packages</a>
-              <a href="#projects" className="nav-link text-gray-800 hover:text-primary py-4">Projects</a>
-              <a href="#contact" className="nav-link text-gray-800 hover:text-primary py-4">Contact</a>
+              <Link to="/#solutions" className="nav-link text-gray-800 hover:text-primary py-4">Solutions</Link>
+              <Link to="/projects" className="nav-link text-gray-800 hover:text-primary py-4">Projects</Link>
+              <Link to="/#contact" className="nav-link text-gray-800 hover:text-primary py-4">Contact</Link>
             </nav>
             
             <div>
@@ -78,11 +77,9 @@ const Navbar = () => {
       <div className={cn("md:hidden overflow-hidden transition-all duration-300 ease-in-out bg-white", 
         isMenuOpen ? "max-h-96 border-t border-slate-200" : "max-h-0")}>
         <div className="px-4 pb-4 pt-2 space-y-2">
-          <a href="#services" className="block py-2 text-gray-800 hover:text-primary" onClick={() => setIsMenuOpen(false)}>Services</a>
-          <a href="#products" className="block py-2 text-gray-800 hover:text-primary" onClick={() => setIsMenuOpen(false)}>Products</a>
-          <a href="#packages" className="block py-2 text-gray-800 hover:text-primary" onClick={() => setIsMenuOpen(false)}>Packages</a>
-          <a href="#projects" className="block py-2 text-gray-800 hover:text-primary" onClick={() => setIsMenuOpen(false)}>Projects</a>
-          <a href="#contact" className="block py-2 text-gray-800 hover:text-primary" onClick={() => setIsMenuOpen(false)}>Contact</a>
+          <Link to="/#solutions" className="block py-2 text-gray-800 hover:text-primary" onClick={() => setIsMenuOpen(false)}>Solutions</Link>
+          <Link to="/projects" className="block py-2 text-gray-800 hover:text-primary" onClick={() => setIsMenuOpen(false)}>Projects</Link>
+          <Link to="/#contact" className="block py-2 text-gray-800 hover:text-primary" onClick={() => setIsMenuOpen(false)}>Contact</Link>
           <a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="block py-2 btn-primary text-center mt-3" onClick={() => setIsMenuOpen(false)}>
             Get Started
           </a>

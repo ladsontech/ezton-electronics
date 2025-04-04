@@ -6,7 +6,6 @@ import WhyChooseUs from '@/components/WhyChooseUs';
 import Services from '@/components/Services';
 import Products from '@/components/Products';
 import Packages from '@/components/Packages';
-import ProjectGallery from '@/components/ProjectGallery';
 import ContactSection from '@/components/ContactSection';
 import Footer from '@/components/Footer';
 import FloatingCTA from '@/components/FloatingCTA';
@@ -22,10 +21,11 @@ const Index = () => {
       <Navbar />
       <Hero />
       <WhyChooseUs />
-      <Services />
-      <Products />
-      <Packages />
-      <ProjectGallery />
+      <div id="solutions" className="bg-white">
+        <Services />
+        <Products />
+        <Packages />
+      </div>
       <ContactSection />
       <Footer />
       <FloatingCTA />
