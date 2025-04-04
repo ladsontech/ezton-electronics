@@ -110,14 +110,13 @@ const ProjectGallery = () => {
                   alt={project.title}
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                 />
-                {/* Reduced Size Blurred Logo Watermark */}
+                {/* Solid Color Logo Watermark */}
                 <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                  <div className="w-10 h-10 md:w-12 md:h-12 opacity-70 transform rotate-12">
-                    <img 
-                      src="/images/ezton_logo.png" 
-                      alt="Ezton Watermark" 
-                      className="w-full h-full object-contain filter blur-[1px]"
-                    />
+                  <div className="w-10 h-10 md:w-12 md:h-12 opacity-60 transform rotate-12">
+                    <svg viewBox="0 0 100 100" className="w-full h-full">
+                      <rect width="100" height="100" fill="none" />
+                      <text x="50" y="55" fontSize="24" fontWeight="bold" fill="rgba(255,255,255,0.7)" textAnchor="middle">EZTON</text>
+                    </svg>
                   </div>
                 </div>
                 <div className="absolute bottom-0 left-0 right-0 p-3 bg-black/50 text-white">
@@ -151,14 +150,13 @@ const ProjectGallery = () => {
               className="object-contain max-h-[85vh] sm:max-h-[90vh] w-auto mx-auto"
             />
             
-            {/* Smaller Watermark in lightbox */}
+            {/* Solid Color Watermark in lightbox */}
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-              <div className="w-36 h-36 sm:w-48 sm:h-48 opacity-60 transform rotate-12">
-                <img 
-                  src="/images/ezton_logo.png" 
-                  alt="Ezton Watermark" 
-                  className="w-full h-full object-contain filter blur-[1px]"
-                />
+              <div className="w-36 h-36 sm:w-48 sm:h-48 opacity-50 transform rotate-12">
+                <svg viewBox="0 0 100 100" className="w-full h-full">
+                  <rect width="100" height="100" fill="none" />
+                  <text x="50" y="55" fontSize="24" fontWeight="bold" fill="rgba(255,255,255,0.8)" textAnchor="middle">EZTON</text>
+                </svg>
               </div>
             </div>
             
