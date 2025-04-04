@@ -2,6 +2,8 @@
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
+import { ExternalLink, ShoppingBag } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const products = [
   {
@@ -52,6 +54,7 @@ const products = [
 const whatsappNumber = "+256778648157";
 const whatsappMessage = "Hello, I'm interested in your products and would like more information.";
 const whatsappLink = `https://wa.me/${whatsappNumber.replace('+', '')}?text=${encodeURIComponent(whatsappMessage)}`;
+const whatsappCatalogLink = `https://wa.me/c/256778648157`;
 
 const Products = () => {
   const [hoveredId, setHoveredId] = useState<number | null>(null);
@@ -107,6 +110,22 @@ const Products = () => {
               </div>
             </div>
           ))}
+        </div>
+
+        <div className="mt-16 text-center">
+          <a 
+            href={whatsappCatalogLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-primary inline-flex items-center gap-2 py-3 px-6 text-base"
+          >
+            <ShoppingBag className="h-5 w-5" />
+            View WhatsApp Catalog
+            <ExternalLink className="h-4 w-4 ml-1" />
+          </a>
+          <p className="text-sm text-muted-foreground mt-3">
+            Discover our complete product range with detailed information and pricing
+          </p>
         </div>
       </div>
     </section>

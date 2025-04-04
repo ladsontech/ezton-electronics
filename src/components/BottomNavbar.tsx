@@ -19,7 +19,7 @@ const BottomNavbar = () => {
           <span className="text-xs mt-1">Home</span>
         </Link>
         <Link 
-          to="/#solutions" 
+          to="/solutions" 
           className="flex flex-col items-center justify-center text-gray-600 hover:text-primary"
         >
           <Package className="h-5 w-5" />

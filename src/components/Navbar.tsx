@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -47,12 +48,12 @@ const Navbar = () => {
                 </Link>
               </div>
               
-              {/* Mobile menu button */}
-              {/* {!isMobile && (
+              {/* Only show menu button on desktop, not mobile since we have bottom nav */}
+              {!isMobile && (
                 <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="md:hidden text-slate-800" aria-label="Toggle menu">
                   {isMenuOpen ? <X className="h-5 w-5 sm:h-6 sm:w-6" /> : <Menu className="h-5 w-5 sm:h-6 sm:w-6" />}
                 </button>
-              )} */}
+              )}
             </div>
           </div>
         </div>
@@ -62,7 +63,8 @@ const Navbar = () => {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-full">
             {/* Desktop Navigation */}
             <nav className="flex space-x-6 lg:space-x-8">
-              <Link to="/#solutions" className="nav-link text-gray-800 hover:text-primary py-4">Solutions</Link>
+              <Link to="/" className="nav-link text-gray-800 hover:text-primary py-4">Home</Link>
+              <Link to="/solutions" className="nav-link text-gray-800 hover:text-primary py-4">Solutions</Link>
               <Link to="/projects" className="nav-link text-gray-800 hover:text-primary py-4">Projects</Link>
               <Link to="/#contact" className="nav-link text-gray-800 hover:text-primary py-4">Contact</Link>
             </nav>
@@ -76,11 +78,12 @@ const Navbar = () => {
         </div>
       </div>
       
-      {/* Only show mobile menu if menu is open - we keep this but hide the trigger button */}
+      {/* Only show mobile menu if menu is open */}
       <div className={cn("md:hidden overflow-hidden transition-all duration-300 ease-in-out bg-white", 
         isMenuOpen ? "max-h-96 border-t border-slate-200" : "max-h-0")}>
         <div className="px-4 pb-4 pt-2 space-y-2">
-          <Link to="/#solutions" className="block py-2 text-gray-800 hover:text-primary" onClick={() => setIsMenuOpen(false)}>Solutions</Link>
+          <Link to="/" className="block py-2 text-gray-800 hover:text-primary" onClick={() => setIsMenuOpen(false)}>Home</Link>
+          <Link to="/solutions" className="block py-2 text-gray-800 hover:text-primary" onClick={() => setIsMenuOpen(false)}>Solutions</Link>
           <Link to="/projects" className="block py-2 text-gray-800 hover:text-primary" onClick={() => setIsMenuOpen(false)}>Projects</Link>
           <Link to="/#contact" className="block py-2 text-gray-800 hover:text-primary" onClick={() => setIsMenuOpen(false)}>Contact</Link>
           <a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="block py-2 btn-primary text-center mt-3" onClick={() => setIsMenuOpen(false)}>
