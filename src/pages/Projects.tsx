@@ -4,8 +4,12 @@ import Navbar from '@/components/Navbar';
 import ProjectGallery from '@/components/ProjectGallery';
 import Footer from '@/components/Footer';
 import FloatingCTA from '@/components/FloatingCTA';
+import BottomNavbar from '@/components/BottomNavbar';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 const Projects = () => {
+  const isMobile = useIsMobile();
+  
   useEffect(() => {
     // Update document title
     document.title = "Projects - Ezton E & E Ltd.";
@@ -26,7 +30,10 @@ const Projects = () => {
         <ProjectGallery />
       </div>
       <Footer />
-      <FloatingCTA />
+      {!isMobile && <FloatingCTA />}
+      <BottomNavbar />
+      {/* Add padding at the bottom for mobile to account for bottom navbar */}
+      <div className="md:hidden h-16"></div>
     </div>
   );
 };

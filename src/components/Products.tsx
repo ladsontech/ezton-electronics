@@ -1,6 +1,7 @@
 
 import { useState } from "react";
 import { cn } from "@/lib/utils";
+import { AspectRatio } from "@/components/ui/aspect-ratio";
 
 const products = [
   {
@@ -77,15 +78,17 @@ const Products = () => {
               onMouseEnter={() => setHoveredId(product.id)}
               onMouseLeave={() => setHoveredId(null)}
             >
-              <div className="relative overflow-hidden aspect-[3/4]">
-                <img 
-                  src={product.image} 
-                  alt={product.name}
-                  className={cn(
-                    "w-full h-full object-cover transition-transform duration-500",
-                    hoveredId === product.id ? "scale-110" : "scale-100"
-                  )}
-                />
+              <div className="relative overflow-hidden">
+                <AspectRatio ratio={1} className="bg-muted">
+                  <img 
+                    src={product.image} 
+                    alt={product.name}
+                    className={cn(
+                      "w-full h-full object-cover transition-transform duration-500",
+                      hoveredId === product.id ? "scale-110" : "scale-100"
+                    )}
+                  />
+                </AspectRatio>
               </div>
               <div className="p-6">
                 <h3 className="text-xl font-semibold mb-2">{product.name}</h3>
