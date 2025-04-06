@@ -66,7 +66,7 @@ const Navbar = () => {
               <Link to="/" className="nav-link text-gray-800 hover:text-primary py-4">Home</Link>
               <Link to="/solutions" className="nav-link text-gray-800 hover:text-primary py-4">Solutions</Link>
               <Link to="/projects" className="nav-link text-gray-800 hover:text-primary py-4">Projects</Link>
-              <Link to="/#contact" className="nav-link text-gray-800 hover:text-primary py-4">Contact</Link>
+              <Link to="/contact" className="nav-link text-gray-800 hover:text-primary py-4">Contact</Link>
             </nav>
             
             <div>
@@ -85,7 +85,7 @@ const Navbar = () => {
           <Link to="/" className="block py-2 text-gray-800 hover:text-primary" onClick={() => setIsMenuOpen(false)}>Home</Link>
           <Link to="/solutions" className="block py-2 text-gray-800 hover:text-primary" onClick={() => setIsMenuOpen(false)}>Solutions</Link>
           <Link to="/projects" className="block py-2 text-gray-800 hover:text-primary" onClick={() => setIsMenuOpen(false)}>Projects</Link>
-          <Link to="/#contact" className="block py-2 text-gray-800 hover:text-primary" onClick={() => setIsMenuOpen(false)}>Contact</Link>
+          <Link to="/contact" className="block py-2 text-gray-800 hover:text-primary" onClick={() => setIsMenuOpen(false)}>Contact</Link>
           <a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="block py-2 btn-primary text-center mt-3" onClick={() => setIsMenuOpen(false)}>
             Get Started
           </a>
