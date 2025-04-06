@@ -59,13 +59,10 @@ const Services = () => {
               )}
               style={{ animationDelay: `${0.1 + index * 0.1}s`, animationFillMode: "forwards" }}
             >
-              <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center mb-4">
                 <div className="p-3 rounded-full bg-primary/10 w-fit group-hover:bg-primary/20 transition-colors">
                   <service.icon className="h-6 w-6 text-primary" />
                 </div>
-                <span className="text-sm font-medium text-primary opacity-0 group-hover:opacity-100 transition-opacity">
-                  Learn More →
-                </span>
               </div>
               <h3 className="text-xl font-semibold mb-2">{service.title}</h3>
               <p className="text-muted-foreground">{service.description}</p>
