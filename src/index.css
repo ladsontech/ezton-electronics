@@ -192,6 +192,29 @@
   display: none;
 }
 
+/* Animation for the FloatingCTA */
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slide-up {
+  animation: slide-up 0.3s ease forwards;
+}
+
+/* Ensure the floating button appears above the bottom navbar on mobile */
+@media (max-width: 768px) {
+  .fixed.bottom-4.right-4 {
+    bottom: 5rem !important;
+  }
+}
+
 @media (max-width: 640px) {
   .btn-primary, .btn-secondary, .btn-outline {
     @apply text-sm py-2 px-4;

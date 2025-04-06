@@ -40,7 +40,7 @@ const Index = () => {
       
       <ContactSection />
       <Footer />
-      {!isMobile && <FloatingCTA />}
+      <FloatingCTA />
       <BottomNavbar />
       {/* Add padding at the bottom for mobile to account for bottom navbar */}
       <div className="md:hidden h-16"></div>
