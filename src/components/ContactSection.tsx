@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Phone, Mail, MapPin, Clock } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -45,20 +46,28 @@ const ContactSection = () => {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Redirect to WhatsApp
+    // Format message for WhatsApp
+    const formattedMessage = `
+*Inquiry from Ezton Website*
+*Name:* ${formData.name}
+*Email:* ${formData.email}
+*Message:* ${formData.message}
+    `.trim();
+    
+    // Open WhatsApp with preloaded message
     window.open(
-      `https://wa.me/256778648157?text=${encodeURIComponent(
-        `Name: ${formData.name}\nEmail: ${formData.email}\nMessage: ${formData.message}`
-      )}`,
+      `https://wa.me/256778648157?text=${encodeURIComponent(formattedMessage)}`,
       "_blank"
     );
     
-    // Show toast and reset form
+    // Show success toast
+    toast({
+      title: "Message sent!",
+      description: "Redirecting you to WhatsApp to continue the conversation.",
+    });
+    
+    // Reset form after short delay
     setTimeout(() => {
-      toast({
-        title: "Message sent!",
-        description: "Redirecting you to WhatsApp to continue the conversation.",
-      });
       setFormData({ name: "", email: "", message: "" });
       setIsSubmitting(false);
     }, 500);
