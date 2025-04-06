@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Phone, Mail, MapPin, Clock } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -110,7 +109,7 @@ const ContactSection = () => {
               <h3 className="text-lg font-semibold mb-3">Find Us</h3>
               <div className="aspect-video rounded-md overflow-hidden">
                 <iframe 
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.760553171191!2d32.579144!3d0.314703!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x177dbd0f78c9f5a3%3A0x8a6ca99d031a9af0!2sUmoja%20House%2C%20Kampala%2C%20Uganda!5e0!3m2!1sen!2sus!4v1712271639842!5m2!1sen!2sus" 
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.7598116193974!2d32.634470116139854!3d0.3442541638976192!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMMKwMjAnMzkuMyJOIDMywrAzOCcxMi4wIkU!5e0!3m2!1sen!2sus!4v1712343652956!5m2!1sen!2sus" 
                   width="100%" 
                   height="100%" 
                   style={{ border: 0 }} 
