@@ -24,54 +24,39 @@ const Navbar = () => {
   return (
     <header className={cn("fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-white", 
       isScrolled ? "shadow-md" : "")}>
-      <div className="flex flex-col md:flex-row">
-        <div className="w-full md:w-auto">
+      <div className="flex flex-col">
+        <div className="w-full">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 bg-white">
-            <div className="flex justify-between items-center py-3 md:py-4 bg-white">
-              <div className="flex items-center">
-                <Link to="/" className="flex flex-col">
-                  <div className="flex items-center space-x-1 sm:space-x-2">
-                    <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12">
-                      <img 
-                        src="/lovable-uploads/d315587b-d7ed-4d20-ac96-ba439a5e5682.png" 
-                        alt="Ezton Logo" 
-                        className="w-full h-full object-contain" 
-                      />
-                    </div>
-                    <span className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-heading text-slate-800 font-extrabold">
-                      <span className="text-red-700 font-bold">Ezton</span>
-                      <span className="text-black"> E&E Ltd.</span>
-                    </span>
-                  </div>
-                  <span className="text-[10px] sm:text-xs text-gray-600 ml-8 text-center italic">
+            <div className="flex flex-col items-center py-3 md:py-4 bg-white">
+              <Link to="/" className="flex flex-col items-center">
+                <div className="w-16 h-16 mb-2">
+                  <img 
+                    src="/images/ezton_logo.png" 
+                    alt="Ezton Logo" 
+                    className="w-full h-full object-contain" 
+                  />
+                </div>
+                <div className="text-center">
+                  <h2 className="text-2xl font-heading font-bold">
+                    <span className="text-red-700">Ezton</span> E&E Ltd.
+                  </h2>
+                  <span className="text-sm text-gray-600 italic">
                     Quality with standards
                   </span>
-                </Link>
-              </div>
-              
-              {!isMobile && (
-                <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="md:hidden text-slate-800" aria-label="Toggle menu">
-                  {isMenuOpen ? <X className="h-5 w-5 sm:h-6 sm:w-6" /> : <Menu className="h-5 w-5 sm:h-6 sm:w-6" />}
-                </button>
-              )}
+                </div>
+              </Link>
             </div>
           </div>
         </div>
         
-        <div className="hidden md:block bg-white flex-grow">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-full">
+        <div className="hidden md:block bg-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-center items-center">
             <nav className="flex space-x-6 lg:space-x-8">
               <Link to="/" className="nav-link text-gray-800 hover:text-primary py-4">Home</Link>
               <Link to="/solutions" className="nav-link text-gray-800 hover:text-primary py-4">Solutions</Link>
               <Link to="/projects" className="nav-link text-gray-800 hover:text-primary py-4">Projects</Link>
               <Link to="/contact" className="nav-link text-gray-800 hover:text-primary py-4">Contact</Link>
             </nav>
-            
-            <div>
-              <a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="btn-primary text-sm py-2">
-                Get Started
-              </a>
-            </div>
           </div>
         </div>
       </div>
