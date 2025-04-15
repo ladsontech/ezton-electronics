@@ -1,4 +1,3 @@
-
 import { Facebook, Twitter, Instagram, Linkedin, Mail, Phone, MapPin } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -10,15 +9,19 @@ const Footer = () => {
             <div className="flex items-center mb-4">
               <div className="flex items-center">
                 <div className="w-8 h-8 mr-2">
-                  <img src="/images/ezton_logo.png" alt="Ezton Logo" className="w-full h-full object-cover" />
+                  <img 
+                    src="/lovable-uploads/d315587b-d7ed-4d20-ac96-ba439a5e5682.png" 
+                    alt="Ezton Logo" 
+                    className="w-full h-full object-contain" 
+                  />
                 </div>
                 <h2 className="text-2xl font-heading font-bold">
-                  <span className="text-red-700">Ezton</span> E & E Ltd.
+                  <span className="text-red-700">Ezton</span> E&E Ltd.
                 </h2>
               </div>
             </div>
             <p className="text-muted-foreground mb-6">
-              Your trusted partner in security and electrical solutions.
+              Quality with standards
             </p>
             <div className="flex space-x-4">
               <a href="#" className="p-2 rounded-full bg-primary/10 text-primary hover:bg-primary/20 transition-colors" aria-label="Facebook">
