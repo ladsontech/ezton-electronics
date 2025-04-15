@@ -8,12 +8,12 @@ import { Card, CardContent } from "@/components/ui/card";
 const contactInfo = [
   {
     title: "Phone",
-    details: ["+256 778 648157"],
+    details: ["+256 778 648157", "+256755967110"],
     icon: Phone,
   },
   {
     title: "Email",
-    details: ["info@ezton.com"],
+    details: ["eztonelectronicsandengineering@gmail.com"],
     icon: Mail,
   },
   {
