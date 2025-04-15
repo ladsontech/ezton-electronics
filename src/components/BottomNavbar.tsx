@@ -18,7 +18,7 @@ const BottomNavbar = () => {
           className="flex flex-col items-center justify-center text-gray-600 hover:text-primary"
         >
           <Package className="h-5 w-5" />
-          <span className="text-xs mt-1">Solutions</span>
+          <span className="text-xs mt-1">Products</span>
         </Link>
         <Link 
           to="/projects" 
