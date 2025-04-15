@@ -1,7 +1,6 @@
+
 import { Check } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext } from "@/components/ui/carousel";
-import { AspectRatio } from "@/components/ui/aspect-ratio";
 
 const packages = [
   {
@@ -15,11 +14,6 @@ const packages = [
       "Anti-climbers",
       "Full installation",
       "1-year guarantee"
-    ],
-    images: [
-      "/images/solar_ptz.jpg",
-      "/images/solar_flood_light.jpg",
-      "/images/sample1.jpg"
     ]
   },
   {
@@ -33,11 +27,6 @@ const packages = [
       "Anti-climbers",
       "Full installation",
       "1-year guarantee"
-    ],
-    images: [
-      "/images/solar_power.jpg",
-      "/images/solar_flood_light.jpg",
-      "/images/sample2.jpg"
     ]
   },
   {
@@ -51,11 +40,6 @@ const packages = [
       "Anti-climbers",
       "Full installation",
       "1-year guarantee"
-    ],
-    images: [
-      "/images/solar_power.jpg",
-      "/images/solar_flood_light.jpg",
-      "/images/sample3.jpg"
     ]
   },
   {
@@ -69,11 +53,6 @@ const packages = [
       "Anti-climbers",
       "Full installation",
       "1-year guarantee"
-    ],
-    images: [
-      "/images/solar_power.jpg",
-      "/images/solar_flood_light.jpg",
-      "/images/sample4.jpg"
     ]
   },
   {
@@ -86,16 +65,12 @@ const packages = [
       "20ft/5M pole",
       "Full installation",
       "1-year guarantee"
-    ],
-    images: [
-      "/images/solar_power.jpg",
-      "/images/solar_flood_light.jpg",
-      "/images/sample5.jpg"
     ]
   }
 ];
 
 const Packages = () => {
+  // WhatsApp information
   const whatsappNumber = "256778648157";
   const baseWhatsappLink = `https://wa.me/${whatsappNumber}?text=`;
 
@@ -133,26 +108,6 @@ const Packages = () => {
                 "p-6",
                 pkg.featured ? "bg-primary/5" : "bg-white"
               )}>
-                <div className="mb-4">
-                  <Carousel className="w-full">
-                    <CarouselContent>
-                      {pkg.images.map((image, i) => (
-                        <CarouselItem key={i}>
-                          <AspectRatio ratio={4/3} className="bg-muted w-full">
-                            <img 
-                              src={image} 
-                              alt={`${pkg.title} - view ${i+1}`}
-                              className="w-full h-full object-cover rounded-lg"
-                            />
-                          </AspectRatio>
-                        </CarouselItem>
-                      ))}
-                    </CarouselContent>
-                    <CarouselPrevious className="left-2 hover:bg-white/90" />
-                    <CarouselNext className="right-2 hover:bg-white/90" />
-                  </Carousel>
-                </div>
-                
                 <h3 className="text-xl font-semibold mb-1">{pkg.title}</h3>
                 <div className="flex items-end gap-1 mb-4">
                   <span className="text-3xl font-bold">{pkg.price}</span>
@@ -168,7 +123,7 @@ const Packages = () => {
                 </ul>
                 
                 <a 
-                  href={`${baseWhatsappLink}${encodeURIComponent(`Hello, I'm interested in your ${pkg.title}. Can you provide more information?`)}`}
+                  href={`${baseWhatsappLink}${encodeURIComponent(`Hello, I'm interested in your ${pkg.title}. Can you provide more information?`)}`} 
                   target="_blank"
                   rel="noopener noreferrer"
                   className={cn(

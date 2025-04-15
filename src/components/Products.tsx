@@ -1,31 +1,32 @@
+
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
-import { ExternalLink, ShoppingBag } from "lucide-react";
+import { ExternalLink, ShoppingBag, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext } from "@/components/ui/carousel";
 
 const products = [
   {
     id: 1,
-    name: "PTZ Dual Lens Solar Camera",
-    description: "Advanced 2-in-1 surveillance camera system featuring:\n• One fixed VIEW camera and one 360° rotating camera\n• View both cameras simultaneously on your phone/device\n• Solar powered with embedded battery backup\n• 4G network with SIM card (no WiFi needed)\n• 2-way audio & motion detection\n• Humanoid tracking with notifications\n• Built-in alarm system\n• Water-resistant design\n• 24/7 reliable operation\n• TF card & cloud storage\n• HD full color day & night vision\n• Up to 50M long-range surveillance",
+    name: "Hikvision Color HD CCTV Camera",
+    description: "Professional-grade HD CCTV camera with night vision and color imaging technology.",
+    price: "UGX 450,000",
+    images: [
+      "/images/hikvision.jpg",
+      "/images/sample1.jpg",
+      "/images/sample2.jpg"
+    ]
+  },
+  {
+    id: 2,
+    name: "PTZ Dual Lens Power Heavy Siren Camera",
+    description: "Advanced dual lens PTZ camera with built-in siren and motion detection.",
     price: "UGX 850,000",
     images: [
       "/images/solar_ptz.jpg",
       "/images/sample3.jpg",
       "/images/sample4.jpg"
-    ]
-  },
-  {
-    id: 2,
-    name: "Single PTZ Solar Camera",
-    description: "Professional 360° rotating surveillance camera with:\n• Full 360° rotation coverage\n• Remote monitoring via smartphone\n• Solar powered system\n• Built-in battery backup\n• Motion detection & tracking\n• Mobile notifications\n• Weather-resistant design\n• 24/7 operation\n• Cloud & local storage\n• HD color imaging\n• Night vision capability\n• 4G connectivity",
-    price: "UGX 750,000",
-    images: [
-      "/images/hikvision.jpg",
-      "/images/sample1.jpg",
-      "/images/sample2.jpg"
     ]
   },
   {
@@ -74,8 +75,9 @@ const products = [
   }
 ];
 
+// Updated WhatsApp number
 const whatsappNumber = "+256778648157";
-const whatsappMessage = "Hello, I would like to place an order for your products.";
+const whatsappMessage = "Hello, I'm interested in your products and would like more information.";
 const whatsappLink = `https://wa.me/${whatsappNumber.replace('+', '')}?text=${encodeURIComponent(whatsappMessage)}`;
 const whatsappCatalogLink = `https://wa.me/c/256778648157`;
 
@@ -124,20 +126,17 @@ const Products = () => {
                 </Carousel>
               </div>
               <div className="p-4">
-                <h3 className="text-lg font-semibold mb-2">{product.name}</h3>
-                <p className="text-muted-foreground mb-4 text-sm whitespace-pre-line line-clamp-6 hover:line-clamp-none transition-all">
-                  {product.description}
-                </p>
-                <div className="flex items-center justify-between mt-2">
+                <h3 className="text-lg font-semibold mb-1 line-clamp-1">{product.name}</h3>
+                <p className="text-muted-foreground mb-3 text-sm line-clamp-2">{product.description}</p>
+                <div className="flex items-center justify-between">
                   <span className="text-lg font-semibold text-primary">{product.price}</span>
                   <a 
                     href={`${whatsappLink}&product=${encodeURIComponent(product.name)}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 bg-primary text-white px-4 py-2 rounded-md hover:bg-primary/90 transition-colors"
+                    className="btn-outline py-1.5 px-3 text-sm"
                   >
-                    Order Now
-                    <ShoppingBag className="h-4 w-4" />
+                    Inquire
                   </a>
                 </div>
               </div>
