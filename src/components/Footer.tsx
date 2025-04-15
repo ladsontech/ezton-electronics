@@ -69,7 +69,7 @@ const Footer = () => {
             <ul className="space-y-3">
               <li className="flex items-start">
                 <Mail className="h-5 w-5 text-primary mr-3 shrink-0 mt-0.5" />
-                <span className="text-muted-foreground">info@ezton.com</span>
+                <span className="text-muted-foreground">eztonelectronicsandengineering.com</span>
               </li>
               <li className="flex items-start">
                 <Phone className="h-5 w-5 text-primary mr-3 shrink-0 mt-0.5" />

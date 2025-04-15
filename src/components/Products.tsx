@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
@@ -10,7 +9,7 @@ const products = [
   {
     id: 1,
     name: "Hikvision Color HD CCTV Camera",
-    description: "Professional-grade HD CCTV camera with night vision and color imaging technology.",
+    description: `*24/7 Color Surveillance*\n- 1080p Full HD resolution\n- Advanced color imaging technology\n- 30m infrared night vision\n- Weatherproof IP67 rating\n- Motion detection & smartphone alerts\n- Supports HDD/SD card/cloud storage\n- Easy installation & remote mobile access\n- 2-way audio communication\n- Wide 120° viewing angle`,
     price: "UGX 450,000",
     images: [
       "/images/hikvision.jpg",
@@ -20,8 +19,8 @@ const products = [
   },
   {
     id: 2,
-    name: "PTZ Dual Lens Power Heavy Siren Camera",
-    description: "Advanced dual lens PTZ camera with built-in siren and motion detection.",
+    name: "PTZ Dual Lens Solar Camera",
+    description: `*Dual Lens Technology*\n- Fixed + 360° rotating cameras\n- 4G connectivity (SIM card slot)\n- Solar powered with backup battery\n- 50m night vision & human detection\n- 2-way audio & built-in alarm\n- Waterproof IP66 rating\n- Motion tracking & real-time alerts\n- SD/cloud storage options\n- Remote global access via smartphone\n- 5x digital zoom capability`,
     price: "UGX 850,000",
     images: [
       "/images/solar_ptz.jpg",
@@ -32,7 +31,7 @@ const products = [
   {
     id: 3,
     name: "Solar Star Street Light",
-    description: "High-efficiency solar-powered street light with automatic dusk-to-dawn operation.",
+    description: `*Smart Solar Lighting*\n- 50W LED with 6000lm output\n- Auto dusk-to-dawn operation\n- 2-day battery backup\n- IP65 weather resistance\n- 10m pole height option\n- Motion sensor mode\n- 120° wide illumination\n- Easy installation & maintenance\n- 5-7hrs full brightness runtime\n- Overcharge/overload protection`,
     price: "UGX 350,000",
     images: [
       "/images/solar_power.jpg",
@@ -43,7 +42,7 @@ const products = [
   {
     id: 4,
     name: "Solar Automatic Flood Lights",
-    description: "2,300W solar flood light with motion sensor and wide coverage area.",
+    description: `*2300W Solar Security Light*\n- PIR motion detection (10m range)\n- 3 lighting modes: Smart/Full/Off\n- 120° wide-angle detection\n- IP67 waterproof rating\n- 20,000mAh battery capacity\n- 2-3 nights backup power\n- 3hr fast solar charging\n- Adjustable mounting bracket\n- Remote control included\n- Overheat/overcharge protection`,
     price: "UGX 280,000",
     images: [
       "/images/solar_flood_light.jpg",
@@ -53,8 +52,8 @@ const products = [
   },
   {
     id: 5,
-    name: "EzFinder Tracking Chip Technology",
-    description: "Advanced GPS tracking solution for vehicles and assets.",
+    name: "EzFinder Tracking Chip",
+    description: `*Real-Time GPS Tracking*\n- 4G LTE connectivity\n- Worldwide coverage\n- Geo-fencing alerts\n- 15-day location history\n- Waterproof casing\n- 30-day standby battery\n- Vehicle/asset tracking\n- Speed alert system\n- Shock/vibration detection\n- Mobile app integration`,
     price: "UGX 150,000",
     images: [
       "/images/gps_tracker.jpg",
@@ -65,7 +64,7 @@ const products = [
   {
     id: 6,
     name: "4G Router Pro",
-    description: "High-speed 4G router with dual-band WiFi and extensive coverage.",
+    description: `*High-Speed Connectivity*\n- Dual-band WiFi 2.4/5GHz\n- 32 simultaneous connections\n- LAN/WAN ports\n- 150Mbps download speed\n- SIM card slot (4G LTE)\n- 8h backup battery\n- Smart signal boosting\n- Parental controls\n- VPN support\n- Web management portal`,
     price: "UGX 200,000",
     images: [
       "/images/router.jpg",
@@ -116,6 +115,7 @@ const Products = () => {
                             src={image} 
                             alt={`${product.name} - view ${i+1}`}
                             className="w-full h-full object-cover"
+                            loading="lazy"
                           />
                         </AspectRatio>
                       </CarouselItem>
@@ -126,17 +126,23 @@ const Products = () => {
                 </Carousel>
               </div>
               <div className="p-4">
-                <h3 className="text-lg font-semibold mb-1 line-clamp-1">{product.name}</h3>
-                <p className="text-muted-foreground mb-3 text-sm line-clamp-2">{product.description}</p>
-                <div className="flex items-center justify-between">
+                <h3 className="text-lg font-semibold mb-2 line-clamp-1">{product.name}</h3>
+                <div className="text-muted-foreground mb-3 text-sm whitespace-pre-line">
+                  {product.description.split('\n').map((line, i) => (
+                    <p key={i} className={line.startsWith('*') ? "font-semibold text-primary mt-2" : "ml-2"}>
+                      {line.replace('*', '')}
+                    </p>
+                  ))}
+                </div>
+                <div className="flex items-center justify-between mt-4">
                   <span className="text-lg font-semibold text-primary">{product.price}</span>
                   <a 
                     href={`${whatsappLink}&product=${encodeURIComponent(product.name)}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="btn-outline py-1.5 px-3 text-sm"
+                    className="inline-flex items-center justify-center rounded-md bg-green-600 px-4 py-2 text-sm font-medium text-white hover:bg-green-700 transition-colors"
                   >
-                    Inquire
+                    Inquire Now
                   </a>
                 </div>
               </div>
@@ -149,14 +155,14 @@ const Products = () => {
             href={whatsappCatalogLink}
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-primary inline-flex items-center gap-2 py-3 px-6 text-base"
+            className="inline-flex items-center justify-center rounded-md bg-primary px-6 py-3 text-base font-medium text-white hover:bg-primary/90 transition-colors"
           >
-            <ShoppingBag className="h-5 w-5" />
-            View All Products
-            <ExternalLink className="h-4 w-4 ml-1" />
+            <ShoppingBag className="h-5 w-5 mr-2" />
+            View Full Catalog
+            <ExternalLink className="h-4 w-4 ml-2" />
           </a>
           <p className="text-sm text-muted-foreground mt-3">
-            Discover our complete product range with detailed information and pricing
+            Explore detailed specifications and special packages via WhatsApp
           </p>
         </div>
       </div>
