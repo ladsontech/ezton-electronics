@@ -1,3 +1,4 @@
+
 import { useEffect } from 'react';
 import Navbar from '@/components/Navbar';
 import Services from '@/components/Services';
@@ -7,25 +8,27 @@ import Footer from '@/components/Footer';
 import FloatingCTA from '@/components/FloatingCTA';
 import BottomNavbar from '@/components/BottomNavbar';
 import { useIsMobile } from '@/hooks/use-mobile';
-const Solutions = () => {
+
+const ProductsPage = () => {
   const isMobile = useIsMobile();
+  
   useEffect(() => {
-    // Update document title
-    document.title = "Ezton E & E Ltd. - Security Solutions";
+    document.title = "Ezton E & E Ltd. - Products & Packages";
   }, []);
-  return <div className="min-h-screen">
+
+  return (
+    <div className="min-h-screen">
       <Navbar />
       <div className="pt-28 md:pt-32">
-        
-        <Services />
         <Products />
         <Packages />
       </div>
       <Footer />
       {!isMobile && <FloatingCTA />}
       <BottomNavbar />
-      {/* Add padding at the bottom for mobile to account for bottom navbar */}
       <div className="md:hidden h-16"></div>
-    </div>;
+    </div>
+  );
 };
-export default Solutions;
+
+export default ProductsPage;
