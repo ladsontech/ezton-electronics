@@ -6,23 +6,27 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 pb-8">
           <div>
-            <div className="flex items-center mb-4">
-              <div className="flex items-center">
-                <div className="w-8 h-8 mr-2">
-                  <img 
-                    src="/lovable-uploads/d315587b-d7ed-4d20-ac96-ba439a5e5682.png" 
-                    alt="Ezton Logo" 
-                    className="w-full h-full object-contain" 
-                  />
-                </div>
+            <div className="flex flex-col items-center mb-4">
+              <div className="w-16 h-16 mb-2">
+                <img 
+                  src="/images/ezton_logo.png" 
+                  alt="Ezton Logo" 
+                  className="w-full h-full object-contain" 
+                />
+              </div>
+              <div className="text-center">
                 <h2 className="text-2xl font-heading font-bold">
-                  <span className="text-red-700">Ezton</span> E&E Ltd.
+                  <span className="text-black">Ezton E&E Ltd</span>
                 </h2>
+                <div className="flex items-center justify-center space-x-2 mt-1">
+                  <div className="h-px w-8 bg-black"></div>
+                  <span className="text-sm text-red-600 italic">
+                    Quality with standards
+                  </span>
+                  <div className="h-px w-8 bg-black"></div>
+                </div>
               </div>
             </div>
-            <p className="text-muted-foreground mb-6">
-              Quality with standards
-            </p>
             <div className="flex space-x-4">
               <a href="#" className="p-2 rounded-full bg-primary/10 text-primary hover:bg-primary/20 transition-colors" aria-label="Facebook">
                 <Facebook className="h-5 w-5" />

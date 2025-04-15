@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -38,11 +39,15 @@ const Navbar = () => {
                 </div>
                 <div className="text-center">
                   <h2 className="text-2xl font-heading font-bold">
-                    <span className="text-red-700">Ezton</span> E&E Ltd.
+                    <span className="text-black">Ezton E&E Ltd</span>
                   </h2>
-                  <span className="text-sm text-gray-600 italic">
-                    Quality with standards
-                  </span>
+                  <div className="flex items-center justify-center space-x-2 mt-1">
+                    <div className="h-px w-8 bg-black"></div>
+                    <span className="text-sm text-red-600 italic">
+                      Quality with standards
+                    </span>
+                    <div className="h-px w-8 bg-black"></div>
+                  </div>
                 </div>
               </Link>
             </div>
