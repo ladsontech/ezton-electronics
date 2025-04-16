@@ -40,7 +40,7 @@ export default defineConfig(({ mode }) => ({
           "window-controls-overlay"
         ],
         launch_handler: {
-          client_mode": "auto"
+          client_mode: "auto"
         },
         icons: [
           {
