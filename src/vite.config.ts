@@ -15,7 +15,13 @@ export default defineConfig(({ mode }) => ({
     mode === 'development' && componentTagger(),
     VitePWA({
       registerType: 'autoUpdate',
+      strategies: 'injectManifest',
+      srcDir: 'src',
+      filename: 'sw.ts',
       includeAssets: ['favicon.ico', 'robots.txt', 'images/*.{png,jpg,jpeg}'],
+      injectManifest: {
+        injectionPoint: undefined
+      },
       manifest: {
         id: "ezton-electronics-pwa",
         name: "Ezton E&E Ltd",
@@ -29,6 +35,7 @@ export default defineConfig(({ mode }) => ({
         start_url: "/",
         lang: "en",
         dir: "ltr",
+        iarc_rating_id: "e84b072d-71b3-4d3e-86ae-31a8ce4e53b7",
         categories: [
           "business",
           "security",
@@ -42,6 +49,48 @@ export default defineConfig(({ mode }) => ({
         launch_handler: {
           client_mode: "auto"
         },
+        edge_side_panel: {
+          preferred_width: 480
+        },
+        shortcuts: [
+          {
+            name: "Security Solutions",
+            short_name: "Security",
+            description: "View our security solutions",
+            url: "/solutions?category=security",
+            icons: [{ src: "/images/ezton_logo.png", sizes: "192x192" }]
+          },
+          {
+            name: "Contact Us",
+            short_name: "Contact",
+            description: "Get in touch with us",
+            url: "/contact",
+            icons: [{ src: "/images/ezton_logo.png", sizes: "192x192" }]
+          }
+        ],
+        file_handlers: [
+          {
+            action: "/",
+            accept: {
+              "image/*": [".png", ".jpg", ".jpeg"]
+            }
+          }
+        ],
+        protocol_handlers: [
+          {
+            protocol: "web+ezton",
+            url: "/%s"
+          }
+        ],
+        share_target: {
+          action: "/share-target",
+          method: "GET",
+          params: {
+            title: "title",
+            text: "text",
+            url: "url"
+          }
+        },
         icons: [
           {
             src: '/images/ezton_logo.png',
@@ -53,7 +102,13 @@ export default defineConfig(({ mode }) => ({
             src: '/images/ezton_logo.png',
             sizes: '512x512',
             type: 'image/png',
-            purpose: 'any maskable'
+            purpose: 'maskable'
+          },
+          {
+            src: '/images/ezton_logo.png',
+            sizes: '512x512',
+            type: 'image/png',
+            purpose: 'any'
           }
         ]
       }
