@@ -1,6 +1,6 @@
 
 import { useState, useEffect } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Share2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -26,21 +26,21 @@ const Navbar = () => {
     <header className={cn("fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-white", 
       isScrolled ? "shadow-md" : "")}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center py-2">
+        <div className="flex justify-between items-center py-2 h-16">
           {/* Mobile Menu Toggle - Left */}
           <div className="md:hidden">
             <button 
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="p-2 text-gray-600 focus:outline-none"
             >
-              {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+              {isMenuOpen ? <X size={22} /> : <Menu size={22} />}
             </button>
           </div>
 
           {/* Logo and Text - Centered on mobile */}
-          <Link to="/" className={cn("flex items-center", isMobile ? "mx-auto" : "")}>
+          <Link to="/" className={cn("flex items-center", isMobile ? "absolute left-1/2 transform -translate-x-1/2" : "")}>
             <div className="flex flex-col items-center">
-              <div className="w-10 h-10 mb-0.5">
+              <div className="w-8 h-8 mb-0.5">
                 <img 
                   src="/images/ezton_logo.png" 
                   alt="Ezton Logo" 
@@ -48,15 +48,15 @@ const Navbar = () => {
                 />
               </div>
               <div className="text-center">
-                <h2 className="text-lg font-heading font-bold text-black">
+                <h2 className="text-sm font-heading font-bold text-black">
                   Ezton E&E Ltd
                 </h2>
-                <div className="flex items-center justify-center space-x-2">
-                  <div className="h-px w-4 bg-black"></div>
+                <div className="flex items-center justify-center space-x-1">
+                  <div className="h-px w-3 bg-black"></div>
                   <span className="text-xs text-red-600 italic">
                     Quality with standards
                   </span>
-                  <div className="h-px w-4 bg-black"></div>
+                  <div className="h-px w-3 bg-black"></div>
                 </div>
               </div>
             </div>
