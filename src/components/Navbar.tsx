@@ -27,8 +27,18 @@ const Navbar = () => {
       isScrolled ? "shadow-md" : "")}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center py-3 md:py-4">
-          {/* Logo and Text on Left */}
-          <Link to="/" className="flex items-center">
+          {/* Mobile Menu Toggle - Left */}
+          <div className="md:hidden">
+            <button 
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="p-2 text-gray-600 focus:outline-none"
+            >
+              {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
+
+          {/* Logo and Text - Centered on mobile */}
+          <Link to="/" className={cn("flex items-center", "md:mr-0")}>
             <div className="flex flex-col items-center">
               <div className="w-14 h-14 mb-1">
                 <img 
@@ -51,18 +61,11 @@ const Navbar = () => {
               </div>
             </div>
           </Link>
-          
-          {/* Mobile Menu Toggle */}
-          <div className="md:hidden">
-            <button 
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="p-2 text-gray-600 focus:outline-none"
-            >
-              {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
-          </div>
 
-          {/* Desktop Navigation on Right */}
+          {/* Empty div for mobile layout balance */}
+          <div className="w-10 md:hidden"></div>
+          
+          {/* Desktop Navigation */}
           <div className="hidden md:block">
             <nav className="flex space-x-6 lg:space-x-8">
               <Link to="/" className="nav-link text-gray-800 hover:text-primary py-4">Home</Link>

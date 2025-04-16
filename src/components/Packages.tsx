@@ -1,4 +1,3 @@
-
 import { Check } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -14,7 +13,8 @@ const packages = [
       "Anti-climbers",
       "Full installation",
       "1-year guarantee"
-    ]
+    ],
+    images: ["/images/solar_ptz.jpg", "/images/solar_flood_light.jpg", "/images/sample1.jpg"]
   },
   {
     title: "Gold Package",
@@ -27,7 +27,8 @@ const packages = [
       "Anti-climbers",
       "Full installation",
       "1-year guarantee"
-    ]
+    ],
+    images: ["/images/solar_ptz.jpg", "/images/solar_power.jpg", "/images/sample2.jpg"]
   },
   {
     title: "Silver Package",
@@ -40,7 +41,8 @@ const packages = [
       "Anti-climbers",
       "Full installation",
       "1-year guarantee"
-    ]
+    ],
+    images: ["/images/solar_power.jpg", "/images/solar_flood_light.jpg", "/images/sample3.jpg"]
   },
   {
     title: "Bronze Package",
@@ -53,7 +55,8 @@ const packages = [
       "Anti-climbers",
       "Full installation",
       "1-year guarantee"
-    ]
+    ],
+    images: ["/images/solar_flood_light.jpg", "/images/solar_ptz.jpg", "/images/sample4.jpg"]
   },
   {
     title: "Diamond Package",
@@ -65,12 +68,12 @@ const packages = [
       "20ft/5M pole",
       "Full installation",
       "1-year guarantee"
-    ]
+    ],
+    images: ["/images/solar_power.jpg", "/images/solar_flood_light.jpg", "/images/sample5.jpg"]
   }
 ];
 
 const Packages = () => {
-  // WhatsApp information
   const whatsappNumber = "256778648157";
   const baseWhatsappLink = `https://wa.me/${whatsappNumber}?text=`;
 
@@ -105,36 +108,60 @@ const Packages = () => {
               )}
               
               <div className={cn(
-                "p-6",
                 pkg.featured ? "bg-primary/5" : "bg-white"
               )}>
-                <h3 className="text-xl font-semibold mb-1">{pkg.title}</h3>
-                <div className="flex items-end gap-1 mb-4">
-                  <span className="text-3xl font-bold">{pkg.price}</span>
+                <div className="relative aspect-[4/3] overflow-hidden">
+                  <img 
+                    src={pkg.images[0]} 
+                    alt={pkg.title}
+                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                  />
                 </div>
-                
-                <ul className="space-y-3 mb-8">
-                  {pkg.features.map((feature) => (
-                    <li key={feature} className="flex items-start">
-                      <Check className="h-5 w-5 text-primary mr-2 shrink-0 mt-0.5" />
-                      <span>{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-                
-                <a 
-                  href={`${baseWhatsappLink}${encodeURIComponent(`Hello, I'm interested in your ${pkg.title}. Can you provide more information?`)}`} 
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={cn(
-                    "block text-center py-3 px-6 rounded-lg font-medium transition-colors w-full",
-                    pkg.featured 
-                      ? "bg-primary text-white hover:bg-primary/90" 
-                      : "bg-white border border-primary/20 text-primary hover:bg-primary/5"
-                  )}
-                >
-                  Get Started
-                </a>
+
+                <div className="p-6">
+                  <h3 className="text-xl font-semibold mb-1">{pkg.title}</h3>
+                  <div className="flex items-end gap-1 mb-4">
+                    <span className="text-3xl font-bold">{pkg.price}</span>
+                  </div>
+                  
+                  <ul className="space-y-3 mb-8">
+                    {pkg.features.map((feature) => (
+                      <li key={feature} className="flex items-start">
+                        <Check className="h-5 w-5 text-primary mr-2 shrink-0 mt-0.5" />
+                        <span>{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  
+                  <div className="space-y-4">
+                    <div className="grid grid-cols-3 gap-2">
+                      {pkg.images.slice(1).map((image, i) => (
+                        <div key={i} className="overflow-hidden rounded-lg">
+                          <img
+                            src={image}
+                            alt={`${pkg.title} - view ${i + 2}`}
+                            className="w-full h-full object-cover"
+                            loading="lazy"
+                          />
+                        </div>
+                      ))}
+                    </div>
+                    
+                    <a 
+                      href={`${baseWhatsappLink}${encodeURIComponent(`Hello, I'm interested in your ${pkg.title}. Can you provide more information?`)}`} 
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={cn(
+                        "block text-center py-3 px-6 rounded-lg font-medium transition-colors w-full",
+                        pkg.featured 
+                          ? "bg-primary text-white hover:bg-primary/90" 
+                          : "bg-white border border-primary/20 text-primary hover:bg-primary/5"
+                      )}
+                    >
+                      Get Started
+                    </a>
+                  </div>
+                </div>
               </div>
             </div>
           ))}

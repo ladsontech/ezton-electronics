@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
@@ -6,10 +5,10 @@ import Footer from '@/components/Footer';
 import FloatingCTA from '@/components/FloatingCTA';
 import BottomNavbar from '@/components/BottomNavbar';
 import { useIsMobile } from '@/hooks/use-mobile';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, Share2 } from 'lucide-react';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
+import { toast } from "sonner";
 
-// Using the same products data from Products.tsx
 const products = [
   {
     id: 1,
@@ -64,14 +63,53 @@ const ProductDetails = () => {
   const isMobile = useIsMobile();
 
   useEffect(() => {
-    // Find the product based on the productId from URL params
     const foundProduct = products.find(p => p.id === Number(productId));
     
     if (foundProduct) {
       setProduct(foundProduct);
       document.title = `${foundProduct.name} - Ezton E & E Ltd.`;
+      updateMetaTags(foundProduct);
     }
   }, [productId]);
+
+  const updateMetaTags = (product: any) => {
+    const metaTags = {
+      'og:title': `${product.name} - Ezton E & E Ltd.`,
+      'og:description': product.description.split('\n')[0],
+      'og:image': product.images[0],
+      'og:url': window.location.href,
+      'description': product.description.split('\n')[0],
+    };
+
+    Object.entries(metaTags).forEach(([property, content]) => {
+      let meta = document.querySelector(`meta[property="${property}"]`);
+      if (!meta) {
+        meta = document.createElement('meta');
+        meta.setAttribute('property', property);
+        document.head.appendChild(meta);
+      }
+      meta.setAttribute('content', content);
+    });
+  };
+
+  const handleShare = async () => {
+    const shareData = {
+      title: product.name,
+      text: product.description.split('\n')[0],
+      url: window.location.href
+    };
+
+    try {
+      if (navigator.share) {
+        await navigator.share(shareData);
+      } else {
+        await navigator.clipboard.writeText(window.location.href);
+        toast.success("Link copied to clipboard!");
+      }
+    } catch (err) {
+      console.error("Error sharing:", err);
+    }
+  };
 
   if (!product) {
     return (
@@ -89,9 +127,9 @@ const ProductDetails = () => {
   return (
     <div className="min-h-screen">
       <Navbar />
-      <div className="pt-28 md:pt-32 pb-16">
+      <div className="pt-24 md:pt-28 pb-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="mb-6">
+          <div className="flex items-center justify-between mb-6">
             <Link 
               to="/solutions" 
               className="inline-flex items-center text-sm text-gray-600 hover:text-primary transition-colors"
@@ -99,26 +137,31 @@ const ProductDetails = () => {
               <ArrowLeft className="w-4 h-4 mr-1" />
               Back to Products
             </Link>
+            <button
+              onClick={handleShare}
+              className="inline-flex items-center text-sm text-gray-600 hover:text-primary transition-colors"
+            >
+              <Share2 className="w-4 h-4 mr-1" />
+              Share
+            </button>
           </div>
 
           <div className="grid md:grid-cols-2 gap-8">
-            {/* Product Images Grid */}
-            <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-4">
               {product.images.map((image: string, i: number) => (
-                <div key={i} className={i === 0 ? "col-span-2" : ""}>
+                <div key={i}>
                   <AspectRatio ratio={4/3} className="bg-muted rounded-xl overflow-hidden">
                     <img 
                       src={image} 
                       alt={`${product.name} - view ${i+1}`}
                       className="w-full h-full object-cover"
-                      loading="lazy"
+                      loading={i === 0 ? "eager" : "lazy"}
                     />
                   </AspectRatio>
                 </div>
               ))}
             </div>
 
-            {/* Product Details */}
             <div>
               <h1 className="text-2xl md:text-3xl font-bold mb-3 text-gray-800">{product.name}</h1>
               <div className="mb-4">
@@ -127,7 +170,7 @@ const ProductDetails = () => {
               
               <div className="bg-white p-6 rounded-xl shadow-sm mb-6">
                 <h2 className="text-lg font-semibold mb-4 text-primary">Product Specifications</h2>
-                <div className="text-sm text-gray-600 space-y-3">
+                <div className="text-sm space-y-3">
                   {product.description.split('\n').map((line: string, i: number) => (
                     <div 
                       key={i} 
@@ -142,7 +185,6 @@ const ProductDetails = () => {
                 </div>
               </div>
 
-              {/* Order Button */}
               <a 
                 href={`https://wa.me/${whatsappNumber.replace('+', '')}?text=${encodeURIComponent(`Hello, I'm interested in the ${product.name}. Please provide more information.`)}`}
                 target="_blank"
