@@ -26,7 +26,7 @@ const Navbar = () => {
     <header className={cn("fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-white", 
       isScrolled ? "shadow-md" : "")}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center py-3 md:py-4">
+        <div className="flex justify-between items-center py-2">
           {/* Mobile Menu Toggle - Left */}
           <div className="md:hidden">
             <button 
@@ -38,9 +38,9 @@ const Navbar = () => {
           </div>
 
           {/* Logo and Text - Centered on mobile */}
-          <Link to="/" className={cn("flex items-center", "md:mr-0")}>
+          <Link to="/" className={cn("flex items-center", isMobile ? "mx-auto" : "")}>
             <div className="flex flex-col items-center">
-              <div className="w-14 h-14 mb-1">
+              <div className="w-10 h-10 mb-0.5">
                 <img 
                   src="/images/ezton_logo.png" 
                   alt="Ezton Logo" 
@@ -48,15 +48,15 @@ const Navbar = () => {
                 />
               </div>
               <div className="text-center">
-                <h2 className="text-xl font-heading font-bold text-black">
+                <h2 className="text-lg font-heading font-bold text-black">
                   Ezton E&E Ltd
                 </h2>
-                <div className="flex items-center justify-center space-x-2 mt-0.5">
-                  <div className="h-px w-6 bg-black"></div>
+                <div className="flex items-center justify-center space-x-2">
+                  <div className="h-px w-4 bg-black"></div>
                   <span className="text-xs text-red-600 italic">
                     Quality with standards
                   </span>
-                  <div className="h-px w-6 bg-black"></div>
+                  <div className="h-px w-4 bg-black"></div>
                 </div>
               </div>
             </div>
@@ -68,10 +68,10 @@ const Navbar = () => {
           {/* Desktop Navigation */}
           <div className="hidden md:block">
             <nav className="flex space-x-6 lg:space-x-8">
-              <Link to="/" className="nav-link text-gray-800 hover:text-primary py-4">Home</Link>
-              <Link to="/solutions" className="nav-link text-gray-800 hover:text-primary py-4">Products</Link>
-              <Link to="/projects" className="nav-link text-gray-800 hover:text-primary py-4">Projects</Link>
-              <Link to="/contact" className="nav-link text-gray-800 hover:text-primary py-4">Contact</Link>
+              <Link to="/" className="nav-link text-gray-800 hover:text-primary py-2">Home</Link>
+              <Link to="/solutions" className="nav-link text-gray-800 hover:text-primary py-2">Products</Link>
+              <Link to="/projects" className="nav-link text-gray-800 hover:text-primary py-2">Projects</Link>
+              <Link to="/contact" className="nav-link text-gray-800 hover:text-primary py-2">Contact</Link>
             </nav>
           </div>
         </div>
