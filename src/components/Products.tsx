@@ -2,7 +2,7 @@ import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { ExternalLink, ShoppingBag } from "lucide-react";
-import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext } from "@/components/ui/carousel";
+import { Link } from "react-router-dom";
 
 const products = [
   {
@@ -71,8 +71,9 @@ const Products = () => {
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {products.map((product, index) => (
-            <div 
+            <Link
               key={product.id}
+              to={`/products/${product.id}`}
               className={cn(
                 "group bg-white border border-gray-100 rounded-xl shadow-sm",
                 "opacity-0 animate-fade-in transition-all hover:shadow-md",
@@ -84,31 +85,21 @@ const Products = () => {
               onMouseLeave={() => setHoveredId(null)}
             >
               <div className="relative overflow-hidden">
-                <Carousel className="w-full hover:shadow-lg">
-                  <CarouselContent>
-                    {product.images.map((image, i) => (
-                      <CarouselItem key={i}>
-                        <AspectRatio ratio={4/3} className="bg-muted w-full">
-                          <img 
-                            src={image} 
-                            alt={`${product.name} - view ${i+1}`}
-                            className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                            loading="lazy"
-                          />
-                        </AspectRatio>
-                      </CarouselItem>
-                    ))}
-                  </CarouselContent>
-                  <CarouselPrevious className="left-2 hover:bg-white/90" />
-                  <CarouselNext className="right-2 hover:bg-white/90" />
-                </Carousel>
+                <AspectRatio ratio={4/3} className="bg-muted">
+                  <img 
+                    src={product.images[0]} 
+                    alt={product.name}
+                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                    loading="lazy"
+                  />
+                </AspectRatio>
               </div>
               <div className="p-4">
                 <h3 className="text-base font-bold mb-2 line-clamp-2 leading-tight text-gray-800">
                   {product.name}
                 </h3>
                 <div className="text-xs text-gray-600 mb-3 space-y-2">
-                  {product.description.split('\n').map((line, i) => (
+                  {product.description.split('\n').slice(0, 4).map((line, i) => (
                     <div 
                       key={i} 
                       className={cn(
@@ -127,17 +118,14 @@ const Products = () => {
                 </div>
                 <div className="flex items-center justify-between mt-4">
                   <span className="text-sm font-bold text-primary">{product.price}</span>
-                  <a 
-                    href={`${whatsappLink}&product=${encodeURIComponent(product.name)}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                  <span 
                     className="inline-flex items-center justify-center rounded-lg bg-gradient-to-r from-primary to-blue-600 px-4 py-2 text-xs font-medium text-white hover:from-primary/90 hover:to-blue-600/90 transition-all shadow-sm"
                   >
-                    Get Quote
-                  </a>
+                    View Details
+                  </span>
                 </div>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
 

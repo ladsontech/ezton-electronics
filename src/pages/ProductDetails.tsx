@@ -6,9 +6,8 @@ import Footer from '@/components/Footer';
 import FloatingCTA from '@/components/FloatingCTA';
 import BottomNavbar from '@/components/BottomNavbar';
 import { useIsMobile } from '@/hooks/use-mobile';
-import { ArrowLeft, ShoppingBag } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
-import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext } from "@/components/ui/carousel";
 
 // Using the same products data from Products.tsx
 const products = [
@@ -103,26 +102,20 @@ const ProductDetails = () => {
           </div>
 
           <div className="grid md:grid-cols-2 gap-8">
-            {/* Product Images Carousel */}
-            <div className="bg-white rounded-xl shadow-md overflow-hidden">
-              <Carousel className="w-full">
-                <CarouselContent>
-                  {product.images.map((image: string, i: number) => (
-                    <CarouselItem key={i}>
-                      <AspectRatio ratio={4/3} className="bg-muted">
-                        <img 
-                          src={image} 
-                          alt={`${product.name} - view ${i+1}`}
-                          className="w-full h-full object-cover"
-                          loading="lazy"
-                        />
-                      </AspectRatio>
-                    </CarouselItem>
-                  ))}
-                </CarouselContent>
-                <CarouselPrevious className="left-2" />
-                <CarouselNext className="right-2" />
-              </Carousel>
+            {/* Product Images Grid */}
+            <div className="grid grid-cols-2 gap-4">
+              {product.images.map((image: string, i: number) => (
+                <div key={i} className={i === 0 ? "col-span-2" : ""}>
+                  <AspectRatio ratio={4/3} className="bg-muted rounded-xl overflow-hidden">
+                    <img 
+                      src={image} 
+                      alt={`${product.name} - view ${i+1}`}
+                      className="w-full h-full object-cover"
+                      loading="lazy"
+                    />
+                  </AspectRatio>
+                </div>
+              ))}
             </div>
 
             {/* Product Details */}
@@ -156,7 +149,6 @@ const ProductDetails = () => {
                 rel="noopener noreferrer"
                 className="w-full inline-flex items-center justify-center rounded-lg bg-gradient-to-r from-primary to-blue-600 px-6 py-3 text-base font-medium text-white hover:from-primary/90 hover:to-blue-600/90 transition-all shadow-md"
               >
-                <ShoppingBag className="h-5 w-5 mr-2" />
                 Order Now
               </a>
             </div>
