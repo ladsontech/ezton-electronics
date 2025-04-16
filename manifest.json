@@ -35,14 +35,14 @@
       "short_name": "Security",
       "description": "View our security solutions",
       "url": "/solutions?category=security",
-      "icons": [{ "src": "/images/ezton_logo.png", "sizes": "192x192" }]
+      "icons": [{ "src": "/images/ezton_icon.png", "sizes": "192x192" }]
     },
     {
       "name": "Contact Us",
       "short_name": "Contact",
       "description": "Get in touch with us",
       "url": "/contact",
-      "icons": [{ "src": "/images/ezton_logo.png", "sizes": "192x192" }]
+      "icons": [{ "src": "/images/ezton_icon.png", "sizes": "192x192" }]
     }
   ],
   "file_handlers": [
@@ -70,19 +70,19 @@
   },
   "icons": [
     {
-      "src": "/images/ezton_logo.png",
+      "src": "/images/ezton_icon.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/images/ezton_logo.png",
+      "src": "/images/ezton_icon.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
     },
     {
-      "src": "/images/ezton_logo.png",
+      "src": "/images/ezton_icon.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
