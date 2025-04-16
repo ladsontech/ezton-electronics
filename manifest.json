@@ -1,0 +1,16 @@
+{
+  "name": "Ezton E&amp;E Ltd",
+  "theme_color": "#f9fdfc",
+  "background_color": "#fcf9f9",
+  "short_name": "ezton",
+  "description": "this is",
+  "display_override": [
+    "fullscreen",
+    "window-controls-overlay"
+  ],
+  "categories": [
+    "business",
+    "security",
+    "shopping"
+  ]
+}
