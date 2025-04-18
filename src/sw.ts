@@ -81,17 +81,17 @@ self.addEventListener('notificationclick', (event) => {
   event.notification.close();
   
   event.waitUntil(
-    clients.matchAll({ type: 'window' }).then((clientList) => {
+    self.clients.matchAll({ type: 'window' }).then((clientList) => {
       const hadWindowToFocus = clientList.some((client) => {
         return client.url === event.notification.data.url && 'focus' in client;
       });
       
       if (hadWindowToFocus) {
-        return clients.openWindow(event.notification.data.url);
+        return self.clients.openWindow(event.notification.data.url);
       }
       
-      if (clients.openWindow) {
-        return clients.openWindow(event.notification.data.url);
+      if (self.clients.openWindow) {
+        return self.clients.openWindow(event.notification.data.url);
       }
     })
   );

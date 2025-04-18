@@ -28,13 +28,18 @@ if ('Notification' in window) {
 }
 
 // Register for periodic background sync if supported
-if ('serviceWorker' in navigator && 'periodicSync' in navigator.serviceWorker) {
+if ('serviceWorker' in navigator) {
   navigator.serviceWorker.ready.then(registration => {
     // Try to register for periodic sync
     try {
-      registration.periodicSync.register('content-update', {
-        minInterval: 24 * 60 * 60 * 1000, // Once per day
-      });
+      // Check if periodicSync is available
+      if ('periodicSync' in registration) {
+        (registration.periodicSync as PeriodicSyncManager).register('content-update', {
+          minInterval: 24 * 60 * 60 * 1000, // Once per day
+        }).catch(error => {
+          console.error('Periodic Sync registration failed:', error);
+        });
+      }
     } catch (error) {
       console.error('Periodic Sync could not be registered:', error);
     }
