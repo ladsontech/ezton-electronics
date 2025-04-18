@@ -18,6 +18,13 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Close menu when changing route
+  useEffect(() => {
+    if (isMenuOpen) {
+      setIsMenuOpen(false);
+    }
+  }, [window.location.pathname]);
+
   const whatsappNumber = "+256778648157";
   const whatsappMessage = "Hello, I'm interested in your services.";
   const whatsappLink = `https://wa.me/${whatsappNumber.replace('+', '')}?text=${encodeURIComponent(whatsappMessage)}`;
@@ -77,10 +84,14 @@ const Navbar = () => {
         </div>
       </div>
       
-      {/* Mobile Menu */}
-      <div className={cn("md:hidden overflow-hidden transition-all duration-300 ease-in-out bg-white", 
-        isMenuOpen ? "max-h-96 border-t border-slate-200" : "max-h-0")}>
-        <div className="px-4 pb-4 pt-2 space-y-2">
+      {/* Mobile Menu - Fixed Height with Overflow */}
+      <div 
+        className={cn(
+          "md:hidden fixed top-16 left-0 right-0 bg-white shadow-md transition-transform duration-300 ease-in-out z-50",
+          isMenuOpen ? "translate-y-0" : "-translate-y-full"
+        )}
+      >
+        <div className="px-4 py-4 space-y-3">
           <Link to="/" className="block py-2 text-gray-800 hover:text-primary" onClick={() => setIsMenuOpen(false)}>Home</Link>
           <Link to="/solutions" className="block py-2 text-gray-800 hover:text-primary" onClick={() => setIsMenuOpen(false)}>Products</Link>
           <Link to="/projects" className="block py-2 text-gray-800 hover:text-primary" onClick={() => setIsMenuOpen(false)}>Projects</Link>
