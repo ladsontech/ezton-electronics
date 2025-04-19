@@ -1,5 +1,6 @@
-import { useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+
+import { useEffect, useState } from 'react';
+import { useParams, Link, Navigate } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import FloatingCTA from '@/components/FloatingCTA';
@@ -7,107 +8,57 @@ import BottomNavbar from '@/components/BottomNavbar';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { ArrowLeft, Share2, Check } from 'lucide-react';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
+import { Skeleton } from '@/components/ui/skeleton';
 import { toast } from "sonner";
+import { supabase } from "@/integrations/supabase/client";
 
-const packages = [
-  {
-    id: "5-star-gold",
-    title: "5-Star Gold Package",
-    price: "UGX 1,700,000",
-    featured: true,
-    features: [
-      "2,300W floodlights",
-      "3-in-1 PTZ solar camera",
-      "20ft/5M pole",
-      "Anti-climbers",
-      "Full installation",
-      "1-year guarantee"
-    ],
-    images: ["/images/solar_ptz.jpg", "/images/solar_flood_light.jpg", "/images/sample1.jpg"],
-    description: "Our premium package offering comprehensive security coverage with the latest technology."
-  },
-  {
-    id: "gold",
-    title: "Gold Package",
-    price: "UGX 1,500,000",
-    featured: false,
-    features: [
-      "2,300W floodlights",
-      "2-in-1 PTZ solar camera",
-      "20ft/5M pole",
-      "Anti-climbers",
-      "Full installation",
-      "1-year guarantee"
-    ],
-    images: ["/images/solar_ptz.jpg", "/images/solar_power.jpg", "/images/sample2.jpg"],
-    description: "A comprehensive security solution with advanced features for enhanced protection."
-  },
-  {
-    id: "silver",
-    title: "Silver Package",
-    price: "UGX 1,250,000",
-    featured: false,
-    features: [
-      "1,300W solar floodlights",
-      "2-in-1 PTZ solar camera",
-      "20ft/5M pole",
-      "Anti-climbers",
-      "Full installation",
-      "1-year guarantee"
-    ],
-    images: ["/images/solar_power.jpg", "/images/solar_flood_light.jpg", "/images/sample3.jpg"],
-    description: "A balanced security package offering essential features for reliable surveillance."
-  },
-  {
-    id: "bronze",
-    title: "Bronze Package",
-    price: "UGX 1,000,000",
-    featured: false,
-    features: [
-      "1,300W floodlights",
-      "Single-view 360° PTZ solar camera",
-      "20ft/5M pole",
-      "Anti-climbers",
-      "Full installation",
-      "1-year guarantee"
-    ],
-    images: ["/images/solar_flood_light.jpg", "/images/solar_ptz.jpg", "/images/sample4.jpg"],
-    description: "An affordable security solution providing basic surveillance for peace of mind."
-  },
-  {
-    id: "diamond",
-    title: "Diamond Package",
-    price: "UGX 900,000",
-    featured: false,
-    features: [
-      "1,200W floodlights",
-      "Single-lens 360° PTZ solar camera",
-      "20ft/5M pole",
-      "Full installation",
-      "1-year guarantee"
-    ],
-    images: ["/images/solar_power.jpg", "/images/solar_flood_light.jpg", "/images/sample5.jpg"],
-    description: "An entry-level security package offering essential surveillance features at a budget-friendly price."
-  }
-];
+interface Package {
+  id: string;
+  title: string;
+  description?: string;
+  price?: number;
+  features: string[];
+  images: string[];
+}
 
 const PackageDetails = () => {
   const { packageId } = useParams<{ packageId: string }>();
+  const [pkg, setPkg] = useState<Package | null>(null);
+  const [loading, setLoading] = useState(true);
   const isMobile = useIsMobile();
-  const pkg = packages.find(p => p.id === packageId);
 
   useEffect(() => {
-    if (pkg) {
-      document.title = `${pkg.title} - Ezton E & E Ltd.`;
+    if (packageId) {
+      fetchPackage(packageId);
     }
-  }, [pkg]);
+  }, [packageId]);
+
+  const fetchPackage = async (id: string) => {
+    try {
+      setLoading(true);
+      const { data, error } = await supabase
+        .from('packages')
+        .select('*')
+        .eq('id', id)
+        .single();
+
+      if (error) throw error;
+      
+      setPkg(data);
+      document.title = `${data.title} - Ezton E & E Ltd.`;
+    } catch (error) {
+      console.error('Error fetching package:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleShare = async () => {
     if (!pkg) return;
     
     const shareData = {
       title: pkg.title,
-      text: pkg.description,
+      text: pkg.description || '',
       url: window.location.href
     };
 
@@ -123,17 +74,8 @@ const PackageDetails = () => {
     }
   };
 
-  if (!pkg) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <h2 className="text-2xl font-bold mb-4">Package not found</h2>
-          <Link to="/solutions" className="text-primary hover:underline">
-            Back to Solutions
-          </Link>
-        </div>
-      </div>
-    );
+  if (!loading && !pkg) {
+    return <Navigate to="/solutions" replace />;
   }
 
   return (
@@ -158,55 +100,71 @@ const PackageDetails = () => {
             </button>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8">
-            <div className="space-y-4">
-              {pkg.images.map((image: string, i: number) => (
-                <div key={i}>
-                  <AspectRatio ratio={4/3} className="bg-muted rounded-xl overflow-hidden">
-                    <img 
-                      src={image} 
-                      alt={`${pkg.title} - view ${i+1}`}
-                      className="w-full h-full object-cover"
-                      loading={i === 0 ? "eager" : "lazy"}
-                    />
-                  </AspectRatio>
-                </div>
-              ))}
-            </div>
-
-            <div>
-              {pkg.featured && (
-                <div className="inline-block px-4 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
-                  Most Popular
-                </div>
-              )}
-              <h1 className="text-2xl md:text-3xl font-bold mb-3 text-gray-800">{pkg.title}</h1>
-              <div className="mb-6">
-                <span className="text-xl font-bold text-primary">{pkg.price}</span>
+          {loading ? (
+            <div className="grid md:grid-cols-2 gap-8">
+              <div className="space-y-4">
+                {[1, 2, 3].map((_, i) => (
+                  <Skeleton key={i} className="w-full aspect-[4/3]" />
+                ))}
               </div>
-              
-              <div className="bg-white p-6 rounded-xl shadow-sm mb-6">
-                <h2 className="text-lg font-semibold mb-4">Package Features</h2>
-                <div className="space-y-3">
-                  {pkg.features.map((feature, i) => (
-                    <div key={i} className="flex items-start">
-                      <Check className="h-5 w-5 text-primary mr-2 shrink-0 mt-0.5" />
-                      <span>{feature}</span>
-                    </div>
+              <div className="space-y-4">
+                <Skeleton className="h-8 w-3/4" />
+                <Skeleton className="h-6 w-1/4" />
+                <div className="space-y-2">
+                  {[1, 2, 3, 4, 5].map((_, i) => (
+                    <Skeleton key={i} className="h-4 w-full" />
                   ))}
                 </div>
               </div>
-
-              <a 
-                href={`https://wa.me/256778648157?text=${encodeURIComponent(`Hello, I'm interested in the ${pkg.title}. Please provide more information.`)}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full inline-flex items-center justify-center rounded-lg bg-gradient-to-r from-primary to-blue-600 px-6 py-3 text-base font-medium text-white hover:from-primary/90 hover:to-blue-600/90 transition-all shadow-md"
-              >
-                Get Started
-              </a>
             </div>
-          </div>
+          ) : pkg && (
+            <div className="grid md:grid-cols-2 gap-8">
+              <div className="space-y-4">
+                {pkg.images?.map((image: string, i: number) => (
+                  <div key={i}>
+                    <AspectRatio ratio={4/3} className="bg-muted rounded-xl overflow-hidden">
+                      <img 
+                        src={image} 
+                        alt={`${pkg.title} - view ${i+1}`}
+                        className="w-full h-full object-cover"
+                        loading={i === 0 ? "eager" : "lazy"}
+                      />
+                    </AspectRatio>
+                  </div>
+                ))}
+              </div>
+
+              <div>
+                <h1 className="text-2xl md:text-3xl font-bold mb-3 text-gray-800">{pkg.title}</h1>
+                <div className="mb-6">
+                  <span className="text-xl font-bold text-primary">
+                    {pkg.price ? `UGX ${pkg.price}` : 'Contact for price'}
+                  </span>
+                </div>
+                
+                <div className="bg-white p-6 rounded-xl shadow-sm mb-6">
+                  <h2 className="text-lg font-semibold mb-4">Package Features</h2>
+                  <div className="space-y-3">
+                    {pkg.features?.map((feature, i) => (
+                      <div key={i} className="flex items-start">
+                        <Check className="h-5 w-5 text-primary mr-2 shrink-0 mt-0.5" />
+                        <span>{feature}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <a 
+                  href={`https://wa.me/256778648157?text=${encodeURIComponent(`Hello, I'm interested in the ${pkg.title}. Please provide more information.`)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full inline-flex items-center justify-center rounded-lg bg-gradient-to-r from-primary to-blue-600 px-6 py-3 text-base font-medium text-white hover:from-primary/90 hover:to-blue-600/90 transition-all shadow-md"
+                >
+                  Get Started
+                </a>
+              </div>
+            </div>
+          )}
         </div>
       </div>
       <Footer />

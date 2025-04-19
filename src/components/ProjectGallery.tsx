@@ -1,62 +1,47 @@
 
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+import { Skeleton } from "@/components/ui/skeleton";
 
-const projects = [
-  {
-    title: "Professional CCTV Installation",
-    category: "CCTV Installation",
-    image: "/images/sample1.jpg"
-  },
-  {
-    title: "Solar Energy Solutions",
-    category: "Solar Panel Setup",
-    image: "/images/sample2.jpg"
-  },
-  {
-    title: "Advanced Security Systems",
-    category: "Security System",
-    image: "/images/sample3.jpg"
-  },
-  {
-    title: "Network Infrastructure",
-    category: "Network Installation",
-    image: "/images/sample4.jpg"
-  },
-  {
-    title: "Smart Home Integration",
-    category: "Smart Home",
-    image: "/images/sample5.jpg"
-  },
-  {
-    title: "Access Control Systems",
-    category: "Access Control",
-    image: "/images/sample6.jpg"
-  },
-  // Adding more sample projects for the dedicated page
-  {
-    title: "Commercial Security",
-    category: "Business Security",
-    image: "/images/sample7.jpg"
-  },
-  {
-    title: "Residential Surveillance",
-    category: "Home Security",
-    image: "/images/sample8.jpg"
-  },
-  {
-    title: "Industrial Protection",
-    category: "Industrial Security",
-    image: "/images/sample9.jpg"
-  }
-];
+interface Project {
+  id: string;
+  title: string;
+  description?: string;
+  location?: string;
+  completion_date?: string;
+  images: string[];
+}
 
 const ProjectGallery = () => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [scrollPosition, setScrollPosition] = useState(0);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [selectedTitle, setSelectedTitle] = useState<string | null>(null);
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [loading, setLoading] = useState(true);
+  
+  useEffect(() => {
+    fetchProjects();
+  }, []);
+
+  const fetchProjects = async () => {
+    try {
+      setLoading(true);
+      const { data, error } = await supabase
+        .from('projects')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (error) throw error;
+      setProjects(data || []);
+    } catch (error) {
+      console.error('Error fetching projects:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
   
   const handleScroll = () => {
     if (scrollContainerRef.current) {
@@ -90,23 +75,39 @@ const ProjectGallery = () => {
     document.body.style.overflow = 'auto';
   };
 
+  if (loading) {
+    return (
+      <section className="py-12 md:py-20 bg-secondary/50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+            {[...Array(9)].map((_, i) => (
+              <div key={i} className="rounded-xl overflow-hidden shadow-sm">
+                <Skeleton className="aspect-[3/4] w-full" />
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section className="py-12 md:py-20 bg-secondary/50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
           {projects.map((project, index) => (
             <div 
-              key={project.title}
+              key={project.id}
               className={cn(
                 "rounded-xl overflow-hidden shadow-sm relative cursor-pointer group",
                 "opacity-0 animate-fade-in hover:shadow-md transition-all duration-300"
               )}
               style={{ animationDelay: `${0.1 + index * 0.1}s`, animationFillMode: "forwards" }}
-              onClick={() => openLightbox(project.image, project.title)}
+              onClick={() => project.images?.[0] && openLightbox(project.images[0], project.title)}
             >
               <div className="aspect-[3/4] overflow-hidden relative">
                 <img 
-                  src={project.image} 
+                  src={project.images?.[0] || "/placeholder.svg"} 
                   alt={project.title}
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                 />
@@ -121,7 +122,9 @@ const ProjectGallery = () => {
                 </div>
                 <div className="absolute bottom-0 left-0 right-0 p-3 bg-black/50 text-white">
                   <h3 className="text-sm font-medium">{project.title}</h3>
-                  <p className="text-xs opacity-80">{project.category}</p>
+                  {project.location && (
+                    <p className="text-xs opacity-80">{project.location}</p>
+                  )}
                 </div>
               </div>
             </div>

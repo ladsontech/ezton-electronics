@@ -1,53 +1,21 @@
-import { useState } from "react";
+
+import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { ExternalLink, ShoppingBag } from "lucide-react";
 import { Link } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
+import { Skeleton } from "@/components/ui/skeleton";
 
-const products = [
-  {
-    id: 1,
-    name: "Hikvision Color HD CCTV Camera",
-    description: `24/7 Color Surveillance\n1080p Full HD resolution\nAdvanced color imaging technology\n30m infrared night vision\nWeatherproof IP67 rating\nMotion detection alerts\nCloud storage support\nRemote mobile access\n2-way audio communication\n120° viewing angle`,
-    price: "UGX 450,000",
-    images: ["/images/hikvision.jpg", "/images/sample1.jpg", "/images/sample2.jpg"]
-  },
-  {
-    id: 2,
-    name: "PTZ Dual Lens Solar Camera",
-    description: `Dual Lens System\nFixed + 360° rotating cameras\n4G connectivity (SIM card)\nSolar powered operation\n50m night vision\nHuman detection\nWaterproof IP66\nReal-time alerts\nCloud/SD storage\nGlobal smartphone access`,
-    price: "UGX 850,000",
-    images: ["/images/solar_ptz.jpg", "/images/sample3.jpg", "/images/sample4.jpg"]
-  },
-  {
-    id: 3,
-    name: "Solar Star Street Light",
-    description: `Smart Solar Lighting\n50W LED output\nAutomatic operation\n2-day battery backup\nIP65 weatherproof\nAdjustable height\nMotion sensor\nWide illumination\nEasy installation\nOvercharge protection`,
-    price: "UGX 350,000",
-    images: ["/images/solar_power.jpg", "/images/sample5.jpg", "/images/sample6.jpg"]
-  },
-  {
-    id: 4,
-    name: "Solar Automatic Flood Lights",
-    description: `2300W Security Light\nPIR motion detection\nThree lighting modes\nIP67 waterproof\nLong battery life\nFast charging\nAdjustable mount\nOverheat protection\nWide coverage\nRemote control`,
-    price: "UGX 280,000",
-    images: ["/images/solar_flood_light.jpg", "/images/sample7.jpg", "/images/sample8.jpg"]
-  },
-  {
-    id: 5,
-    name: "EzFinder Tracking Chip",
-    description: `Real-Time GPS Tracking\n4G LTE connectivity\nGeo-fencing alerts\nWaterproof design\n30-day battery\nVehicle tracking\nSpeed alerts\nMobile app\nLocation history\nWorldwide coverage`,
-    price: "UGX 150,000",
-    images: ["/images/gps_tracker.jpg", "/images/sample9.jpg", "/images/sample1.jpg"]
-  },
-  {
-    id: 6,
-    name: "4G Router Pro",
-    description: `High-Speed Internet\nDual-band WiFi\nMultiple connections\nLAN/WAN ports\n4G LTE support\nLong battery life\nSignal boosting\nParental controls\nVPN support\nWeb management`,
-    price: "UGX 200,000",
-    images: ["/images/router.jpg", "/images/sample2.jpg", "/images/sample3.jpg"]
-  }
-];
+interface Product {
+  id: string;
+  title: string;
+  description: string;
+  features: string[];
+  price: number;
+  images: string[];
+  category_id?: string;
+}
 
 const whatsappNumber = "+256778648157";
 const whatsappMessage = "Hello, I'm interested in your products and would like more information.";
@@ -55,7 +23,63 @@ const whatsappLink = `https://wa.me/${whatsappNumber.replace('+', '')}?text=${en
 const whatsappCatalogLink = `https://wa.me/c/256778648157`;
 
 const Products = () => {
-  const [hoveredId, setHoveredId] = useState<number | null>(null);
+  const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [hoveredId, setHoveredId] = useState<string | null>(null);
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
+  const fetchProducts = async () => {
+    try {
+      setLoading(true);
+      const { data, error } = await supabase
+        .from('products')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (error) throw error;
+      setProducts(data || []);
+    } catch (error) {
+      console.error('Error fetching products:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (loading) {
+    return (
+      <section id="products" className="py-12 md:py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-3xl mx-auto mb-12">
+            <h2 className="text-2xl md:text-3xl font-bold mb-3 bg-clip-text text-transparent bg-gradient-to-r from-primary to-blue-600">
+              Our Products
+            </h2>
+            <p className="text-sm md:text-base text-muted-foreground">
+              Premium security and solar solutions for modern needs
+            </p>
+          </div>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {[...Array(6)].map((_, i) => (
+              <div key={i} className="bg-white border border-gray-100 rounded-xl shadow-sm p-4">
+                <Skeleton className="h-48 w-full mb-4" />
+                <Skeleton className="h-6 w-3/4 mb-2" />
+                <Skeleton className="h-4 w-full mb-2" />
+                <Skeleton className="h-4 w-full mb-2" />
+                <Skeleton className="h-4 w-2/3 mb-4" />
+                <div className="flex justify-between items-center">
+                  <Skeleton className="h-5 w-20" />
+                  <Skeleton className="h-8 w-24 rounded-lg" />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section id="products" className="py-12 md:py-20 bg-white">
@@ -87,8 +111,8 @@ const Products = () => {
               <div className="relative">
                 <AspectRatio ratio={1/1} className="bg-muted">
                   <img 
-                    src={product.images[0]} 
-                    alt={product.name}
+                    src={product.images?.[0] || "/placeholder.svg"} 
+                    alt={product.title}
                     className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                     loading="lazy"
                   />
@@ -96,28 +120,30 @@ const Products = () => {
               </div>
               <div className="p-4">
                 <h3 className="text-base font-bold mb-2 text-gray-800">
-                  {product.name}
+                  {product.title}
                 </h3>
                 <div className="text-[11px] text-gray-600 space-y-1">
-                  {product.description.split('\n').map((line, i) => (
-                    <div 
-                      key={i} 
-                      className={cn(
-                        "flex items-start gap-1",
-                        i === 0 ? "text-xs font-semibold text-primary pb-1 border-b border-gray-100" : ""
-                      )}
-                    >
-                      {i > 0 && (
-                        <span className="mt-1.5 w-1 h-1 bg-primary/80 rounded-full flex-shrink-0"></span>
-                      )}
-                      <span className={i === 0 ? "inline-block" : "leading-relaxed"}>
-                        {line}
-                      </span>
+                  {product.features?.length > 0 && (
+                    <div className="text-xs font-semibold text-primary pb-1 border-b border-gray-100">
+                      {product.features[0]}
+                    </div>
+                  )}
+                  {product.features?.slice(1, 7).map((feature, i) => (
+                    <div key={i} className="flex items-start gap-1">
+                      <span className="mt-1.5 w-1 h-1 bg-primary/80 rounded-full flex-shrink-0"></span>
+                      <span className="leading-relaxed">{feature}</span>
                     </div>
                   ))}
+                  {(product.features?.length || 0) > 7 && (
+                    <div className="text-xs text-muted-foreground pl-2 pt-1">
+                      +{(product.features?.length || 0) - 7} more features
+                    </div>
+                  )}
                 </div>
                 <div className="flex items-center justify-between mt-4">
-                  <span className="text-sm font-bold text-primary">{product.price}</span>
+                  <span className="text-sm font-bold text-primary">
+                    {product.price ? `UGX ${product.price}` : 'Contact for Price'}
+                  </span>
                   <span 
                     className="inline-flex items-center justify-center rounded-lg bg-gradient-to-r from-primary to-blue-600 px-3 py-1.5 text-xs font-medium text-white hover:from-primary/90 hover:to-blue-600/90 transition-all shadow-sm"
                   >
