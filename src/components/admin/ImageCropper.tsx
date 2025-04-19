@@ -1,0 +1,80 @@
+
+import React, { useState } from 'react';
+import ReactCrop, { Crop } from 'react-image-crop';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import 'react-image-crop/dist/ReactCrop.css';
+
+interface ImageCropperProps {
+  imageUrl: string;
+  aspect?: number;
+  onCropComplete: (croppedImageUrl: string) => void;
+  onCancel: () => void;
+}
+
+export function ImageCropper({ imageUrl, aspect = 1, onCropComplete, onCancel }: ImageCropperProps) {
+  const [crop, setCrop] = useState<Crop>({
+    unit: '%',
+    width: 90,
+    height: 90,
+    x: 5,
+    y: 5
+  });
+  const [imageRef, setImageRef] = useState<HTMLImageElement | null>(null);
+
+  const getCroppedImg = () => {
+    if (!imageRef) return;
+
+    const canvas = document.createElement('canvas');
+    const scaleX = imageRef.naturalWidth / imageRef.width;
+    const scaleY = imageRef.naturalHeight / imageRef.height;
+    canvas.width = crop.width!;
+    canvas.height = crop.height!;
+    const ctx = canvas.getContext('2d');
+
+    if (!ctx) return;
+
+    ctx.drawImage(
+      imageRef,
+      crop.x! * scaleX,
+      crop.y! * scaleY,
+      crop.width! * scaleX,
+      crop.height! * scaleY,
+      0,
+      0,
+      crop.width!,
+      crop.height!
+    );
+
+    const croppedImageUrl = canvas.toDataURL('image/jpeg');
+    onCropComplete(croppedImageUrl);
+  };
+
+  return (
+    <Dialog open={true} onOpenChange={() => onCancel()}>
+      <DialogContent className="max-w-2xl">
+        <DialogHeader>
+          <DialogTitle>Crop Image</DialogTitle>
+        </DialogHeader>
+        <div className="mt-4">
+          <ReactCrop
+            crop={crop}
+            onChange={c => setCrop(c)}
+            aspect={aspect}
+            className="max-h-[600px] object-contain"
+          >
+            <img
+              src={imageUrl}
+              onLoad={(e) => setImageRef(e.currentTarget)}
+              alt="Crop me"
+            />
+          </ReactCrop>
+        </div>
+        <div className="mt-4 flex justify-end gap-2">
+          <Button variant="outline" onClick={onCancel}>Cancel</Button>
+          <Button onClick={getCroppedImg}>Crop & Save</Button>
+        </div>
+      </DialogContent>
+    </Dialog>
+  );
+}
