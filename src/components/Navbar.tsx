@@ -17,7 +17,7 @@ const Navbar = () => {
         <div className="flex justify-between items-center py-2 h-16">
           {/* Logo and Text - Centered on mobile, left-aligned on desktop */}
           <Link to="/" className={cn("flex items-center", isMobile ? "mx-auto" : "")}>
-            <div className="flex flex-col items-center my-[5px]">
+            <div className="flex flex-col items-center my-[20px] py-[5px]">
               <div className="w-8 h-8 mb-0.5">
                 <img src="/images/ezton_logo.png" alt="Ezton Logo" className="w-full h-full object-contain" />
               </div>
