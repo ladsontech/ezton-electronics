@@ -84,8 +84,8 @@ const Products = () => {
               onMouseEnter={() => setHoveredId(product.id)}
               onMouseLeave={() => setHoveredId(null)}
             >
-              <div className="relative overflow-hidden">
-                <AspectRatio ratio={4/3} className="bg-muted">
+              <div className="relative">
+                <AspectRatio ratio={1/1} className="bg-muted">
                   <img 
                     src={product.images[0]} 
                     alt={product.name}
@@ -95,20 +95,20 @@ const Products = () => {
                 </AspectRatio>
               </div>
               <div className="p-4">
-                <h3 className="text-base font-bold mb-2 line-clamp-2 leading-tight text-gray-800">
+                <h3 className="text-base font-bold mb-2 text-gray-800">
                   {product.name}
                 </h3>
-                <div className="text-xs text-gray-600 mb-3 space-y-2">
-                  {product.description.split('\n').slice(0, 4).map((line, i) => (
+                <div className="text-[11px] text-gray-600 space-y-1">
+                  {product.description.split('\n').map((line, i) => (
                     <div 
                       key={i} 
                       className={cn(
-                        "relative pl-4 transition-colors",
-                        i === 0 ? "font-semibold text-primary text-sm pb-2 border-b border-gray-100" : ""
+                        "flex items-start gap-1",
+                        i === 0 ? "text-xs font-semibold text-primary pb-1 border-b border-gray-100" : ""
                       )}
                     >
                       {i > 0 && (
-                        <span className="absolute left-0 top-1.5 w-2 h-2 bg-primary/80 rounded-full"></span>
+                        <span className="mt-1.5 w-1 h-1 bg-primary/80 rounded-full flex-shrink-0"></span>
                       )}
                       <span className={i === 0 ? "inline-block" : "leading-relaxed"}>
                         {line}
@@ -119,7 +119,7 @@ const Products = () => {
                 <div className="flex items-center justify-between mt-4">
                   <span className="text-sm font-bold text-primary">{product.price}</span>
                   <span 
-                    className="inline-flex items-center justify-center rounded-lg bg-gradient-to-r from-primary to-blue-600 px-4 py-2 text-xs font-medium text-white hover:from-primary/90 hover:to-blue-600/90 transition-all shadow-sm"
+                    className="inline-flex items-center justify-center rounded-lg bg-gradient-to-r from-primary to-blue-600 px-3 py-1.5 text-xs font-medium text-white hover:from-primary/90 hover:to-blue-600/90 transition-all shadow-sm"
                   >
                     View Details
                   </span>

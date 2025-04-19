@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, Navigate } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import FloatingCTA from '@/components/FloatingCTA';
@@ -7,6 +7,7 @@ import BottomNavbar from '@/components/BottomNavbar';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { ArrowLeft, Share2 } from 'lucide-react';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
+import { Skeleton } from '@/components/ui/skeleton';
 import { toast } from "sonner";
 
 const products = [
@@ -60,9 +61,11 @@ const whatsappMessage = "Hello, I'm interested in your products and would like m
 const ProductDetails = () => {
   const { productId } = useParams<{ productId: string }>();
   const [product, setProduct] = useState<any>(null);
+  const [isLoading, setIsLoading] = useState(true);
   const isMobile = useIsMobile();
 
   useEffect(() => {
+    setIsLoading(true);
     const foundProduct = products.find(p => p.id === Number(productId));
     
     if (foundProduct) {
@@ -70,6 +73,7 @@ const ProductDetails = () => {
       document.title = `${foundProduct.name} - Ezton E & E Ltd.`;
       updateMetaTags(foundProduct);
     }
+    setIsLoading(false);
   }, [productId]);
 
   const updateMetaTags = (product: any) => {
@@ -111,17 +115,8 @@ const ProductDetails = () => {
     }
   };
 
-  if (!product) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <h2 className="text-2xl font-bold mb-4">Product not found</h2>
-          <Link to="/solutions" className="text-primary hover:underline">
-            Back to Products
-          </Link>
-        </div>
-      </div>
-    );
+  if (!isLoading && !product) {
+    return <Navigate to="/solutions" replace />;
   }
 
   return (
@@ -147,53 +142,74 @@ const ProductDetails = () => {
           </div>
 
           <div className="grid md:grid-cols-2 gap-8">
-            <div className="space-y-4">
-              {product.images.map((image: string, i: number) => (
-                <div key={i}>
-                  <AspectRatio ratio={4/3} className="bg-muted rounded-xl overflow-hidden">
-                    <img 
-                      src={image} 
-                      alt={`${product.name} - view ${i+1}`}
-                      className="w-full h-full object-cover"
-                      loading={i === 0 ? "eager" : "lazy"}
-                    />
-                  </AspectRatio>
+            {isLoading ? (
+              <>
+                <div className="space-y-4">
+                  {[1, 2, 3].map((_, i) => (
+                    <Skeleton key={i} className="w-full aspect-[4/3]" />
+                  ))}
                 </div>
-              ))}
-            </div>
-
-            <div>
-              <h1 className="text-2xl md:text-3xl font-bold mb-3 text-gray-800">{product.name}</h1>
-              <div className="mb-4">
-                <span className="text-xl font-bold text-primary">{product.price}</span>
-              </div>
-              
-              <div className="bg-white p-6 rounded-xl shadow-sm mb-6">
-                <h2 className="text-lg font-semibold mb-4 text-primary">Product Specifications</h2>
-                <div className="text-sm space-y-3">
-                  {product.description.split('\n').map((line: string, i: number) => (
-                    <div 
-                      key={i} 
-                      className={`relative pl-5 ${i === 0 ? "font-semibold text-gray-800" : ""}`}
-                    >
-                      {i > 0 && (
-                        <span className="absolute left-0 top-1.5 w-2 h-2 bg-primary/80 rounded-full"></span>
-                      )}
-                      <span>{line}</span>
+                <div className="space-y-4">
+                  <Skeleton className="h-8 w-3/4" />
+                  <Skeleton className="h-6 w-1/4" />
+                  <div className="space-y-2">
+                    {[1, 2, 3, 4, 5].map((_, i) => (
+                      <Skeleton key={i} className="h-4 w-full" />
+                    ))}
+                  </div>
+                </div>
+              </>
+            ) : (
+              <div className="space-y-4">
+                <div className="space-y-4">
+                  {product.images.map((image: string, i: number) => (
+                    <div key={i}>
+                      <AspectRatio ratio={4/3} className="bg-muted rounded-xl overflow-hidden">
+                        <img 
+                          src={image} 
+                          alt={`${product.name} - view ${i+1}`}
+                          className="w-full h-full object-cover"
+                          loading={i === 0 ? "eager" : "lazy"}
+                        />
+                      </AspectRatio>
                     </div>
                   ))}
                 </div>
-              </div>
 
-              <a 
-                href={`https://wa.me/${whatsappNumber.replace('+', '')}?text=${encodeURIComponent(`Hello, I'm interested in the ${product.name}. Please provide more information.`)}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full inline-flex items-center justify-center rounded-lg bg-gradient-to-r from-primary to-blue-600 px-6 py-3 text-base font-medium text-white hover:from-primary/90 hover:to-blue-600/90 transition-all shadow-md"
-              >
-                Order Now
-              </a>
-            </div>
+                <div>
+                  <h1 className="text-2xl md:text-3xl font-bold mb-3 text-gray-800">{product.name}</h1>
+                  <div className="mb-4">
+                    <span className="text-xl font-bold text-primary">{product.price}</span>
+                  </div>
+                  
+                  <div className="bg-white p-6 rounded-xl shadow-sm mb-6">
+                    <h2 className="text-lg font-semibold mb-4 text-primary">Product Specifications</h2>
+                    <div className="text-sm space-y-3">
+                      {product.description.split('\n').map((line: string, i: number) => (
+                        <div 
+                          key={i} 
+                          className={`relative pl-5 ${i === 0 ? "font-semibold text-gray-800" : ""}`}
+                        >
+                          {i > 0 && (
+                            <span className="absolute left-0 top-1.5 w-2 h-2 bg-primary/80 rounded-full"></span>
+                          )}
+                          <span>{line}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <a 
+                    href={`https://wa.me/${whatsappNumber.replace('+', '')}?text=${encodeURIComponent(`Hello, I'm interested in the ${product.name}. Please provide more information.`)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full inline-flex items-center justify-center rounded-lg bg-gradient-to-r from-primary to-blue-600 px-6 py-3 text-base font-medium text-white hover:from-primary/90 hover:to-blue-600/90 transition-all shadow-md"
+                  >
+                    Order Now
+                  </a>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>
