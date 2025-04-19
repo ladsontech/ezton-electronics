@@ -99,7 +99,7 @@ export default function Admin() {
           <TabsList className="mb-6">
             <TabsTrigger value="products">Products</TabsTrigger>
             <TabsTrigger value="packages">Packages</TabsTrigger>
-            <TabsTrigger value="projects">Projects</TabsTrigger>
+            <TabsTrigger value="projects">Project Gallery</TabsTrigger>
           </TabsList>
           <TabsContent value="products">
             <ProductsManager />

@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import ReactCrop, { Crop } from 'react-image-crop';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
+import { Crop as CropIcon } from 'lucide-react';
 import 'react-image-crop/dist/ReactCrop.css';
 
 interface ImageCropperProps {
@@ -54,25 +55,30 @@ export function ImageCropper({ imageUrl, aspect = 1, onCropComplete, onCancel }:
     <Dialog open={true} onOpenChange={() => onCancel()}>
       <DialogContent className="max-w-2xl">
         <DialogHeader>
-          <DialogTitle>Crop Image</DialogTitle>
+          <DialogTitle className="flex items-center">
+            <CropIcon className="mr-2 h-5 w-5" /> Crop Image
+          </DialogTitle>
         </DialogHeader>
         <div className="mt-4">
           <ReactCrop
             crop={crop}
             onChange={c => setCrop(c)}
             aspect={aspect}
-            className="max-h-[600px] object-contain"
+            className="max-h-[60vh] object-contain"
           >
             <img
               src={imageUrl}
               onLoad={(e) => setImageRef(e.currentTarget)}
-              alt="Crop me"
+              alt="Crop preview"
+              className="max-h-[60vh] mx-auto"
             />
           </ReactCrop>
         </div>
-        <div className="mt-4 flex justify-end gap-2">
+        <div className="mt-6 flex justify-end gap-2">
           <Button variant="outline" onClick={onCancel}>Cancel</Button>
-          <Button onClick={getCroppedImg}>Crop & Save</Button>
+          <Button onClick={getCroppedImg} className="bg-green-500 hover:bg-green-600">
+            Save & Apply
+          </Button>
         </div>
       </DialogContent>
     </Dialog>
