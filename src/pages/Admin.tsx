@@ -76,8 +76,8 @@ export default function Admin() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
-      <div className="max-w-7xl mx-auto">
+    <div className="min-h-screen bg-gray-50 p-4 md:p-6">
+      <div className="max-w-[1400px] mx-auto">
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-3xl font-bold">Admin Panel</h1>
           <Button
@@ -95,21 +95,23 @@ export default function Admin() {
           </div>
         )}
 
-        <Tabs defaultValue="products" className="bg-white rounded-lg shadow p-6">
-          <TabsList className="mb-6">
-            <TabsTrigger value="products">Products</TabsTrigger>
-            <TabsTrigger value="packages">Packages</TabsTrigger>
-            <TabsTrigger value="projects">Project Gallery</TabsTrigger>
+        <Tabs defaultValue="products" className="bg-white rounded-lg shadow">
+          <TabsList className="p-2 mb-0 bg-gray-100 rounded-t-lg w-full justify-start">
+            <TabsTrigger value="products" className="px-4 py-2">Products</TabsTrigger>
+            <TabsTrigger value="packages" className="px-4 py-2">Packages</TabsTrigger>
+            <TabsTrigger value="projects" className="px-4 py-2">Image Gallery</TabsTrigger>
           </TabsList>
-          <TabsContent value="products">
-            <ProductsManager />
-          </TabsContent>
-          <TabsContent value="packages">
-            <PackagesManager />
-          </TabsContent>
-          <TabsContent value="projects">
-            <ProjectsManager />
-          </TabsContent>
+          <div className="p-4">
+            <TabsContent value="products" className="mt-0">
+              <ProductsManager />
+            </TabsContent>
+            <TabsContent value="packages" className="mt-0">
+              <PackagesManager />
+            </TabsContent>
+            <TabsContent value="projects" className="mt-0">
+              <ProjectsManager />
+            </TabsContent>
+          </div>
         </Tabs>
       </div>
     </div>

@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ImageUpload } from './ImageUpload';
 import { toast } from "sonner";
@@ -86,7 +86,8 @@ export function ProductsManager() {
   };
 
   const handleFeaturesChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const features = e.target.value.split('\n').filter(feature => feature.trim() !== '');
+    // Split by commas and trim whitespace from each feature
+    const features = e.target.value.split(',').map(feature => feature.trim()).filter(feature => feature !== '');
     setCurrentProduct(prev => ({ ...prev, features }));
   };
 
@@ -144,6 +145,7 @@ export function ProductsManager() {
       
       const productData = {
         ...currentProduct,
+        price: currentProduct.price || null,
         updated_at: new Date().toISOString()
       };
       
@@ -164,178 +166,186 @@ export function ProductsManager() {
         // Create new product
         const { data, error } = await supabase
           .from('products')
-          .insert([productData])
+          .insert([{ 
+            title: productData.title,
+            description: productData.description,
+            features: productData.features,
+            price: productData.price,
+            images: productData.images,
+            category_id: productData.category_id || null,
+            created_at: new Date().toISOString(),
+            updated_at: new Date().toISOString()
+          }])
           .select();
           
         if (error) throw error;
         
-        setProducts([...(data || []), ...products]);
-        toast.success('Product created successfully');
+        if (data) {
+          setProducts([...data, ...products]);
+          toast.success('Product created successfully');
+        }
       }
       
       resetForm();
-    } catch (error) {
+      fetchProducts(); // Refresh the product list
+    } catch (error: any) {
       console.error('Error saving product:', error);
-      toast.error('Failed to save product');
+      toast.error(`Failed to save product: ${error.message || 'Unknown error'}`);
     }
   };
 
   return (
     <div className="space-y-6">
       <Tabs defaultValue="add">
-        <TabsList>
+        <TabsList className="w-full justify-start">
           <TabsTrigger value="add">{editMode ? 'Edit Product' : 'Add Product'}</TabsTrigger>
           <TabsTrigger value="list">Product List</TabsTrigger>
         </TabsList>
         
-        <TabsContent value="add" className="space-y-4">
-          <Card>
-            <CardHeader>
-              <CardTitle>{editMode ? 'Edit Product' : 'Add New Product'}</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <form onSubmit={handleSubmit} className="space-y-4">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="space-y-4">
-                    <div>
-                      <label className="block text-sm font-medium mb-1">Title</label>
-                      <Input
-                        name="title"
-                        value={currentProduct.title}
-                        onChange={handleInputChange}
-                        placeholder="Product Title"
-                        required
-                      />
-                    </div>
-                    
-                    <div>
-                      <label className="block text-sm font-medium mb-1">Category</label>
-                      <select
-                        name="category_id"
-                        value={currentProduct.category_id}
-                        onChange={handleInputChange}
-                        className="w-full px-3 py-2 border rounded-md"
-                      >
-                        <option value="">Select a category</option>
-                        {categories.map(category => (
-                          <option key={category.id} value={category.id}>
-                            {category.name}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-                    
-                    <div>
-                      <label className="block text-sm font-medium mb-1">Price (UGX)</label>
-                      <Input
-                        name="price"
-                        type="number"
-                        value={currentProduct.price}
-                        onChange={handleInputChange}
-                        placeholder="Price"
-                      />
-                    </div>
-                    
-                    <div>
-                      <label className="block text-sm font-medium mb-1">Description</label>
-                      <Textarea
-                        name="description"
-                        value={currentProduct.description}
-                        onChange={handleInputChange}
-                        placeholder="Product Description"
-                        rows={4}
-                      />
-                    </div>
-                    
-                    <div>
-                      <label className="block text-sm font-medium mb-1">Features (one per line)</label>
-                      <Textarea
-                        value={currentProduct.features?.join('\n') || ''}
-                        onChange={handleFeaturesChange}
-                        placeholder="Enter features (one per line)"
-                        rows={6}
-                      />
-                    </div>
-                  </div>
-                  
-                  <div>
-                    <label className="block text-sm font-medium mb-2">Images</label>
-                    <ImageUpload
-                      images={currentProduct.images || []}
-                      onChange={handleImagesChange}
-                    />
-                  </div>
+        <TabsContent value="add" className="space-y-4 pt-4">
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium mb-1">Title</label>
+                  <Input
+                    name="title"
+                    value={currentProduct.title}
+                    onChange={handleInputChange}
+                    placeholder="Product Title"
+                    required
+                  />
                 </div>
                 
-                <div className="flex space-x-2 justify-end">
-                  {editMode && (
-                    <Button variant="outline" type="button" onClick={resetForm}>
-                      Cancel
-                    </Button>
-                  )}
-                  <Button type="submit">
-                    {editMode ? 'Update Product' : 'Add Product'}
-                  </Button>
+                <div>
+                  <label className="block text-sm font-medium mb-1">Category</label>
+                  <select
+                    name="category_id"
+                    value={currentProduct.category_id || ''}
+                    onChange={handleInputChange}
+                    className="w-full px-3 py-2 border rounded-md"
+                  >
+                    <option value="">Select a category</option>
+                    {categories.map(category => (
+                      <option key={category.id} value={category.id}>
+                        {category.name}
+                      </option>
+                    ))}
+                  </select>
                 </div>
-              </form>
-            </CardContent>
-          </Card>
+                
+                <div>
+                  <label className="block text-sm font-medium mb-1">Price (UGX)</label>
+                  <Input
+                    name="price"
+                    type="number"
+                    value={currentProduct.price || ''}
+                    onChange={handleInputChange}
+                    placeholder="Price"
+                  />
+                </div>
+                
+                <div>
+                  <label className="block text-sm font-medium mb-1">Description</label>
+                  <Textarea
+                    name="description"
+                    value={currentProduct.description || ''}
+                    onChange={handleInputChange}
+                    placeholder="Product Description"
+                    rows={4}
+                  />
+                </div>
+                
+                <div>
+                  <label className="block text-sm font-medium mb-1">Features (comma separated)</label>
+                  <Textarea
+                    value={currentProduct.features?.join(', ') || ''}
+                    onChange={handleFeaturesChange}
+                    placeholder="Enter features separated by commas (e.g., Feature 1, Feature 2, Feature 3)"
+                    rows={4}
+                  />
+                </div>
+              </div>
+              
+              <div>
+                <label className="block text-sm font-medium mb-2">Images</label>
+                <ImageUpload
+                  images={currentProduct.images || []}
+                  onChange={handleImagesChange}
+                />
+              </div>
+            </div>
+            
+            <div className="flex space-x-2 justify-end">
+              {editMode && (
+                <Button variant="outline" type="button" onClick={resetForm}>
+                  Cancel
+                </Button>
+              )}
+              <Button type="submit" className="bg-green-600 hover:bg-green-700">
+                {editMode ? 'Update Product' : 'Add Product'}
+              </Button>
+            </div>
+          </form>
         </TabsContent>
         
-        <TabsContent value="list">
-          <Card>
-            <CardHeader>
-              <CardTitle>Product List</CardTitle>
-            </CardHeader>
-            <CardContent>
-              {loading ? (
-                <p>Loading products...</p>
-              ) : products.length === 0 ? (
-                <p>No products found. Add your first product!</p>
-              ) : (
-                <div className="space-y-4">
-                  {products.map(product => (
-                    <div key={product.id} className="border rounded-lg p-4 flex flex-col md:flex-row gap-4">
-                      {product.images && product.images[0] && (
-                        <div className="w-full md:w-36 h-36 flex-shrink-0">
-                          <img 
-                            src={product.images[0]} 
-                            alt={product.title} 
-                            className="w-full h-full object-cover rounded-md"
-                          />
-                        </div>
-                      )}
-                      <div className="flex-grow">
-                        <h3 className="font-medium text-lg">{product.title}</h3>
-                        <p className="text-sm text-gray-500 mb-2">
-                          {categories.find(c => c.id === product.category_id)?.name || 'Uncategorized'} | 
-                          {product.price ? ` UGX ${product.price}` : ' No price set'}
-                        </p>
-                        <p className="text-sm">{product.description?.substring(0, 100)}...</p>
-                        <div className="mt-3 flex">
-                          <Button 
-                            variant="outline" 
-                            size="sm" 
-                            onClick={() => handleEditProduct(product)}
-                          >
-                            <Edit className="h-4 w-4 mr-1" /> Edit
-                          </Button>
-                          <Button 
-                            variant="destructive" 
-                            size="sm" 
-                            className="ml-2"
-                            onClick={() => handleDeleteProduct(product.id)}
-                          >
-                            <Trash className="h-4 w-4 mr-1" /> Delete
-                          </Button>
-                        </div>
-                      </div>
+        <TabsContent value="list" className="pt-4">
+          {loading ? (
+            <p className="py-4 text-center">Loading products...</p>
+          ) : products.length === 0 ? (
+            <div className="py-8 text-center">
+              <p className="text-lg text-gray-500">No products found</p>
+              <Button 
+                onClick={() => document.querySelector('[value="add"]')?.dispatchEvent(new Event('click'))} 
+                variant="outline" 
+                className="mt-4"
+              >
+                <Plus className="h-4 w-4 mr-2" /> Add your first product
+              </Button>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {products.map(product => (
+                <div key={product.id} className="border rounded-lg p-4 flex flex-col md:flex-row gap-4 bg-white hover:shadow-md transition-shadow">
+                  {product.images && product.images[0] && (
+                    <div className="w-full md:w-32 h-32 flex-shrink-0">
+                      <img 
+                        src={product.images[0]} 
+                        alt={product.title} 
+                        className="w-full h-full object-cover rounded-md"
+                      />
                     </div>
-                  ))}
+                  )}
+                  <div className="flex-grow">
+                    <h3 className="font-medium text-lg">{product.title}</h3>
+                    <p className="text-sm text-gray-500 mb-2">
+                      {categories.find(c => c.id === product.category_id)?.name || 'Uncategorized'} | 
+                      {product.price ? ` UGX ${product.price}` : ' No price set'}
+                    </p>
+                    <p className="text-sm text-gray-600 line-clamp-2">{product.description}</p>
+                    <div className="mt-3 flex space-x-2">
+                      <Button 
+                        variant="outline" 
+                        size="sm" 
+                        onClick={() => handleEditProduct(product)}
+                        className="text-blue-600 border-blue-200 hover:bg-blue-50"
+                      >
+                        <Edit className="h-4 w-4 mr-1" /> Edit
+                      </Button>
+                      <Button 
+                        variant="outline" 
+                        size="sm" 
+                        className="text-red-600 border-red-200 hover:bg-red-50"
+                        onClick={() => handleDeleteProduct(product.id)}
+                      >
+                        <Trash className="h-4 w-4 mr-1" /> Delete
+                      </Button>
+                    </div>
+                  </div>
                 </div>
-              )}
-            </CardContent>
-          </Card>
+              ))}
+            </div>
+          )}
         </TabsContent>
       </Tabs>
     </div>

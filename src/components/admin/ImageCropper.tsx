@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import ReactCrop, { Crop } from 'react-image-crop';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { Crop as CropIcon } from 'lucide-react';
+import { Crop as CropIcon, Check, X } from 'lucide-react';
 import 'react-image-crop/dist/ReactCrop.css';
 
 interface ImageCropperProps {
@@ -59,12 +59,13 @@ export function ImageCropper({ imageUrl, aspect = 1, onCropComplete, onCancel }:
             <CropIcon className="mr-2 h-5 w-5" /> Crop Image
           </DialogTitle>
         </DialogHeader>
-        <div className="mt-4">
+        
+        <div className="mt-2">
           <ReactCrop
             crop={crop}
             onChange={c => setCrop(c)}
             aspect={aspect}
-            className="max-h-[60vh] object-contain"
+            className="max-h-[60vh] object-contain rounded-md overflow-hidden border"
           >
             <img
               src={imageUrl}
@@ -74,10 +75,21 @@ export function ImageCropper({ imageUrl, aspect = 1, onCropComplete, onCancel }:
             />
           </ReactCrop>
         </div>
-        <div className="mt-6 flex justify-end gap-2">
-          <Button variant="outline" onClick={onCancel}>Cancel</Button>
-          <Button onClick={getCroppedImg} className="bg-green-500 hover:bg-green-600">
-            Save & Apply
+        
+        <div className="fixed bottom-0 left-0 right-0 p-4 bg-white border-t flex justify-between w-full">
+          <Button 
+            variant="outline" 
+            onClick={onCancel} 
+            className="flex items-center"
+          >
+            <X className="mr-1 h-4 w-4" /> Cancel
+          </Button>
+          
+          <Button 
+            onClick={getCroppedImg} 
+            className="bg-green-600 hover:bg-green-700 text-white flex items-center"
+          >
+            <Check className="mr-1 h-4 w-4" /> Apply
           </Button>
         </div>
       </DialogContent>
