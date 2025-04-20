@@ -77,7 +77,7 @@ export default function Admin() {
 
   return (
     <div className="min-h-screen bg-gray-50 p-4 md:p-6">
-      <div className="max-w-[1400px] mx-auto">
+      <div className="max-w-[1600px] mx-auto">
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-3xl font-bold">Admin Panel</h1>
           <Button
@@ -101,7 +101,7 @@ export default function Admin() {
             <TabsTrigger value="packages" className="px-4 py-2">Packages</TabsTrigger>
             <TabsTrigger value="projects" className="px-4 py-2">Image Gallery</TabsTrigger>
           </TabsList>
-          <div className="p-4">
+          <div className="p-6">
             <TabsContent value="products" className="mt-0">
               <ProductsManager />
             </TabsContent>

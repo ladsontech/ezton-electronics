@@ -76,7 +76,7 @@ export function ImageCropper({ imageUrl, aspect = 1, onCropComplete, onCancel }:
           </ReactCrop>
         </div>
         
-        <div className="fixed bottom-0 left-0 right-0 p-4 bg-white border-t flex justify-between w-full">
+        <div className="flex justify-between w-full pt-4 mt-4 border-t">
           <Button 
             variant="outline" 
             onClick={onCancel} 

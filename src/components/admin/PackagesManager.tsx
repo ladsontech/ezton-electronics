@@ -62,7 +62,8 @@ export function PackagesManager() {
   };
 
   const handleFeaturesChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const features = e.target.value.split('\n').filter(feature => feature.trim() !== '');
+    // Split by commas and trim whitespace from each feature
+    const features = e.target.value.split(',').map(feature => feature.trim()).filter(feature => feature !== '');
     setCurrentPackage(prev => ({ ...prev, features }));
   };
 
@@ -119,6 +120,7 @@ export function PackagesManager() {
       
       const packageData = {
         ...currentPackage,
+        price: currentPackage.price || null,
         updated_at: new Date().toISOString()
       };
       
@@ -139,19 +141,30 @@ export function PackagesManager() {
         // Create new package
         const { data, error } = await supabase
           .from('packages')
-          .insert([packageData])
+          .insert([{
+            title: packageData.title,
+            description: packageData.description,
+            features: packageData.features,
+            price: packageData.price,
+            images: packageData.images,
+            created_at: new Date().toISOString(),
+            updated_at: new Date().toISOString()
+          }])
           .select();
           
         if (error) throw error;
         
-        setPackages([...(data || []), ...packages]);
-        toast.success('Package created successfully');
+        if (data) {
+          setPackages([...data, ...packages]);
+          toast.success('Package created successfully');
+        }
       }
       
       resetForm();
-    } catch (error) {
+      fetchPackages(); // Refresh the package list
+    } catch (error: any) {
       console.error('Error saving package:', error);
-      toast.error('Failed to save package');
+      toast.error(`Failed to save package: ${error.message || 'Unknown error'}`);
     }
   };
 
@@ -163,14 +176,14 @@ export function PackagesManager() {
           <TabsTrigger value="list">Package List</TabsTrigger>
         </TabsList>
         
-        <TabsContent value="add" className="space-y-4">
-          <Card>
-            <CardHeader>
+        <TabsContent value="add" className="space-y-4 pt-4">
+          <Card className="shadow-sm border">
+            <CardHeader className="pb-3">
               <CardTitle>{editMode ? 'Edit Package' : 'Add New Package'}</CardTitle>
             </CardHeader>
             <CardContent>
               <form onSubmit={handleSubmit} className="space-y-4">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-4">
                     <div>
                       <label className="block text-sm font-medium mb-1">Title</label>
@@ -188,7 +201,7 @@ export function PackagesManager() {
                       <Input
                         name="price"
                         type="number"
-                        value={currentPackage.price}
+                        value={currentPackage.price || ''}
                         onChange={handleInputChange}
                         placeholder="Price"
                       />
@@ -198,7 +211,7 @@ export function PackagesManager() {
                       <label className="block text-sm font-medium mb-1">Description</label>
                       <Textarea
                         name="description"
-                        value={currentPackage.description}
+                        value={currentPackage.description || ''}
                         onChange={handleInputChange}
                         placeholder="Package Description"
                         rows={4}
@@ -206,13 +219,25 @@ export function PackagesManager() {
                     </div>
                     
                     <div>
-                      <label className="block text-sm font-medium mb-1">Features (one per line)</label>
+                      <label className="block text-sm font-medium mb-1">
+                        Features (separate with commas)
+                      </label>
                       <Textarea
-                        value={currentPackage.features?.join('\n') || ''}
+                        value={currentPackage.features?.join(', ') || ''}
                         onChange={handleFeaturesChange}
-                        placeholder="Enter features (one per line)"
-                        rows={6}
+                        placeholder="Enter features separated by commas (e.g., Feature 1, Feature 2, Feature 3)"
+                        rows={4}
                       />
+                      {currentPackage.features?.length > 0 && (
+                        <div className="mt-2">
+                          <p className="text-xs text-gray-500 mb-1">Features preview:</p>
+                          <ul className="text-xs text-gray-700 pl-5 list-disc">
+                            {currentPackage.features.map((feature, index) => (
+                              <li key={index}>{feature}</li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
                     </div>
                   </div>
                   
@@ -231,7 +256,7 @@ export function PackagesManager() {
                       Cancel
                     </Button>
                   )}
-                  <Button type="submit">
+                  <Button type="submit" className="bg-green-600 hover:bg-green-700">
                     {editMode ? 'Update Package' : 'Add Package'}
                   </Button>
                 </div>
@@ -240,9 +265,9 @@ export function PackagesManager() {
           </Card>
         </TabsContent>
         
-        <TabsContent value="list">
-          <Card>
-            <CardHeader>
+        <TabsContent value="list" className="pt-4">
+          <Card className="shadow-sm border">
+            <CardHeader className="pb-3">
               <CardTitle>Package List</CardTitle>
             </CardHeader>
             <CardContent>
@@ -290,13 +315,14 @@ export function PackagesManager() {
                             variant="outline" 
                             size="sm" 
                             onClick={() => handleEditPackage(pkg)}
+                            className="text-blue-600 border-blue-200 hover:bg-blue-50"
                           >
                             <Edit className="h-4 w-4 mr-1" /> Edit
                           </Button>
                           <Button 
-                            variant="destructive" 
+                            variant="outline" 
                             size="sm" 
-                            className="ml-2"
+                            className="ml-2 text-red-600 border-red-200 hover:bg-red-50"
                             onClick={() => handleDeletePackage(pkg.id)}
                           >
                             <Trash className="h-4 w-4 mr-1" /> Delete

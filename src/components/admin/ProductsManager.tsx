@@ -257,13 +257,25 @@ export function ProductsManager() {
                 </div>
                 
                 <div>
-                  <label className="block text-sm font-medium mb-1">Features (comma separated)</label>
+                  <label className="block text-sm font-medium mb-1">
+                    Features (separate with commas)
+                  </label>
                   <Textarea
                     value={currentProduct.features?.join(', ') || ''}
                     onChange={handleFeaturesChange}
                     placeholder="Enter features separated by commas (e.g., Feature 1, Feature 2, Feature 3)"
                     rows={4}
                   />
+                  {currentProduct.features?.length > 0 && (
+                    <div className="mt-2">
+                      <p className="text-xs text-gray-500 mb-1">Features preview:</p>
+                      <ul className="text-xs text-gray-700 pl-5 list-disc">
+                        {currentProduct.features.map((feature, index) => (
+                          <li key={index}>{feature}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
                 </div>
               </div>
               

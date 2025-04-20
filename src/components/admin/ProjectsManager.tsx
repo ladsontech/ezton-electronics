@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ImageUpload } from './ImageUpload';
 import { toast } from "sonner";
-import { Trash, Plus } from 'lucide-react';
+import { Trash, Plus, Edit, X } from 'lucide-react';
 import { supabase } from "@/integrations/supabase/client";
 
 interface Project {
@@ -18,6 +18,7 @@ export function ProjectsManager() {
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
   const [currentImages, setCurrentImages] = useState<string[]>([]);
+  const [editingProject, setEditingProject] = useState<Project | null>(null);
 
   useEffect(() => {
     fetchProjects();
@@ -43,10 +44,19 @@ export function ProjectsManager() {
 
   const handleImagesChange = (images: string[]) => {
     setCurrentImages(images);
+    if (editingProject) {
+      setEditingProject({...editingProject, images});
+    }
   };
 
   const resetForm = () => {
     setCurrentImages([]);
+    setEditingProject(null);
+  };
+
+  const handleEditProject = (project: Project) => {
+    setEditingProject(project);
+    setCurrentImages(project.images || []);
   };
 
   const handleDeleteProject = async (id: string) => {
@@ -75,25 +85,45 @@ export function ProjectsManager() {
         return;
       }
       
-      // Create a simple title based on the date
-      const title = `Project ${new Date().toLocaleDateString()}`;
-      
-      const projectData = {
-        title,
-        images: currentImages,
-        updated_at: new Date().toISOString()
-      };
-      
-      // Create new project
-      const { data, error } = await supabase
-        .from('projects')
-        .insert([projectData])
-        .select();
+      if (editingProject) {
+        // Update existing project
+        const { error } = await supabase
+          .from('projects')
+          .update({
+            images: currentImages,
+            updated_at: new Date().toISOString()
+          })
+          .eq('id', editingProject.id);
+          
+        if (error) throw error;
         
-      if (error) throw error;
-      
-      setProjects([...(data || []), ...projects]);
-      toast.success('Project images added successfully');
+        setProjects(projects.map(p => 
+          p.id === editingProject.id ? {...p, images: currentImages} : p
+        ));
+        toast.success('Project images updated successfully');
+      } else {
+        // Create a simple title based on the date
+        const title = `Project ${new Date().toLocaleDateString()}`;
+        
+        const projectData = {
+          title,
+          images: currentImages,
+          updated_at: new Date().toISOString()
+        };
+        
+        // Create new project
+        const { data, error } = await supabase
+          .from('projects')
+          .insert([projectData])
+          .select();
+          
+        if (error) throw error;
+        
+        if (data) {
+          setProjects([...data, ...projects]);
+          toast.success('Project images added successfully');
+        }
+      }
       
       resetForm();
     } catch (error) {
@@ -104,31 +134,35 @@ export function ProjectsManager() {
 
   return (
     <div className="space-y-6">
-      <Card>
-        <CardHeader>
-          <CardTitle>Project Images</CardTitle>
+      <Card className="shadow-sm border">
+        <CardHeader className="pb-3">
+          <CardTitle>{editingProject ? 'Edit Project Images' : 'Add Project Images'}</CardTitle>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="block text-sm font-medium mb-2">Upload Project Images</label>
               <ImageUpload
                 images={currentImages}
                 onChange={handleImagesChange}
               />
             </div>
             
-            <div className="flex justify-end">
+            <div className="flex justify-end gap-2">
+              {editingProject && (
+                <Button type="button" variant="outline" onClick={resetForm}>
+                  <X className="h-4 w-4 mr-1" /> Cancel
+                </Button>
+              )}
               <Button type="submit" disabled={currentImages.length === 0}>
-                <Plus className="h-4 w-4 mr-1" /> Add to Projects
+                {editingProject ? 'Update Images' : 'Add to Gallery'}
               </Button>
             </div>
           </form>
         </CardContent>
       </Card>
 
-      <Card>
-        <CardHeader>
+      <Card className="shadow-sm border">
+        <CardHeader className="pb-3">
           <CardTitle>Project Gallery</CardTitle>
         </CardHeader>
         <CardContent>
@@ -154,7 +188,15 @@ export function ProjectsManager() {
                     </div>
                   )}
                   
-                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all flex items-center justify-center opacity-0 group-hover:opacity-100">
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all flex items-center justify-center opacity-0 group-hover:opacity-100 gap-2">
+                    <Button 
+                      variant="secondary" 
+                      size="sm"
+                      className="scale-90 group-hover:scale-100 transition-transform"
+                      onClick={() => handleEditProject(project)}
+                    >
+                      <Edit className="h-4 w-4" />
+                    </Button>
                     <Button 
                       variant="destructive" 
                       size="sm"
