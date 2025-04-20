@@ -101,26 +101,20 @@ const PackageDetails = () => {
 
           {loading ? (
             <div className="grid md:grid-cols-2 gap-8">
-              <div className="space-y-4">
-                {/* Mobile Skeleton Slider */}
-                <div className="md:hidden">
-                  <div className="flex overflow-x-auto space-x-4 pb-4 pl-4 pr-4 hide-scrollbar">
-                    {[1, 2, 3].map((i) => (
-                      <div key={i} className="flex-shrink-0 w-[80vw]">
-                        <Skeleton className="w-full aspect-[4/3]" />
-                      </div>
-                    ))}
-                  </div>
-                </div>
-                
-                {/* Desktop Skeleton Stack */}
-                <div className="hidden md:block space-y-4">
+              <div className="md:hidden overflow-x-auto pb-4 hide-scrollbar">
+                <div className="flex gap-4 pl-4">
                   {[1, 2, 3].map((i) => (
-                    <Skeleton key={i} className="w-full aspect-[4/3]" />
+                    <div key={i} className="min-w-[85vw]">
+                      <Skeleton className="w-full aspect-[4/3] rounded-xl" />
+                    </div>
                   ))}
                 </div>
               </div>
-              
+              <div className="hidden md:block space-y-4">
+                {[1, 2, 3].map((i) => (
+                  <Skeleton key={i} className="w-full aspect-[4/3] rounded-xl" />
+                ))}
+              </div>
               <div className="space-y-4">
                 <Skeleton className="h-8 w-3/4" />
                 <Skeleton className="h-6 w-1/4" />
@@ -133,40 +127,38 @@ const PackageDetails = () => {
             </div>
           ) : pkg && (
             <div className="grid md:grid-cols-2 gap-8">
-              <div className="space-y-4">
-                {/* Mobile Image Slider */}
-                <div className="md:hidden">
-                  <div className="flex overflow-x-auto space-x-4 pb-4 pl-4 pr-4 hide-scrollbar">
-                    {pkg.images?.map((image: string, i: number) => (
-                      <div key={i} className="flex-shrink-0 w-[80vw]">
-                        <AspectRatio ratio={4/3} className="bg-muted rounded-xl overflow-hidden">
-                          <img 
-                            src={image} 
-                            alt={`${pkg.title} - view ${i+1}`}
-                            className="w-full h-full object-cover"
-                            loading={i === 0 ? "eager" : "lazy"}
-                          />
-                        </AspectRatio>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Desktop Image Stack */}
-                <div className="hidden md:block space-y-4">
-                  {pkg.images?.map((image: string, i: number) => (
-                    <div key={i}>
-                      <AspectRatio ratio={4/3} className="bg-muted rounded-xl overflow-hidden">
-                        <img 
-                          src={image} 
-                          alt={`${pkg.title} - view ${i+1}`}
+              <div className="md:hidden overflow-x-auto pb-4 hide-scrollbar">
+                <div className="flex gap-4 pl-4">
+                  {pkg.images?.map((image, i) => (
+                    <div key={i} className="min-w-[85vw]">
+                      <AspectRatio ratio={4/3} className="bg-muted rounded-xl overflow-hidden shadow-sm">
+                        <img
+                          src={image}
+                          alt={`${pkg.title} - ${i+1}`}
                           className="w-full h-full object-cover"
-                          loading={i === 0 ? "eager" : "lazy"}
+                          loading={i === 0 ? "eager" : "lazy"
                         />
                       </AspectRatio>
                     </div>
                   ))}
                 </div>
+              </div>
+
+              <div className="hidden md:block space-y-4">
+                {pkg.images?.map((image, i) => (
+                  <AspectRatio 
+                    key={i} 
+                    ratio={4/3} 
+                    className="bg-muted rounded-xl overflow-hidden shadow-sm"
+                  >
+                    <img
+                      src={image}
+                      alt={`${pkg.title} - ${i+1}`}
+                      className="w-full h-full object-cover"
+                      loading={i === 0 ? "eager" : "lazy"
+                    />
+                  </AspectRatio>
+                ))}
               </div>
 
               <div>
@@ -206,6 +198,15 @@ const PackageDetails = () => {
       {!isMobile && <FloatingCTA />}
       <BottomNavbar />
       <div className="md:hidden h-16"></div>
+      <style jsx global>{`
+        .hide-scrollbar {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+          display: none;
+        }
+      `}</style>
     </div>
   );
 };
