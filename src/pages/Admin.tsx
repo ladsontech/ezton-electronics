@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
@@ -24,10 +23,8 @@ export default function Admin() {
       const wasLoggedInBefore = localStorage.getItem('adminAuth') === 'true';
       localStorage.setItem('adminAuth', 'true');
       
-      // If this is first login, we'll migrate sample data
       if (!wasLoggedInBefore) {
         setIsFirstLogin(true);
-        // Attempt to migrate sample data
         const migrationResult = await migrateDataToSupabase();
         if (migrationResult) {
           toast.success("Sample data migrated to database successfully");
@@ -76,8 +73,8 @@ export default function Admin() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 p-4 md:p-6">
-      <div className="max-w-[1600px] mx-auto">
+    <div className="min-h-screen bg-gray-50">
+      <div className="max-w-[1600px] mx-auto p-4 md:p-6">
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-3xl font-bold">Admin Panel</h1>
           <Button
@@ -95,13 +92,14 @@ export default function Admin() {
           </div>
         )}
 
-        <Tabs defaultValue="products" className="bg-white rounded-lg shadow">
-          <TabsList className="p-2 mb-0 bg-gray-100 rounded-t-lg w-full justify-start">
-            <TabsTrigger value="products" className="px-4 py-2">Products</TabsTrigger>
-            <TabsTrigger value="packages" className="px-4 py-2">Packages</TabsTrigger>
-            <TabsTrigger value="projects" className="px-4 py-2">Image Gallery</TabsTrigger>
+        <Tabs defaultValue="products">
+          <TabsList className="w-full justify-start border-b bg-transparent p-0">
+            <TabsTrigger value="products" className="data-[state=active]:bg-white rounded-none border-b-2 data-[state=active]:border-primary">Products</TabsTrigger>
+            <TabsTrigger value="packages" className="data-[state=active]:bg-white rounded-none border-b-2 data-[state=active]:border-primary">Packages</TabsTrigger>
+            <TabsTrigger value="projects" className="data-[state=active]:bg-white rounded-none border-b-2 data-[state=active]:border-primary">Image Gallery</TabsTrigger>
           </TabsList>
-          <div className="p-6">
+          
+          <div className="pt-6">
             <TabsContent value="products" className="mt-0">
               <ProductsManager />
             </TabsContent>

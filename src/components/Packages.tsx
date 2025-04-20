@@ -1,6 +1,6 @@
 
 import { useEffect, useState } from "react";
-import { Check } from "lucide-react";
+import { Check, Eye } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
@@ -138,13 +138,22 @@ const Packages = () => {
                     </span>
                   </div>
                   
-                  <ul className="space-y-3 mb-8">
-                    {pkg.features?.map((feature) => (
-                      <li key={feature} className="flex items-start">
-                        <Check className="h-5 w-5 text-primary mr-2 shrink-0 mt-0.5" />
+                  {pkg.description && (
+                    <p className="text-sm text-gray-600 mb-4 line-clamp-2">{pkg.description}</p>
+                  )}
+                  
+                  <ul className="space-y-2 mb-8">
+                    {pkg.features?.slice(0, 3).map((feature) => (
+                      <li key={feature} className="flex items-start text-sm">
+                        <Check className="h-4 w-4 text-primary mr-2 shrink-0 mt-0.5" />
                         <span>{feature}</span>
                       </li>
                     ))}
+                    {(pkg.features?.length || 0) > 3 && (
+                      <li className="text-sm text-muted-foreground pl-6">
+                        +{pkg.features.length - 3} more features
+                      </li>
+                    )}
                   </ul>
                   
                   <div className="space-y-4">
@@ -154,7 +163,7 @@ const Packages = () => {
                           <img
                             src={image}
                             alt={`${pkg.title} - view ${i + 2}`}
-                            className="w-full h-full object-cover"
+                            className="w-full h-full object-cover aspect-square"
                             loading="lazy"
                           />
                         </div>
@@ -164,13 +173,13 @@ const Packages = () => {
                     <Link 
                       to={`/packages/${pkg.id}`}
                       className={cn(
-                        "block text-center py-3 px-6 rounded-lg font-medium transition-colors w-full",
+                        "flex items-center justify-center text-center py-3 px-6 rounded-lg font-medium transition-colors w-full gap-2",
                         pkg.featured 
                           ? "bg-primary text-white hover:bg-primary/90" 
                           : "bg-white border border-primary/20 text-primary hover:bg-primary/5"
                       )}
                     >
-                      Get Started
+                      <Eye className="w-4 h-4" /> View Details
                     </Link>
                   </div>
                 </div>

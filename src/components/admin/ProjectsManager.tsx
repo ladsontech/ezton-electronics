@@ -60,6 +60,8 @@ export function ProjectsManager() {
   };
 
   const handleDeleteProject = async (id: string) => {
+    if (!confirm('Are you sure you want to delete this project?')) return;
+    
     try {
       const { error } = await supabase
         .from('projects')

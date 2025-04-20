@@ -93,6 +93,8 @@ export function PackagesManager() {
   };
 
   const handleDeletePackage = async (id: string) => {
+    if (!confirm('Are you sure you want to delete this package?')) return;
+    
     try {
       const { error } = await supabase
         .from('packages')
@@ -117,15 +119,20 @@ export function PackagesManager() {
         toast.error('Package title is required');
         return;
       }
+
+      // Clean up features - split by commas and new lines, trim whitespace
+      const cleanedFeatures = currentPackage.features
+        .map(feature => feature.trim())
+        .filter(feature => feature.length > 0);
       
       const packageData = {
         ...currentPackage,
+        features: cleanedFeatures,
         price: currentPackage.price || null,
         updated_at: new Date().toISOString()
       };
       
       if (editMode) {
-        // Update existing package
         const { error } = await supabase
           .from('packages')
           .update(packageData)
@@ -138,7 +145,6 @@ export function PackagesManager() {
         ));
         toast.success('Package updated successfully');
       } else {
-        // Create new package
         const { data, error } = await supabase
           .from('packages')
           .insert([{
@@ -161,7 +167,7 @@ export function PackagesManager() {
       }
       
       resetForm();
-      fetchPackages(); // Refresh the package list
+      fetchPackages();
     } catch (error: any) {
       console.error('Error saving package:', error);
       toast.error(`Failed to save package: ${error.message || 'Unknown error'}`);
