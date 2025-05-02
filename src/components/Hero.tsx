@@ -48,9 +48,7 @@ const Hero = () => {
             <p className="text-base sm:text-lg md:text-xl text-muted-foreground mb-6 max-w-2xl mx-auto opacity-0 animate-fade-in" style={{
             animationDelay: "0.7s",
             animationFillMode: "forwards"
-          }}>
-              Protecting what matters most with cutting-edge technology and professional installation services. Your security is our priority.
-            </p>
+          }}>We specialize in security camera installations, floodlights, electric security fences, solar power systems, tracking systems, and much more</p>
             
             {/* Image Carousel */}
             <div className="relative mx-auto mb-8 max-w-3xl rounded-xl overflow-hidden shadow-lg opacity-0 animate-fade-in" style={{
