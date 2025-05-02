@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -8,7 +7,7 @@ import { Trash, Plus, Edit, X } from 'lucide-react';
 import { supabase } from "@/integrations/supabase/client";
 
 interface Project {
-  id: number | string;
+  id: string;
   title: string;
   images?: string[];
   image_url?: string | null;
@@ -71,7 +70,7 @@ export function ProjectsManager() {
     setCurrentImages(project.images || []);
   };
 
-  const handleDeleteProject = async (id: number | string) => {
+  const handleDeleteProject = async (id: string) => {
     if (!confirm('Are you sure you want to delete this project?')) return;
     
     try {

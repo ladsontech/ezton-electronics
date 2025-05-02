@@ -6,7 +6,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Skeleton } from "@/components/ui/skeleton";
 
 interface Project {
-  id: number | string;
+  id: string;
   title: string;
   description?: string;
   location?: string;
