@@ -1,9 +1,10 @@
+
 import { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ImageUpload } from './ImageUpload';
 import { toast } from "sonner";
-import { Trash, Plus, Edit, X } from 'lucide-react';
+import { Trash, Edit, X } from 'lucide-react';
 import { supabase } from "@/integrations/supabase/client";
 
 interface Project {
@@ -38,6 +39,7 @@ export function ProjectsManager() {
       const transformedData = data?.map(project => {
         const projectData: Project = {
           ...project,
+          id: String(project.id),
           // If project has images array, use it. Otherwise, if it has image_url, create an array with it
           images: project.images || (project.image_url ? [project.image_url] : [])
         };
@@ -136,6 +138,7 @@ export function ProjectsManager() {
           const newProjects = data.map(project => {
             const projectData: Project = {
               ...project,
+              id: String(project.id),
               images: project.images || []
             };
             return projectData;
