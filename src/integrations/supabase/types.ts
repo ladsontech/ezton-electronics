@@ -13,6 +13,7 @@ export type Database = {
         Row: {
           created_at: string | null
           description: string | null
+          featured: boolean | null
           features: string[] | null
           id: string
           images: string[] | null
@@ -23,6 +24,7 @@ export type Database = {
         Insert: {
           created_at?: string | null
           description?: string | null
+          featured?: boolean | null
           features?: string[] | null
           id?: string
           images?: string[] | null
@@ -33,6 +35,7 @@ export type Database = {
         Update: {
           created_at?: string | null
           description?: string | null
+          featured?: boolean | null
           features?: string[] | null
           id?: string
           images?: string[] | null
@@ -65,6 +68,7 @@ export type Database = {
           category_id: string | null
           created_at: string | null
           description: string | null
+          featured: boolean | null
           features: string[] | null
           id: string
           images: string[] | null
@@ -76,6 +80,7 @@ export type Database = {
           category_id?: string | null
           created_at?: string | null
           description?: string | null
+          featured?: boolean | null
           features?: string[] | null
           id?: string
           images?: string[] | null
@@ -87,6 +92,7 @@ export type Database = {
           category_id?: string | null
           created_at?: string | null
           description?: string | null
+          featured?: boolean | null
           features?: string[] | null
           id?: string
           images?: string[] | null
@@ -106,32 +112,38 @@ export type Database = {
       }
       projects: {
         Row: {
-          completion_date: string | null
+          budget: number | null
           created_at: string | null
           description: string | null
-          id: string
-          images: string[] | null
-          location: string | null
+          end_date: string | null
+          id: number
+          image_url: string | null
+          start_date: string | null
+          status: string | null
           title: string
           updated_at: string | null
         }
         Insert: {
-          completion_date?: string | null
+          budget?: number | null
           created_at?: string | null
           description?: string | null
-          id?: string
-          images?: string[] | null
-          location?: string | null
+          end_date?: string | null
+          id?: never
+          image_url?: string | null
+          start_date?: string | null
+          status?: string | null
           title: string
           updated_at?: string | null
         }
         Update: {
-          completion_date?: string | null
+          budget?: number | null
           created_at?: string | null
           description?: string | null
-          id?: string
-          images?: string[] | null
-          location?: string | null
+          end_date?: string | null
+          id?: never
+          image_url?: string | null
+          start_date?: string | null
+          status?: string | null
           title?: string
           updated_at?: string | null
         }
