@@ -118,6 +118,7 @@ export type Database = {
           end_date: string | null
           id: number
           image_url: string | null
+          images: string[] | null
           start_date: string | null
           status: string | null
           title: string
@@ -130,6 +131,7 @@ export type Database = {
           end_date?: string | null
           id?: never
           image_url?: string | null
+          images?: string[] | null
           start_date?: string | null
           status?: string | null
           title: string
@@ -142,6 +144,7 @@ export type Database = {
           end_date?: string | null
           id?: never
           image_url?: string | null
+          images?: string[] | null
           start_date?: string | null
           status?: string | null
           title?: string

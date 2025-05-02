@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -7,11 +8,11 @@ import { Trash, Plus, Edit, X } from 'lucide-react';
 import { supabase } from "@/integrations/supabase/client";
 
 interface Project {
-  id: number;
+  id: number | string;
   title: string;
-  images: string[];
-  created_at?: string;
+  images?: string[];
   image_url?: string | null;
+  created_at?: string;
 }
 
 export function ProjectsManager() {
@@ -29,17 +30,20 @@ export function ProjectsManager() {
       setLoading(true);
       const { data, error } = await supabase
         .from('projects')
-        .select('id, title, images, image_url, created_at')
+        .select('*')
         .order('created_at', { ascending: false });
 
       if (error) throw error;
       
       // Transform data to ensure it has the images array property
-      const transformedData = data?.map(project => ({
-        ...project,
-        // If project has image_url but no images array, create an images array with the image_url
-        images: project.images || (project.image_url ? [project.image_url] : [])
-      })) || [];
+      const transformedData = data?.map(project => {
+        const projectData: Project = {
+          ...project,
+          // If project has images array, use it. Otherwise, if it has image_url, create an array with it
+          images: project.images || (project.image_url ? [project.image_url] : [])
+        };
+        return projectData;
+      }) || [];
       
       setProjects(transformedData);
     } catch (error) {
@@ -67,7 +71,7 @@ export function ProjectsManager() {
     setCurrentImages(project.images || []);
   };
 
-  const handleDeleteProject = async (id: number) => {
+  const handleDeleteProject = async (id: number | string) => {
     if (!confirm('Are you sure you want to delete this project?')) return;
     
     try {
@@ -130,10 +134,13 @@ export function ProjectsManager() {
         if (error) throw error;
         
         if (data) {
-          const newProjects = data.map(project => ({
-            ...project,
-            images: project.images || []
-          }));
+          const newProjects = data.map(project => {
+            const projectData: Project = {
+              ...project,
+              images: project.images || []
+            };
+            return projectData;
+          });
           setProjects([...newProjects, ...projects]);
           toast.success('Project images added successfully');
         }
@@ -188,7 +195,9 @@ export function ProjectsManager() {
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
               {projects.map(project => {
                 // Get the first image from images array or use image_url as fallback
-                const displayImage = project.images?.[0] || project.image_url || "/placeholder.svg";
+                const displayImage = (project.images && project.images.length > 0)
+                  ? project.images[0]
+                  : (project.image_url || "/placeholder.svg");
                 
                 return (
                   <div key={project.id} className="relative group">

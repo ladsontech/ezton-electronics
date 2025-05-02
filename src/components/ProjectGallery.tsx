@@ -6,12 +6,12 @@ import { supabase } from "@/integrations/supabase/client";
 import { Skeleton } from "@/components/ui/skeleton";
 
 interface Project {
-  id: number;
+  id: number | string;
   title: string;
   description?: string;
   location?: string;
   completion_date?: string;
-  images: string[];
+  images?: string[];
   image_url?: string | null;
   budget?: number;
   start_date?: string;
@@ -45,11 +45,12 @@ const ProjectGallery = () => {
       
       // Transform data to ensure it matches the Project interface
       const transformedData = data?.map(project => {
-        return {
+        const projectData: Project = {
           ...project,
-          // If project has image_url but no images array, create an images array with the image_url
+          // If project has images array, use it. Otherwise, if it has image_url, create an array with it
           images: project.images || (project.image_url ? [project.image_url] : [])
         };
+        return projectData;
       }) || [];
       
       setProjects(transformedData);
@@ -114,7 +115,9 @@ const ProjectGallery = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
           {projects.map((project, index) => {
             // Get the first image from images array or use image_url as fallback
-            const displayImage = project.images?.[0] || project.image_url || "/placeholder.svg";
+            const displayImage = (project.images && project.images.length > 0) 
+              ? project.images[0] 
+              : (project.image_url || "/placeholder.svg");
             
             return (
               <div 
