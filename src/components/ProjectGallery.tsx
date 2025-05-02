@@ -25,20 +25,20 @@ const ProjectGallery = () => {
     try {
       setLoading(true);
       const { data, error } = await supabase
-        .from('projects')
-        .select('id, title, images, image_url')
+        .from('gallery')
+        .select('id, image_url')
         .order('created_at', { ascending: false });
 
       if (error) throw error;
       
       // Transform data to ensure it matches the Project interface
-      const transformedData = data?.map(project => {
+      const transformedData = data?.map(gallery => {
         // Type assertion to handle potential number ID from database
         const projectData: Project = {
           ...project,
-          id: String(project.id),
+          id: String(gallery.id),
           // If project has images array, use it. Otherwise, if it has image_url, create an array with it
-          images: project.images || (project.image_url ? [project.image_url] : [])
+          images: gallery.images || (gallery.image_url ? [gallery.image_url] : [])
         };
         return projectData;
       }) || [];
