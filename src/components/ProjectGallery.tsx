@@ -6,12 +6,19 @@ import { supabase } from "@/integrations/supabase/client";
 import { Skeleton } from "@/components/ui/skeleton";
 
 interface Project {
-  id: string;
+  id: number;
   title: string;
   description?: string;
   location?: string;
   completion_date?: string;
   images: string[];
+  image_url?: string | null;
+  budget?: number;
+  start_date?: string;
+  end_date?: string;
+  status?: string;
+  created_at?: string;
+  updated_at?: string;
 }
 
 const ProjectGallery = () => {
@@ -35,7 +42,17 @@ const ProjectGallery = () => {
         .order('created_at', { ascending: false });
 
       if (error) throw error;
-      setProjects(data || []);
+      
+      // Transform data to ensure it matches the Project interface
+      const transformedData = data?.map(project => {
+        return {
+          ...project,
+          // If project has image_url but no images array, create an images array with the image_url
+          images: project.images || (project.image_url ? [project.image_url] : [])
+        };
+      }) || [];
+      
+      setProjects(transformedData);
     } catch (error) {
       console.error('Error fetching projects:', error);
     } finally {
@@ -95,40 +112,45 @@ const ProjectGallery = () => {
     <section className="py-12 md:py-20 bg-secondary/50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-          {projects.map((project, index) => (
-            <div 
-              key={project.id}
-              className={cn(
-                "rounded-xl overflow-hidden shadow-sm relative cursor-pointer group",
-                "opacity-0 animate-fade-in hover:shadow-md transition-all duration-300"
-              )}
-              style={{ animationDelay: `${0.1 + index * 0.1}s`, animationFillMode: "forwards" }}
-              onClick={() => project.images?.[0] && openLightbox(project.images[0], project.title)}
-            >
-              <div className="aspect-[3/4] overflow-hidden relative">
-                <img 
-                  src={project.images?.[0] || "/placeholder.svg"} 
-                  alt={project.title}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                />
-                {/* Solid Color Logo Watermark */}
-                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                  <div className="w-10 h-10 md:w-12 md:h-12 opacity-60 transform rotate-12">
-                    <svg viewBox="0 0 100 100" className="w-full h-full">
-                      <rect width="100" height="100" fill="none" />
-                      <text x="50" y="55" fontSize="24" fontWeight="bold" fill="rgba(255,255,255,0.7)" textAnchor="middle">EZTON</text>
-                    </svg>
+          {projects.map((project, index) => {
+            // Get the first image from images array or use image_url as fallback
+            const displayImage = project.images?.[0] || project.image_url || "/placeholder.svg";
+            
+            return (
+              <div 
+                key={project.id}
+                className={cn(
+                  "rounded-xl overflow-hidden shadow-sm relative cursor-pointer group",
+                  "opacity-0 animate-fade-in hover:shadow-md transition-all duration-300"
+                )}
+                style={{ animationDelay: `${0.1 + index * 0.1}s`, animationFillMode: "forwards" }}
+                onClick={() => displayImage && openLightbox(displayImage, project.title)}
+              >
+                <div className="aspect-[3/4] overflow-hidden relative">
+                  <img 
+                    src={displayImage} 
+                    alt={project.title}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
+                  {/* Solid Color Logo Watermark */}
+                  <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                    <div className="w-10 h-10 md:w-12 md:h-12 opacity-60 transform rotate-12">
+                      <svg viewBox="0 0 100 100" className="w-full h-full">
+                        <rect width="100" height="100" fill="none" />
+                        <text x="50" y="55" fontSize="24" fontWeight="bold" fill="rgba(255,255,255,0.7)" textAnchor="middle">EZTON</text>
+                      </svg>
+                    </div>
+                  </div>
+                  <div className="absolute bottom-0 left-0 right-0 p-3 bg-black/50 text-white">
+                    <h3 className="text-sm font-medium">{project.title}</h3>
+                    {project.location && (
+                      <p className="text-xs opacity-80">{project.location}</p>
+                    )}
                   </div>
                 </div>
-                <div className="absolute bottom-0 left-0 right-0 p-3 bg-black/50 text-white">
-                  <h3 className="text-sm font-medium">{project.title}</h3>
-                  {project.location && (
-                    <p className="text-xs opacity-80">{project.location}</p>
-                  )}
-                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
 

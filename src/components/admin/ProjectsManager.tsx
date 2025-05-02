@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -8,10 +7,11 @@ import { Trash, Plus, Edit, X } from 'lucide-react';
 import { supabase } from "@/integrations/supabase/client";
 
 interface Project {
-  id: string;
+  id: number;
   title: string;
   images: string[];
   created_at?: string;
+  image_url?: string | null;
 }
 
 export function ProjectsManager() {
@@ -29,11 +29,19 @@ export function ProjectsManager() {
       setLoading(true);
       const { data, error } = await supabase
         .from('projects')
-        .select('id, title, images, created_at')
+        .select('id, title, images, image_url, created_at')
         .order('created_at', { ascending: false });
 
       if (error) throw error;
-      setProjects(data || []);
+      
+      // Transform data to ensure it has the images array property
+      const transformedData = data?.map(project => ({
+        ...project,
+        // If project has image_url but no images array, create an images array with the image_url
+        images: project.images || (project.image_url ? [project.image_url] : [])
+      })) || [];
+      
+      setProjects(transformedData);
     } catch (error) {
       console.error('Error fetching projects:', error);
       toast.error('Failed to load projects');
@@ -59,7 +67,7 @@ export function ProjectsManager() {
     setCurrentImages(project.images || []);
   };
 
-  const handleDeleteProject = async (id: string) => {
+  const handleDeleteProject = async (id: number) => {
     if (!confirm('Are you sure you want to delete this project?')) return;
     
     try {
@@ -122,7 +130,11 @@ export function ProjectsManager() {
         if (error) throw error;
         
         if (data) {
-          setProjects([...data, ...projects]);
+          const newProjects = data.map(project => ({
+            ...project,
+            images: project.images || []
+          }));
+          setProjects([...newProjects, ...projects]);
           toast.success('Project images added successfully');
         }
       }
@@ -174,48 +186,47 @@ export function ProjectsManager() {
             <p>No projects found. Add your first project images!</p>
           ) : (
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-              {projects.map(project => (
-                <div key={project.id} className="relative group">
-                  {project.images && project.images.length > 0 ? (
+              {projects.map(project => {
+                // Get the first image from images array or use image_url as fallback
+                const displayImage = project.images?.[0] || project.image_url || "/placeholder.svg";
+                
+                return (
+                  <div key={project.id} className="relative group">
                     <div className="aspect-square rounded-md overflow-hidden bg-gray-100">
                       <img 
-                        src={project.images[0]} 
+                        src={displayImage} 
                         alt={project.title} 
                         className="w-full h-full object-cover"
                       />
                     </div>
-                  ) : (
-                    <div className="aspect-square bg-gray-100 rounded-md flex items-center justify-center">
-                      <span className="text-xs text-gray-500">No image</span>
+                    
+                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all flex items-center justify-center opacity-0 group-hover:opacity-100 gap-2">
+                      <Button 
+                        variant="secondary" 
+                        size="sm"
+                        className="scale-90 group-hover:scale-100 transition-transform"
+                        onClick={() => handleEditProject(project)}
+                      >
+                        <Edit className="h-4 w-4" />
+                      </Button>
+                      <Button 
+                        variant="destructive" 
+                        size="sm"
+                        className="scale-90 group-hover:scale-100 transition-transform"
+                        onClick={() => handleDeleteProject(project.id)}
+                      >
+                        <Trash className="h-4 w-4" />
+                      </Button>
                     </div>
-                  )}
-                  
-                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all flex items-center justify-center opacity-0 group-hover:opacity-100 gap-2">
-                    <Button 
-                      variant="secondary" 
-                      size="sm"
-                      className="scale-90 group-hover:scale-100 transition-transform"
-                      onClick={() => handleEditProject(project)}
-                    >
-                      <Edit className="h-4 w-4" />
-                    </Button>
-                    <Button 
-                      variant="destructive" 
-                      size="sm"
-                      className="scale-90 group-hover:scale-100 transition-transform"
-                      onClick={() => handleDeleteProject(project.id)}
-                    >
-                      <Trash className="h-4 w-4" />
-                    </Button>
-                  </div>
 
-                  {project.images && project.images.length > 1 && (
-                    <div className="absolute bottom-1 right-1 bg-black/60 text-white text-xs px-1.5 py-0.5 rounded-full">
-                      +{project.images.length - 1}
-                    </div>
-                  )}
-                </div>
-              ))}
+                    {project.images && project.images.length > 1 && (
+                      <div className="absolute bottom-1 right-1 bg-black/60 text-white text-xs px-1.5 py-0.5 rounded-full">
+                        +{project.images.length - 1}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
             </div>
           )}
         </CardContent>
