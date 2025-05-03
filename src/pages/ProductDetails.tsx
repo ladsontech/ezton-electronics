@@ -1,16 +1,18 @@
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useParams, Link, Navigate } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import FloatingCTA from '@/components/FloatingCTA';
 import BottomNavbar from '@/components/BottomNavbar';
 import { useIsMobile } from '@/hooks/use-mobile';
-import { ArrowLeft, Share2 } from 'lucide-react';
+import { ArrowLeft, Share2, FileText } from 'lucide-react';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
 import { Skeleton } from '@/components/ui/skeleton';
+import { Button } from '@/components/ui/button';
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
+import { generatePdf } from 'react-to-pdf';
 
 interface Product {
   id: string;
@@ -29,6 +31,7 @@ const ProductDetails = () => {
   const [product, setProduct] = useState<Product | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const isMobile = useIsMobile();
+  const pdfRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (productId) {
@@ -98,9 +101,31 @@ const ProductDetails = () => {
     }
   };
 
+  const handleGeneratePDF = () => {
+    if (!product) return;
+
+    const options = {
+      filename: `${product.title.replace(/\s+/g, '_')}_details.pdf`,
+      page: {
+        margin: 15
+      }
+    };
+
+    generatePdf(pdfRef, options)
+      .then(() => toast.success('PDF generated successfully!'))
+      .catch((err) => {
+        console.error('Error generating PDF:', err);
+        toast.error('Failed to generate PDF');
+      });
+  };
+
   if (!isLoading && !product) {
     return <Navigate to="/solutions" replace />;
   }
+
+  const formatPrice = (price: number) => {
+    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  };
 
   return (
     <div className="min-h-screen">
@@ -115,16 +140,27 @@ const ProductDetails = () => {
               <ArrowLeft className="w-4 h-4 mr-1" />
               Back to Products
             </Link>
-            <button
-              onClick={handleShare}
-              className="inline-flex items-center text-sm text-gray-600 hover:text-primary transition-colors"
-            >
-              <Share2 className="w-4 h-4 mr-1" />
-              Share
-            </button>
+            <div className="flex gap-2">
+              <Button
+                onClick={handleGeneratePDF}
+                variant="outline"
+                size="sm"
+                className="flex items-center gap-1"
+              >
+                <FileText className="w-4 h-4" />
+                Save as PDF
+              </Button>
+              <button
+                onClick={handleShare}
+                className="inline-flex items-center text-sm text-gray-600 hover:text-primary transition-colors"
+              >
+                <Share2 className="w-4 h-4 mr-1" />
+                Share
+              </button>
+            </div>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8">
+          <div ref={pdfRef} className="pdf-content">
             {isLoading ? (
               <>
                 <div className="space-y-4">
@@ -144,7 +180,7 @@ const ProductDetails = () => {
               </>
             ) : (
               product && (
-                <>
+                <div className="grid md:grid-cols-2 gap-8">
                   <div className="space-y-4">
                     {product.images?.map((image: string, i: number) => (
                       <div key={i}>
@@ -164,7 +200,7 @@ const ProductDetails = () => {
                     <h1 className="text-2xl md:text-3xl font-bold mb-3 text-gray-800">{product.title}</h1>
                     <div className="mb-4">
                       <span className="text-xl font-bold text-primary">
-                        {product.price ? `UGX ${product.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}` : 'Contact for Price'}
+                        {product.price ? `UGX ${formatPrice(product.price)}` : 'Contact for Price'}
                       </span>
                     </div>
                     
@@ -201,7 +237,7 @@ const ProductDetails = () => {
                       Order Now
                     </a>
                   </div>
-                </>
+                </div>
               )
             )}
           </div>
