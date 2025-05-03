@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
@@ -30,9 +31,11 @@ const Products = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [hoveredId, setHoveredId] = useState<string | null>(null);
+  
   useEffect(() => {
     fetchProducts();
   }, []);
+  
   const fetchProducts = async () => {
     try {
       setLoading(true);
@@ -50,6 +53,7 @@ const Products = () => {
       setLoading(false);
     }
   };
+  
   if (loading) {
     return <section id="products" className="py-12 md:py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -78,6 +82,7 @@ const Products = () => {
         </div>
       </section>;
   }
+  
   return <section id="products" className="py-12 md:py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-12">

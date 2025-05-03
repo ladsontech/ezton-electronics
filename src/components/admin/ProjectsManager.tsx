@@ -7,6 +7,7 @@ import { toast } from "sonner";
 import { Trash, Edit, X } from 'lucide-react';
 import { supabase } from "@/integrations/supabase/client";
 
+// Update the interface to match what's actually available in the gallery table
 interface Project {
   id: string;
   title: string;
@@ -28,20 +29,22 @@ export function ProjectsManager() {
   const fetchProjects = async () => {
     try {
       setLoading(true);
+      // Use the 'gallery' table instead of 'projects'
       const { data, error } = await supabase
-        .from('projects')
+        .from('gallery')
         .select('*')
         .order('created_at', { ascending: false });
 
       if (error) throw error;
       
-      // Transform data to ensure it has the images array property
-      const transformedData = data?.map(project => {
+      // Transform gallery data into our Project interface format
+      const transformedData = data?.map(item => {
         const projectData: Project = {
-          ...project,
-          id: String(project.id),
-          // If project has images array, use it. Otherwise, if it has image_url, create an array with it
-          images: project.images || (project.image_url ? [project.image_url] : [])
+          id: String(item.id),
+          title: `Gallery Item ${String(item.id)}`, // Generate a title since gallery items don't have one
+          image_url: item.image_url,
+          images: item.image_url ? [item.image_url] : [],
+          created_at: item.created_at
         };
         return projectData;
       }) || [];
@@ -49,7 +52,7 @@ export function ProjectsManager() {
       setProjects(transformedData);
     } catch (error) {
       console.error('Error fetching projects:', error);
-      toast.error('Failed to load projects');
+      toast.error('Failed to load gallery items');
     } finally {
       setLoading(false);
     }
@@ -73,25 +76,26 @@ export function ProjectsManager() {
   };
 
   const handleDeleteProject = async (id: string) => {
-    if (!confirm('Are you sure you want to delete this project?')) return;
+    if (!confirm('Are you sure you want to delete this gallery item?')) return;
     
     try {
+      // Delete from gallery table
       const { error } = await supabase
-        .from('projects')
+        .from('gallery')
         .delete()
         .eq('id', id);
 
       if (error) throw error;
       
       setProjects(projects.filter(project => project.id !== id));
-      toast.success('Project deleted successfully');
+      toast.success('Gallery item deleted successfully');
     } catch (error) {
-      console.error('Error deleting project:', error);
-      toast.error('Failed to delete project');
+      console.error('Error deleting gallery item:', error);
+      toast.error('Failed to delete gallery item');
     }
   };
 
-  // Add images to both projects table and gallery table
+  // Add images to gallery table
   const addImagesToGallery = async (imageUrls: string[]) => {
     try {
       // Prepare gallery items
@@ -126,57 +130,37 @@ export function ProjectsManager() {
       await addImagesToGallery(currentImages);
       
       if (editingProject) {
-        // Update existing project
-        const { error } = await supabase
-          .from('projects')
-          .update({
-            images: currentImages,
-            updated_at: new Date().toISOString()
-          })
-          .eq('id', editingProject.id);
-          
-        if (error) throw error;
+        // Since we're now using gallery items, we need to update them differently
+        // For each image in the editing project, update its image_url
+        const updatePromises = currentImages.map((imageUrl, index) => {
+          if (index === 0 && editingProject.id) {
+            // Update the first image in the existing gallery item
+            return supabase
+              .from('gallery')
+              .update({ image_url: imageUrl })
+              .eq('id', editingProject.id);
+          } else {
+            // Insert additional images as new gallery items
+            return supabase
+              .from('gallery')
+              .insert({ image_url: imageUrl });
+          }
+        });
         
-        setProjects(projects.map(p => 
-          p.id === editingProject.id ? {...p, images: currentImages} : p
-        ));
-        toast.success('Project images updated successfully');
+        await Promise.all(updatePromises);
+        toast.success('Gallery images updated successfully');
       } else {
-        // Create a simple title based on the date
-        const title = `Project ${new Date().toLocaleDateString()}`;
-        
-        const projectData = {
-          title,
-          images: currentImages,
-          updated_at: new Date().toISOString()
-        };
-        
-        // Create new project
-        const { data, error } = await supabase
-          .from('projects')
-          .insert([projectData])
-          .select();
-          
-        if (error) throw error;
-        
-        if (data) {
-          const newProjects = data.map(project => {
-            const projectData: Project = {
-              ...project,
-              id: String(project.id),
-              images: project.images || []
-            };
-            return projectData;
-          });
-          setProjects([...newProjects, ...projects]);
-          toast.success('Project images added successfully');
-        }
+        // Add new images to gallery
+        await addImagesToGallery(currentImages);
+        toast.success('Images added to gallery successfully');
       }
       
+      // Refresh the gallery items
+      await fetchProjects();
       resetForm();
     } catch (error) {
-      console.error('Error saving project:', error);
-      toast.error('Failed to save project');
+      console.error('Error saving images:', error);
+      toast.error('Failed to save images');
     }
   };
 
@@ -184,7 +168,7 @@ export function ProjectsManager() {
     <div className="space-y-6">
       <Card className="shadow-sm border">
         <CardHeader className="pb-3">
-          <CardTitle>{editingProject ? 'Edit Project Images' : 'Add Project Images'}</CardTitle>
+          <CardTitle>{editingProject ? 'Edit Gallery Images' : 'Add Gallery Images'}</CardTitle>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -215,23 +199,21 @@ export function ProjectsManager() {
         </CardHeader>
         <CardContent>
           {loading ? (
-            <p>Loading projects...</p>
+            <p>Loading gallery images...</p>
           ) : projects.length === 0 ? (
-            <p>No projects found. Add your first project images!</p>
+            <p>No images found. Add your first gallery images!</p>
           ) : (
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
               {projects.map(project => {
-                // Get the first image from images array or use image_url as fallback
-                const displayImage = (project.images && project.images.length > 0)
-                  ? project.images[0]
-                  : (project.image_url || "/placeholder.svg");
+                // Get the image from the project
+                const displayImage = project.image_url || "/placeholder.svg";
                 
                 return (
                   <div key={project.id} className="relative group">
                     <div className="aspect-square rounded-md overflow-hidden bg-gray-100">
                       <img 
                         src={displayImage} 
-                        alt={project.title} 
+                        alt={`Gallery ${project.id}`} 
                         className="w-full h-full object-cover"
                       />
                     </div>
@@ -254,12 +236,6 @@ export function ProjectsManager() {
                         <Trash className="h-4 w-4" />
                       </Button>
                     </div>
-
-                    {project.images && project.images.length > 1 && (
-                      <div className="absolute bottom-1 right-1 bg-black/60 text-white text-xs px-1.5 py-0.5 rounded-full">
-                        +{project.images.length - 1}
-                      </div>
-                    )}
                   </div>
                 );
               })}

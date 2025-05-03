@@ -115,35 +115,23 @@ export const migrateDataToSupabase = async () => {
       }
     ];
 
-    // Sample projects data
-    const projects = [
+    // Sample gallery items from projects
+    const galleryItems = [
       {
-        title: "Professional CCTV Installation",
-        description: "Complete CCTV system installation for a commercial property in Kampala.",
-        location: "Kampala",
-        completion_date: "2024-03-15",
-        images: ["/images/sample1.jpg", "/images/sample2.jpg", "/images/sample3.jpg"]
+        image_url: "/images/sample1.jpg"
       },
       {
-        title: "Solar Energy Solutions",
-        description: "Installation of solar panels and backup systems for a residential compound.",
-        location: "Entebbe",
-        completion_date: "2024-02-10",
-        images: ["/images/sample2.jpg", "/images/sample3.jpg", "/images/sample4.jpg"]
+        image_url: "/images/sample2.jpg"
       },
       {
-        title: "Advanced Security Systems",
-        description: "Comprehensive security system with access control and surveillance for a corporate office.",
-        location: "Jinja",
-        completion_date: "2024-01-05",
-        images: ["/images/sample3.jpg", "/images/sample4.jpg", "/images/sample5.jpg"]
+        image_url: "/images/sample3.jpg"
       }
     ];
 
     // Check if data already exists to avoid duplicates
     const { data: existingProducts } = await supabase.from('products').select('id');
     const { data: existingPackages } = await supabase.from('packages').select('id');
-    const { data: existingProjects } = await supabase.from('projects').select('id');
+    const { data: existingGallery } = await supabase.from('gallery').select('id');
 
     // Only insert if no data exists
     if (existingProducts && existingProducts.length === 0) {
@@ -158,10 +146,10 @@ export const migrateDataToSupabase = async () => {
       toast.success('Sample packages migrated to database');
     }
 
-    if (existingProjects && existingProjects.length === 0) {
-      const { error: projectsError } = await supabase.from('projects').insert(projects);
-      if (projectsError) throw projectsError;
-      toast.success('Sample projects migrated to database');
+    if (existingGallery && existingGallery.length === 0) {
+      const { error: galleryError } = await supabase.from('gallery').insert(galleryItems);
+      if (galleryError) throw galleryError;
+      toast.success('Sample gallery items migrated to database');
     }
 
     return true;
