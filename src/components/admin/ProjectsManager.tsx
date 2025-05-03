@@ -9,7 +9,7 @@ import { supabase } from "@/integrations/supabase/client";
 
 // Update the interface to match what's actually available in the gallery table
 interface Project {
-  id: string;
+  id: string | number; // Allow both string and number types for ID
   title: string;
   images?: string[];
   image_url?: string | null;
@@ -29,7 +29,7 @@ export function ProjectsManager() {
   const fetchProjects = async () => {
     try {
       setLoading(true);
-      // Use the 'gallery' table instead of 'projects'
+      // Use the 'gallery' table
       const { data, error } = await supabase
         .from('gallery')
         .select('*')
@@ -40,7 +40,7 @@ export function ProjectsManager() {
       // Transform gallery data into our Project interface format
       const transformedData = data?.map(item => {
         const projectData: Project = {
-          id: String(item.id),
+          id: item.id, // Use the numeric ID directly
           title: `Gallery Item ${String(item.id)}`, // Generate a title since gallery items don't have one
           image_url: item.image_url,
           images: item.image_url ? [item.image_url] : [],
@@ -75,7 +75,7 @@ export function ProjectsManager() {
     setCurrentImages(project.images || []);
   };
 
-  const handleDeleteProject = async (id: string) => {
+  const handleDeleteProject = async (id: string | number) => {
     if (!confirm('Are you sure you want to delete this gallery item?')) return;
     
     try {
@@ -83,7 +83,7 @@ export function ProjectsManager() {
       const { error } = await supabase
         .from('gallery')
         .delete()
-        .eq('id', id);
+        .eq('id', id); // This now accepts both string or number
 
       if (error) throw error;
       
@@ -126,19 +126,15 @@ export function ProjectsManager() {
         return;
       }
       
-      // Always add images to gallery for public display
-      await addImagesToGallery(currentImages);
-      
       if (editingProject) {
-        // Since we're now using gallery items, we need to update them differently
         // For each image in the editing project, update its image_url
         const updatePromises = currentImages.map((imageUrl, index) => {
-          if (index === 0 && editingProject.id) {
+          if (index === 0 && editingProject.id !== undefined) {
             // Update the first image in the existing gallery item
             return supabase
               .from('gallery')
               .update({ image_url: imageUrl })
-              .eq('id', editingProject.id);
+              .eq('id', editingProject.id); // This now accepts both string or number
           } else {
             // Insert additional images as new gallery items
             return supabase
@@ -209,7 +205,7 @@ export function ProjectsManager() {
                 const displayImage = project.image_url || "/placeholder.svg";
                 
                 return (
-                  <div key={project.id} className="relative group">
+                  <div key={String(project.id)} className="relative group">
                     <div className="aspect-square rounded-md overflow-hidden bg-gray-100">
                       <img 
                         src={displayImage} 
