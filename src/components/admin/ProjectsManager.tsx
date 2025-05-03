@@ -107,24 +107,21 @@ export function ProjectsManager() {
       }
       
       if (editingItem) {
-        // For each image in the editing project, update its image_url
-        const updatePromises = currentImages.map((imageUrl, index) => {
-          if (index === 0 && editingItem.id !== undefined) {
-            // Update the first image in the existing gallery item
-            return supabase
-              .from('gallery')
-              .update({ image_url: imageUrl })
-              .eq('id', editingItem.id);
-          } else {
-            // Insert additional images as new gallery items
-            return supabase
-              .from('gallery')
-              .insert({ image_url: imageUrl });
-          }
-        });
+        // Update the existing gallery item
+        const { error } = await supabase
+          .from('gallery')
+          .update({ image_url: currentImages[0] })
+          .eq('id', editingItem.id);
+
+        if (error) throw error;
+
+        // If there are additional images, add them as new items
+        if (currentImages.length > 1) {
+          const additionalImages = currentImages.slice(1);
+          await addImagesToGallery(additionalImages);
+        }
         
-        await Promise.all(updatePromises);
-        toast.success('Gallery images updated successfully');
+        toast.success('Gallery image updated successfully');
       } else {
         // Add new images to gallery
         await addImagesToGallery(currentImages);

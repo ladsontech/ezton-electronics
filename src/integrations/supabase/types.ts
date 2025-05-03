@@ -18,13 +18,13 @@ export type Database = {
         }
         Insert: {
           created_at?: string | null
-          id?: never
+          id?: number
           image_url: string
           updated_at?: string | null
         }
         Update: {
           created_at?: string | null
-          id?: never
+          id?: number
           image_url?: string
           updated_at?: string | null
         }
