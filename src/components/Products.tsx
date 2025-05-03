@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
@@ -95,13 +94,31 @@ const Products = () => {
         </div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {products.map((product, index) => <Link key={product.id} to={`/products/${product.id}`} className={cn("group bg-white border border-gray-100 rounded-xl shadow-sm", "opacity-0 animate-fade-in transition-all hover:shadow-md", "hover:border-primary/30 transform hover:-translate-y-1", "overflow-hidden")} style={{
-          animationDelay: `${0.1 + index * 0.1}s`,
-          animationFillMode: "forwards"
-        }} onMouseEnter={() => setHoveredId(product.id)} onMouseLeave={() => setHoveredId(null)}>
+          {products.map((product, index) => (
+            <Link 
+              key={product.id} 
+              to={`/products/${product.id}`} 
+              className={cn(
+                "group bg-white border border-gray-100 rounded-xl shadow-sm", 
+                "opacity-0 animate-fade-in transition-all hover:shadow-md", 
+                "hover:border-primary/30 transform hover:-translate-y-1", 
+                "overflow-hidden"
+              )} 
+              style={{
+                animationDelay: `${0.1 + index * 0.1}s`,
+                animationFillMode: "forwards"
+              }}
+              onMouseEnter={() => setHoveredId(product.id)} 
+              onMouseLeave={() => setHoveredId(null)}
+            >
               <div className="relative">
                 <AspectRatio ratio={1 / 1} className="bg-muted">
-                  <img src={product.images?.[0] || "/placeholder.svg"} alt={product.title} className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" loading="lazy" />
+                  <img 
+                    src={product.images?.[0] || "/placeholder.svg"} 
+                    alt={product.title} 
+                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" 
+                    loading="lazy" 
+                  />
                 </AspectRatio>
               </div>
               <div className="p-4">
@@ -114,16 +131,22 @@ const Products = () => {
                   </p>
                 )}
                 <div className="text-[11px] text-gray-600 space-y-1">
-                  {product.features?.length > 0 && <div className="text-xs font-semibold text-primary pb-1 border-b border-gray-100">
+                  {product.features?.length > 0 && (
+                    <div className="text-xs font-semibold text-primary pb-1 border-b border-gray-100">
                       {product.features[0]}
-                    </div>}
-                  {product.features?.slice(1, 7).map((feature, i) => <div key={i} className="flex items-start gap-1">
+                    </div>
+                  )}
+                  {product.features?.slice(1, 7).map((feature, i) => (
+                    <div key={i} className="flex items-start gap-1">
                       <span className="mt-1.5 w-1 h-1 bg-primary/80 rounded-full flex-shrink-0"></span>
                       <span className="leading-relaxed">{feature}</span>
-                    </div>)}
-                  {(product.features?.length || 0) > 7 && <div className="text-xs text-muted-foreground pl-2 pt-1">
+                    </div>
+                  ))}
+                  {(product.features?.length || 0) > 7 && (
+                    <div className="text-xs text-muted-foreground pl-2 pt-1">
                       +{(product.features?.length || 0) - 7} more features
-                    </div>}
+                    </div>
+                  )}
                 </div>
                 <div className="flex items-center justify-between mt-4">
                   <span className="text-sm font-bold text-primary">
@@ -134,7 +157,8 @@ const Products = () => {
                   </span>
                 </div>
               </div>
-            </Link>)}
+            </Link>
+          ))}
         </div>
 
         <div className="mt-12 text-center">

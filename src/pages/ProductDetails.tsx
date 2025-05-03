@@ -164,9 +164,16 @@ const ProductDetails = () => {
                     <h1 className="text-2xl md:text-3xl font-bold mb-3 text-gray-800">{product.title}</h1>
                     <div className="mb-4">
                       <span className="text-xl font-bold text-primary">
-                        {product.price ? `UGX ${product.price}` : 'Contact for Price'}
+                        {product.price ? `UGX ${product.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}` : 'Contact for Price'}
                       </span>
                     </div>
+                    
+                    {product.description && (
+                      <div className="bg-white p-6 rounded-xl shadow-sm mb-6">
+                        <h2 className="text-lg font-semibold mb-2 text-primary">Description</h2>
+                        <p className="text-gray-700">{product.description}</p>
+                      </div>
+                    )}
                     
                     <div className="bg-white p-6 rounded-xl shadow-sm mb-6">
                       <h2 className="text-lg font-semibold mb-4 text-primary">Product Specifications</h2>
