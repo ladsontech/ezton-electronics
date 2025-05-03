@@ -16,6 +16,11 @@ interface Package {
   description?: string;
 }
 
+// Helper function to format price with commas
+const formatPrice = (price: number) => {
+  return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+};
+
 const Packages = () => {
   const [packages, setPackages] = useState<Package[]>([]);
   const [loading, setLoading] = useState(true);
@@ -134,12 +139,12 @@ const Packages = () => {
                   <h3 className="text-xl font-semibold mb-1">{pkg.title}</h3>
                   <div className="flex items-end gap-1 mb-4">
                     <span className="text-3xl font-bold">
-                      {pkg.price ? `UGX ${pkg.price}` : 'Contact for Price'}
+                      {pkg.price ? `UGX ${formatPrice(pkg.price)}` : 'Contact for Price'}
                     </span>
                   </div>
                   
                   {pkg.description && (
-                    <p className="text-sm text-gray-600 mb-4 line-clamp-2">{pkg.description}</p>
+                    <p className="text-sm text-gray-600 mb-4">{pkg.description}</p>
                   )}
                   
                   <ul className="space-y-2 mb-8">

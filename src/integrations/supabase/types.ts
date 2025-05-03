@@ -9,6 +9,27 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      gallery: {
+        Row: {
+          created_at: string | null
+          id: number
+          image_url: string
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          id?: never
+          image_url: string
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          id?: never
+          image_url?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
       packages: {
         Row: {
           created_at: string | null
@@ -109,48 +130,6 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
-      }
-      projects: {
-        Row: {
-          budget: number | null
-          created_at: string | null
-          description: string | null
-          end_date: string | null
-          id: number
-          image_url: string | null
-          images: string[] | null
-          start_date: string | null
-          status: string | null
-          title: string
-          updated_at: string | null
-        }
-        Insert: {
-          budget?: number | null
-          created_at?: string | null
-          description?: string | null
-          end_date?: string | null
-          id?: never
-          image_url?: string | null
-          images?: string[] | null
-          start_date?: string | null
-          status?: string | null
-          title: string
-          updated_at?: string | null
-        }
-        Update: {
-          budget?: number | null
-          created_at?: string | null
-          description?: string | null
-          end_date?: string | null
-          id?: never
-          image_url?: string | null
-          images?: string[] | null
-          start_date?: string | null
-          status?: string | null
-          title?: string
-          updated_at?: string | null
-        }
-        Relationships: []
       }
     }
     Views: {

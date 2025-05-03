@@ -5,6 +5,7 @@ import { ExternalLink, ShoppingBag } from "lucide-react";
 import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Skeleton } from "@/components/ui/skeleton";
+
 interface Product {
   id: string;
   title: string;
@@ -14,10 +15,17 @@ interface Product {
   images: string[];
   category_id?: string;
 }
+
 const whatsappNumber = "+256778648157";
 const whatsappMessage = "Hello, I'm interested in your products and would like more information.";
 const whatsappLink = `https://wa.me/${whatsappNumber.replace('+', '')}?text=${encodeURIComponent(whatsappMessage)}`;
 const whatsappCatalogLink = `https://wa.me/c/256778648157`;
+
+// Helper function to format price with commas
+const formatPrice = (price: number) => {
+  return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+};
+
 const Products = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
@@ -95,6 +103,11 @@ const Products = () => {
                 <h3 className="text-base font-bold mb-2 text-gray-800">
                   {product.title}
                 </h3>
+                {product.description && (
+                  <p className="text-xs text-gray-600 line-clamp-2 mb-2">
+                    {product.description}
+                  </p>
+                )}
                 <div className="text-[11px] text-gray-600 space-y-1">
                   {product.features?.length > 0 && <div className="text-xs font-semibold text-primary pb-1 border-b border-gray-100">
                       {product.features[0]}
@@ -109,7 +122,7 @@ const Products = () => {
                 </div>
                 <div className="flex items-center justify-between mt-4">
                   <span className="text-sm font-bold text-primary">
-                    {product.price ? `UGX ${product.price}` : 'Contact for Price'}
+                    {product.price ? `UGX ${formatPrice(product.price)}` : 'Contact for Price'}
                   </span>
                   <span className="inline-flex items-center justify-center rounded-lg bg-gradient-to-r from-primary to-blue-600 px-3 py-1.5 text-xs font-medium text-white hover:from-primary/90 hover:to-blue-600/90 transition-all shadow-sm">
                     View Details
@@ -130,4 +143,5 @@ const Products = () => {
       </div>
     </section>;
 };
+
 export default Products;

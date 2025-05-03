@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 
@@ -27,7 +28,7 @@ const ProjectGallery = () => {
       // Cast id to string so TS stays happy
       const items = data.map((row) => ({
         id: String(row.id),
-        image_url: row.image_url!,
+        image_url: row.image_url,
       }));
       setImages(items);
     }
@@ -36,7 +37,7 @@ const ProjectGallery = () => {
   };
 
   if (loading) {
-    return <div>Loading…</div>;
+    return <div className="py-12 text-center">Loading gallery images...</div>;
   }
 
   return (
@@ -48,7 +49,7 @@ const ProjectGallery = () => {
               <img
                 src={img.image_url}
                 alt={`Gallery ${img.id}`}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover aspect-square"
               />
             </div>
           ))}

@@ -91,6 +91,28 @@ export function ProjectsManager() {
     }
   };
 
+  // Add images to both projects table and gallery table
+  const addImagesToGallery = async (imageUrls: string[]) => {
+    try {
+      // Prepare gallery items
+      const galleryItems = imageUrls.map(url => ({
+        image_url: url
+      }));
+      
+      // Add to gallery table
+      const { error } = await supabase
+        .from('gallery')
+        .insert(galleryItems);
+        
+      if (error) throw error;
+      
+      return true;
+    } catch (error) {
+      console.error('Error adding images to gallery:', error);
+      return false;
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
@@ -99,6 +121,9 @@ export function ProjectsManager() {
         toast.error('Please add at least one image');
         return;
       }
+      
+      // Always add images to gallery for public display
+      await addImagesToGallery(currentImages);
       
       if (editingProject) {
         // Update existing project
