@@ -85,22 +85,7 @@ const ContactSection = () => {
         <div className="grid lg:grid-cols-2 gap-8 items-start">
           <div>
             <Card className="bg-white shadow-sm mb-6">
-              <CardContent className="pt-6">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                  {contactInfo.map((item, index) => <div key={item.title} className={cn("group", "opacity-0 animate-fade-in")} style={{
-                  animationDelay: `${0.1 + index * 0.1}s`,
-                  animationFillMode: "forwards"
-                }}>
-                      <div className="p-2 sm:p-3 rounded-full bg-primary/10 w-fit mb-3 sm:mb-4 group-hover:bg-primary/20 transition-colors">
-                        <item.icon className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
-                      </div>
-                      <h3 className="text-base sm:text-lg font-semibold mb-2">{item.title}</h3>
-                      <div className="space-y-1">
-                        {item.details.map(detail => <p key={detail} className="text-sm text-muted-foreground sm:text-xs px-[6px]">{detail}</p>)}
-                      </div>
-                    </div>)}
-                </div>
-              </CardContent>
+              
             </Card>
             
             <div className="bg-secondary/20 p-5 rounded-lg border border-border/40 shadow-sm opacity-0 animate-fade-in" style={{
