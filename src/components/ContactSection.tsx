@@ -96,7 +96,7 @@ const ContactSection = () => {
                       </div>
                       <h3 className="text-base sm:text-lg font-semibold mb-2">{item.title}</h3>
                       <div className="space-y-1">
-                        {item.details.map(detail => <p key={detail} className="text-sm text-muted-foreground sm:text-xs">{detail}</p>)}
+                        {item.details.map(detail => <p key={detail} className="text-sm text-muted-foreground sm:text-xs px-[6px]">{detail}</p>)}
                       </div>
                     </div>)}
                 </div>
