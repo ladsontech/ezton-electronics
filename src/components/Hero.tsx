@@ -121,7 +121,7 @@ const Hero = () => {
             {/* Main headline */}
             <h1
               className={cn(
-                "text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold font-heading leading-tight mb-4 md:mb-8 opacity-0 animate-fade-in"
+                "text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-playfair font-black leading-tight mb-4 md:mb-8 opacity-0 animate-fade-in tracking-tight"
               )}
               style={{
                 animationDelay: "0.33s",
@@ -129,21 +129,23 @@ const Hero = () => {
                 letterSpacing: "-0.01em",
               }}
             >
-              <span className="text-blue-700 drop-shadow-md">
+              <span className="text-zinc-900 drop-shadow-[0_5px_18px_rgba(0,0,0,0.08)]">
                 Safeguard Tomorrow, Today.
               </span>
             </h1>
             {/* Supporting paragraph */}
             <p
-              className="text-lg sm:text-xl md:text-2xl text-blue-800 font-semibold mb-9 max-w-2xl mx-auto opacity-0 animate-fade-in"
+              className="text-lg sm:text-xl md:text-2xl text-zinc-800 font-normal mb-9 max-w-2xl mx-auto opacity-0 animate-fade-in"
               style={{
                 animationDelay: "0.43s",
                 animationFillMode: "forwards",
                 textShadow:
-                  "0 2px 12px #fff, 0 1px 18px #fff8, 0 0px 2px #2225",
+                  "0 2px 12px #fff, 0 1px 18px #fff8, 0 0px 2px #2222",
               }}
             >
-              Professional CCTV installations, smart solar integration, <span className="text-blue-600 font-semibold">live tech</span>—your modern security partner.
+              Professional CCTV installations, smart solar integration,{" "}
+              <span className="text-blue-700 font-bold">live tech</span>
+              —your modern security partner.
             </p>
 
             {/* Animated Tech Card Carousel */}
