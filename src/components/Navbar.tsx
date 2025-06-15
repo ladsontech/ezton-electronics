@@ -62,6 +62,7 @@ const Navbar = () => {
             <nav className="flex space-x-6 lg:space-x-8 h-full items-center">
               <Link to="/" className="nav-link text-gray-800 hover:text-primary py-2">Home</Link>
               <Link to="/solutions" className="nav-link text-gray-800 hover:text-primary py-2">Products</Link>
+              <Link to="/packages" className="nav-link text-gray-800 hover:text-primary py-2">Packages</Link>
               <Link to="/projects" className="nav-link text-gray-800 hover:text-primary py-2">Projects</Link>
               <Link to="/contact" className="nav-link text-gray-800 hover:text-primary py-2">Contact</Link>
             </nav>
