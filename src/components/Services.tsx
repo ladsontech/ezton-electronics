@@ -1,4 +1,3 @@
-
 import { Sun, Lock, Network, Shield, Settings, Cctv } from "lucide-react";
 import { cn } from "@/lib/utils";
 import * as React from "react";
@@ -85,14 +84,13 @@ const ServiceCard = ({
     {/* Icon with animated gradient/glow */}
     <div
       className={cn(
-        "relative mx-auto -mt-8 mb-5 size-16 flex items-center justify-center rounded-full shadow-xl z-10",
+        "relative mx-auto mb-5 mt-8 size-16 flex items-center justify-center rounded-full shadow-xl z-10",
         "bg-gradient-to-tr",
         color
       )}
       style={{
         boxShadow:
           "0 0 0 3px #fff, 0 6px 24px 0px rgba(60,180,250,0.22)",
-        transform: "translateY(10px)",
         animation: `card-pop 0.7s cubic-bezier(.32,1.92,.22,.91) forwards`,
         animationDelay: `${0.12 + index * 0.11}s`,
       }}
@@ -100,9 +98,8 @@ const ServiceCard = ({
       <Icon className="size-8 text-white drop-shadow-lg filter-[brightness(1.15)] group-hover:scale-110 transition-transform duration-300" />
     </div>
     {/* Card content */}
-    <div className="p-6 flex flex-col flex-1 items-center text-center z-10 relative min-h-[120px]">
+    <div className="px-6 pb-6 flex flex-col flex-1 items-center text-center z-10 relative min-h-[120px]">
       <h3 className="text-lg md:text-xl font-bold text-primary drop-shadow mb-1">{title}</h3>
-      {/* Improved text handling for wrapping and vertical fitting */}
       <p className="text-sm text-muted-foreground max-w-[98%] break-words leading-relaxed" style={{ wordBreak: 'break-word' }}>
         {description}
       </p>
