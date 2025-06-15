@@ -1,4 +1,3 @@
-
 import { useEffect, useState, useRef } from 'react';
 import { useParams, Link, Navigate } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
@@ -12,7 +11,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { Button } from '@/components/ui/button';
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
-import { generatePdf } from 'react-to-pdf';
+import { usePDF } from 'react-to-pdf';
 
 interface Product {
   id: string;
@@ -31,7 +30,13 @@ const ProductDetails = () => {
   const [product, setProduct] = useState<Product | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const isMobile = useIsMobile();
-  const pdfRef = useRef<HTMLDivElement>(null);
+  
+  const { toPDF, targetRef } = usePDF({
+    filename: product ? `${product.title.replace(/\s+/g, '_')}_details.pdf` : 'product_details.pdf',
+    page: {
+      margin: 15
+    }
+  });
 
   useEffect(() => {
     if (productId) {
@@ -104,14 +109,7 @@ const ProductDetails = () => {
   const handleGeneratePDF = () => {
     if (!product) return;
 
-    const options = {
-      filename: `${product.title.replace(/\s+/g, '_')}_details.pdf`,
-      page: {
-        margin: 15
-      }
-    };
-
-    generatePdf(pdfRef, options)
+    toPDF()
       .then(() => toast.success('PDF generated successfully!'))
       .catch((err) => {
         console.error('Error generating PDF:', err);
@@ -160,7 +158,7 @@ const ProductDetails = () => {
             </div>
           </div>
 
-          <div ref={pdfRef} className="pdf-content">
+          <div ref={targetRef} className="pdf-content">
             {isLoading ? (
               <>
                 <div className="space-y-4">
