@@ -134,11 +134,12 @@ const Hero = () => {
               </span>
             </h1>
             <p
-              className="text-lg sm:text-xl md:text-2xl text-gray-700 mb-9 max-w-2xl mx-auto opacity-0 animate-fade-in"
+              className="text-lg sm:text-xl md:text-2xl text-gray-900 font-semibold mb-9 max-w-2xl mx-auto opacity-0 animate-fade-in"
               style={{
                 animationDelay: "0.43s",
                 animationFillMode: "forwards",
-                textShadow: "0 2px 18px #fff8",
+                textShadow:
+                  "0 2px 12px #fff, 0 1px 18px #fff8, 0 0px 2px #2225",
               }}
             >
               Professional CCTV installations, smart solar integration, <span className="text-primary font-semibold">live tech</span>—your modern security partner.
