@@ -72,7 +72,7 @@ const ProjectGallery = () => {
   return (
     <section className="py-12 md:py-20 bg-secondary/50">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {images.map((img, index) => (
             <div 
               key={img.id} 
