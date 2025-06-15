@@ -1,83 +1,10 @@
+
 import { ArrowDownCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
 import TechHeroCarousel from "./TechHeroCarousel";
 
 // Hero background image URL (now uses local hero1.jpeg)
 const HERO_IMAGE_URL = "/images/hero1.jpeg";
-
-// Animated SVG circuit network
-function CircuitSVG() {
-  return (
-    <svg
-      className="absolute inset-0 w-full h-full pointer-events-none"
-      style={{ zIndex: 1 }}
-      width="100%"
-      height="100%"
-      viewBox="0 0 1400 600"
-      fill="none"
-    >
-      {/* Glow circles */}
-      <circle
-        cx="350"
-        cy="180"
-        r="10"
-        fill="#38bdf8"
-        className="animate-pulse"
-        opacity="0.6"
-      />
-      <circle
-        cx="1200"
-        cy="400"
-        r="8"
-        fill="#f472b6"
-        className="animate-pulse"
-        opacity="0.4"
-      />
-      {/* Moving glowing dot */}
-      <circle
-        cx="900"
-        cy="300"
-        r="6"
-        fill="#6366f1"
-        className="animate-[ping_2.8s_ease-in-out_infinite]"
-        opacity="0.5"
-      />
-      {/* Circuit lines */}
-      <polyline
-        points="350,180 650,220 650,350 900,300"
-        stroke="#38bdf8"
-        strokeWidth="2"
-        strokeLinecap="round"
-        className="animate-[circuitLineDash_3s_linear_infinite]"
-        style={{
-          strokeDasharray: 12,
-          strokeDashoffset: 0,
-        }}
-        opacity="0.5"
-      />
-      <polyline
-        points="350,180 500,95 1200,400"
-        stroke="#f472b6"
-        strokeWidth="2"
-        strokeLinecap="round"
-        className="animate-[circuitLineDash_3.5s_linear_infinite]"
-        style={{
-          strokeDasharray: 10,
-          strokeDashoffset: 0,
-        }}
-        opacity="0.38"
-      />
-      <style>
-        {`
-@keyframes circuitLineDash {
-  0% { stroke-dashoffset: 36; }
-  100% { stroke-dashoffset: 0; }
-}
-`}
-      </style>
-    </svg>
-  );
-}
 
 const Hero = () => {
   return (
@@ -93,10 +20,7 @@ const Hero = () => {
         {/* dark overlay to help text pop */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-white/0 to-white/70" />
       </div>
-      {/* Techy animated SVG (network/circuit) */}
-      <div className="absolute inset-0 -z-10">
-        <CircuitSVG />
-      </div>
+      {/* Removed Techy animated SVG (network/circuit) */}
       {/* Animated colored blobs (glows) */}
       <div className="absolute top-[14%] left-1/4 w-48 h-36 bg-sky-400/25 blur-3xl rounded-full -z-0 animate-pulse" />
       <div className="absolute right-10 bottom-24 w-60 h-44 bg-fuchsia-400/25 blur-2xl rounded-full -z-0 animate-pulse" />
@@ -217,3 +141,4 @@ const Hero = () => {
 };
 
 export default Hero;
+
