@@ -45,7 +45,10 @@ const Navbar = () => {
                 </h2>
                 <div className="flex items-center justify-center space-x-1 mt-0">
                   <div className="h-px w-3 bg-black"></div>
-                  <span className="text-xs text-red-600 italic leading-none">
+                  <span
+                    className="text-xs text-red-600 italic leading-none px-1 rounded-[6px] bg-white/80 backdrop-blur-[2px] drop-shadow-[0_0_7px_white] border border-white/70"
+                    style={{ boxShadow: '0 0 8px 2px white' }}
+                  >
                     Quality with standards
                   </span>
                   <div className="h-px w-3 bg-black"></div>
@@ -69,3 +72,4 @@ const Navbar = () => {
   );
 };
 export default Navbar;
+
