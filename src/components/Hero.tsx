@@ -106,6 +106,7 @@ const Hero = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20">
         <div className="max-w-4xl mx-auto">
           <div className="text-center">
+            {/* Tagline badge */}
             <div
               className="inline-block animate-fade-in opacity-0"
               style={{
@@ -113,10 +114,11 @@ const Hero = () => {
                 animationFillMode: "forwards",
               }}
             >
-              <span className="inline-flex items-center py-1 px-3 text-sm font-medium text-sky-700 bg-sky-100/95 rounded-full mb-6 shadow-md border border-sky-200/60 tracking-wide">
+              <span className="inline-flex items-center py-1 px-3 text-sm font-medium text-blue-600 bg-blue-100/95 rounded-full mb-6 shadow-md border border-blue-200/60 tracking-wide">
                 Tech-driven Security Excellence
               </span>
             </div>
+            {/* Main headline */}
             <h1
               className={cn(
                 "text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold font-heading leading-tight mb-4 md:mb-8 opacity-0 animate-fade-in"
@@ -127,12 +129,13 @@ const Hero = () => {
                 letterSpacing: "-0.01em",
               }}
             >
-              <span className="text-gradient bg-gradient-to-r from-sky-600 via-fuchsia-600 to-blue-700 bg-clip-text text-transparent drop-shadow-md">
+              <span className="text-blue-700 drop-shadow-md">
                 Safeguard Tomorrow, Today.
               </span>
             </h1>
+            {/* Supporting paragraph */}
             <p
-              className="text-lg sm:text-xl md:text-2xl text-gray-900 font-semibold mb-9 max-w-2xl mx-auto opacity-0 animate-fade-in"
+              className="text-lg sm:text-xl md:text-2xl text-blue-800 font-semibold mb-9 max-w-2xl mx-auto opacity-0 animate-fade-in"
               style={{
                 animationDelay: "0.43s",
                 animationFillMode: "forwards",
@@ -140,7 +143,7 @@ const Hero = () => {
                   "0 2px 12px #fff, 0 1px 18px #fff8, 0 0px 2px #2225",
               }}
             >
-              Professional CCTV installations, smart solar integration, <span className="text-primary font-semibold">live tech</span>—your modern security partner.
+              Professional CCTV installations, smart solar integration, <span className="text-blue-600 font-semibold">live tech</span>—your modern security partner.
             </p>
 
             {/* Animated Tech Card Carousel */}
@@ -196,7 +199,7 @@ const Hero = () => {
         >
           <a
             href="#why-choose-us"
-            className="flex items-center justify-center text-sm text-sky-700 hover:text-primary transition-colors pointer-events-auto"
+            className="flex items-center justify-center text-sm text-blue-700 hover:text-blue-800 transition-colors pointer-events-auto"
             aria-label="Scroll down"
           >
             <ArrowDownCircle className="h-8 w-8 animate-bounce" />
