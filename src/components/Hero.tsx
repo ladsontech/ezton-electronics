@@ -149,9 +149,7 @@ const Hero = () => {
                   "0 2px 12px #fff, 0 1px 18px #fff8, 0 0px 2px #2222",
               }}
             >
-              Professional CCTV installations, smart solar integration,{" "}
-              <span className="text-red-700 font-bold">live tech</span>
-              —your modern security partner.
+              Quality with standards
             </p>
 
             {/* Animated Tech Card Carousel */}
