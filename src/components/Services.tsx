@@ -1,13 +1,14 @@
 
-import { Camera, Sun, Lock, Network, Shield, Settings } from "lucide-react";
+import { Sun, Lock, Network, Shield, Settings, Cctv } from "lucide-react";
 import { cn } from "@/lib/utils";
 import * as React from "react";
 
+// Use Cctv icon for Surveillance Systems
 const services = [
   {
     title: "Surveillance Systems",
     description: "Advanced CCTV and PTZ camera installations for comprehensive security coverage.",
-    icon: Camera,
+    icon: Cctv,
     color: "from-blue-400 via-sky-400 to-blue-700"
   },
   {
@@ -99,9 +100,12 @@ const ServiceCard = ({
       <Icon className="size-8 text-white drop-shadow-lg filter-[brightness(1.15)] group-hover:scale-110 transition-transform duration-300" />
     </div>
     {/* Card content */}
-    <div className="p-6 flex flex-col flex-1 items-center text-center z-10 relative">
+    <div className="p-6 flex flex-col flex-1 items-center text-center z-10 relative min-h-[120px]">
       <h3 className="text-lg md:text-xl font-bold text-primary drop-shadow mb-1">{title}</h3>
-      <p className="text-sm text-muted-foreground">{description}</p>
+      {/* Improved text handling for wrapping and vertical fitting */}
+      <p className="text-sm text-muted-foreground max-w-[98%] break-words leading-relaxed" style={{ wordBreak: 'break-word' }}>
+        {description}
+      </p>
     </div>
     {/* Shine animation */}
     <span className="absolute inset-0 z-30 pointer-events-none rounded-2xl overflow-hidden">
@@ -140,7 +144,6 @@ const Services = () => {
             Comprehensive security and electrical solutions tailored to your needs.
           </p>
         </div>
-
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {services.map((service, index) => (
             <ServiceCard
