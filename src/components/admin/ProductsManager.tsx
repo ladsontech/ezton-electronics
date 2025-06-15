@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -41,6 +41,8 @@ export function ProductsManager() {
     category_id: ''
   });
   const [featuresText, setFeaturesText] = useState('');
+  const tabsRef = useRef<HTMLDivElement>(null);
+  const [activeTab, setActiveTab] = useState<'add' | 'list'>('add');
 
   useEffect(() => {
     fetchProducts();
@@ -50,6 +52,15 @@ export function ProductsManager() {
   useEffect(() => {
     setFeaturesText(currentProduct.features?.join(', ') || '');
   }, [currentProduct.features, editMode]);
+
+  useEffect(() => {
+    if (editMode) {
+      setActiveTab('add');
+      setTimeout(() => {
+        tabsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 100);
+    }
+  }, [editMode]);
 
   const fetchProducts = async () => {
     try {
@@ -118,6 +129,7 @@ export function ProductsManager() {
       features: product.features || []
     });
     setEditMode(true);
+    setActiveTab('add');
     setFeaturesText((product.features || []).join(', '));
   };
 
@@ -206,8 +218,8 @@ export function ProductsManager() {
   };
 
   return (
-    <div className="space-y-6">
-      <Tabs defaultValue="add">
+    <div className="space-y-6" ref={tabsRef}>
+      <Tabs value={activeTab} onValueChange={(value) => setActiveTab(value as 'add' | 'list')}>
         <TabsList className="w-full justify-start">
           <TabsTrigger value="add">{editMode ? 'Edit Product' : 'Add Product'}</TabsTrigger>
           <TabsTrigger value="list">Product List</TabsTrigger>
@@ -321,7 +333,7 @@ export function ProductsManager() {
             <div className="py-8 text-center">
               <p className="text-lg text-gray-500">No products found</p>
               <Button 
-                onClick={() => document.querySelector('[value="add"]')?.dispatchEvent(new Event('click'))} 
+                onClick={() => setActiveTab('add')}
                 variant="outline" 
                 className="mt-4"
               >

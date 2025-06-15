@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -33,6 +33,8 @@ export function PackagesManager() {
     images: []
   });
   const [featuresText, setFeaturesText] = useState('');
+  const tabsRef = useRef<HTMLDivElement>(null);
+  const [activeTab, setActiveTab] = useState<'add' | 'list'>('add');
 
   useEffect(() => {
     fetchPackages();
@@ -41,6 +43,15 @@ export function PackagesManager() {
   useEffect(() => {
     setFeaturesText(currentPackage.features?.join(', ') || '');
   }, [currentPackage.features, editMode]);
+
+  useEffect(() => {
+    if (editMode) {
+      setActiveTab('add');
+      setTimeout(() => {
+        tabsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 100);
+    }
+  }, [editMode]);
 
   const fetchPackages = async () => {
     try {
@@ -93,6 +104,7 @@ export function PackagesManager() {
       features: pkg.features || []
     });
     setEditMode(true);
+    setActiveTab('add');
     setFeaturesText((pkg.features || []).join(', '));
   };
 
@@ -179,8 +191,8 @@ export function PackagesManager() {
   };
 
   return (
-    <div className="space-y-6">
-      <Tabs defaultValue="add">
+    <div className="space-y-6" ref={tabsRef}>
+      <Tabs value={activeTab} onValueChange={(value) => setActiveTab(value as 'add' | 'list')}>
         <TabsList>
           <TabsTrigger value="add">{editMode ? 'Edit Package' : 'Add Package'}</TabsTrigger>
           <TabsTrigger value="list">Package List</TabsTrigger>
