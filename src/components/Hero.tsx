@@ -141,7 +141,7 @@ const Hero = () => {
             </h1>
             {/* Supporting paragraph */}
             <p
-              className="text-lg sm:text-xl md:text-2xl text-zinc-800 font-normal mb-9 max-w-2xl mx-auto opacity-0 animate-fade-in"
+              className="text-lg sm:text-xl md:text-2xl text-red-600 font-normal mb-9 max-w-2xl mx-auto opacity-0 animate-fade-in"
               style={{
                 animationDelay: "0.43s",
                 animationFillMode: "forwards",
@@ -150,7 +150,7 @@ const Hero = () => {
               }}
             >
               Professional CCTV installations, smart solar integration,{" "}
-              <span className="text-blue-700 font-bold">live tech</span>
+              <span className="text-red-700 font-bold">live tech</span>
               —your modern security partner.
             </p>
 
