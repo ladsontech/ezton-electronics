@@ -1,11 +1,9 @@
-
 import { ArrowDownCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
 import TechHeroCarousel from "./TechHeroCarousel";
 
-// Hero background image URL (Unsplash, techy circuit board)
-const HERO_IMAGE_URL =
-  "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80";
+// Hero background image URL (now uses local hero1.jpeg)
+const HERO_IMAGE_URL = "/images/hero1.jpeg";
 
 // Animated SVG circuit network
 function CircuitSVG() {
