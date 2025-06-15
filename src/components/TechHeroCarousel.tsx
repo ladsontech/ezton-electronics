@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/carousel";
 import { Laptop2, Camera, Sun, Shield, Network } from "lucide-react";
 import { cn } from "@/lib/utils";
+import type { CarouselApi } from "@/components/ui/carousel";
 
 // Animated "shine" for the cards
 function Shine() {
@@ -79,7 +80,7 @@ const slides = [
 ];
 
 const TechHeroCarousel = () => {
-  const [api, setApi] = React.useState<ReturnType<typeof Carousel>["props"]["setApi"] extends (api: infer T) => void ? T : any>(null);
+  const [api, setApi] = React.useState<CarouselApi | null>(null);
 
   // Set up auto-slide using Embla API
   React.useEffect(() => {
