@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
@@ -30,8 +29,10 @@ const Navbar = () => {
           {/* Center logo+text */}
           <div
             className={cn(
-              "flex flex-col items-center flex-shrink min-w-0 mx-auto",
-              isMobile ? "" : ""
+              // Centered on mobile, left-aligned md+
+              "flex flex-col min-w-0",
+              "items-center mx-auto",
+              "md:items-start md:ml-0 md:mr-auto"
             )}
             style={{ minWidth: 0, zIndex: 10 }}
           >
@@ -73,4 +74,3 @@ const Navbar = () => {
   );
 };
 export default Navbar;
-
