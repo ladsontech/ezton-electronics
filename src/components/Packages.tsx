@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import { Check, Eye } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -95,7 +94,7 @@ const Packages = () => {
               key={pkg.id}
               className="rounded-xl border bg-white transition-all duration-200 flex flex-col"
             >
-              <div className="aspect-[4/3] overflow-hidden rounded-t-xl bg-muted">
+              <div className="aspect-square overflow-hidden rounded-t-xl bg-muted">
                 <img
                   src={pkg.images?.[0] || "/placeholder.svg"}
                   alt={pkg.title}
