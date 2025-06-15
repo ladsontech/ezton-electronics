@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
@@ -17,17 +18,17 @@ const Navbar = () => {
         <div className="flex justify-between items-center py-2 h-16">
           {/* Logo and Text - Centered on mobile, left-aligned on desktop */}
           <Link to="/" className={cn("flex items-center", isMobile ? "mx-auto" : "")}>
-            <div className="flex flex-col items-center py-0 my-0">
-              <div className="w-8 h-8 mb-0.5">
+            <div className="flex flex-col items-center mt-2 space-y-0.5">
+              <div className="w-8 h-8">
                 <img src="/images/ezton_logo.png" alt="Ezton Logo" className="w-full h-full object-contain" />
               </div>
-              <div className="text-center">
-                <h2 className="text-sm font-heading font-bold text-black">
+              <div className="text-center leading-tight">
+                <h2 className="text-sm font-heading font-bold text-black leading-snug mb-0">
                   Ezton E&E Ltd
                 </h2>
-                <div className="flex items-center justify-center space-x-1">
+                <div className="flex items-center justify-center space-x-1 mt-0">
                   <div className="h-px w-3 bg-black"></div>
-                  <span className="text-xs text-red-600 italic">
+                  <span className="text-xs text-red-600 italic leading-none">
                     Quality with standards
                   </span>
                   <div className="h-px w-3 bg-black"></div>
