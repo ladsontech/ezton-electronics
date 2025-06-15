@@ -129,7 +129,13 @@ const Hero = () => {
                 letterSpacing: "-0.01em",
               }}
             >
-              <span className="text-zinc-900 drop-shadow-[0_5px_18px_rgba(0,0,0,0.08)]">
+              <span
+                className="text-zinc-900 drop-shadow-[0_5px_18px_rgba(0,0,0,0.08)] hero-white-glow"
+                style={{
+                  textShadow:
+                    "0 2px 10px #fff, 0 0px 22px #fff, 0 0px 2px #fafaff, 0 1.5px 0 #fff6",
+                }}
+              >
                 Safeguard Tomorrow, Today.
               </span>
             </h1>

@@ -223,3 +223,13 @@
     @apply p-4;
   }
 }
+
+/* Custom white text-glow utility for hero headlines */
+.hero-white-glow {
+  /* fallback, is overridden by style, but still useful for theme diff */
+  text-shadow:
+    0 2px 10px #fff,
+    0 0px 22px #fff,
+    0 0px 2px #fafaff,
+    0 1.5px 0 #fff6;
+}
