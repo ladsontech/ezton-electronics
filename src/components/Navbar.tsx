@@ -22,20 +22,20 @@ const Navbar = () => {
       isScrolled ? "shadow-md" : ""
     )}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="relative flex items-center justify-between py-2 h-16">
-          {/* Empty flex item for left space (desktop only) */}
+        {/* 3-column flex: left, center (logo), right nav */}
+        <div className="flex items-center justify-between py-2 h-16 w-full">
+          {/* Left column */}
           <div className="hidden md:block md:w-1/4" />
-
-          {/* Logo + Text section, always centered */}
-          <Link
-            to="/"
+          
+          {/* Center logo+text */}
+          <div
             className={cn(
-              "flex items-center absolute left-1/2 transform -translate-x-1/2",
-              isMobile ? "static left-auto transform-none mx-auto" : ""
+              "flex flex-col items-center flex-shrink min-w-0 mx-auto",
+              isMobile ? "" : ""
             )}
             style={{ minWidth: 0, zIndex: 10 }}
           >
-            <div className="flex flex-col items-center mt-2 space-y-0.5">
+            <Link to="/" className="flex flex-col items-center mt-2 space-y-0.5">
               <div className="w-8 h-8">
                 <img src="/images/ezton_logo.png" alt="Ezton Logo" className="w-full h-full object-contain" />
               </div>
@@ -51,11 +51,11 @@ const Navbar = () => {
                   <div className="h-px w-3 bg-black"></div>
                 </div>
               </div>
-            </div>
-          </Link>
+            </Link>
+          </div>
 
-          {/* Desktop Navigation - absolutely right-aligned for centering logo */}
-          <div className="hidden md:flex absolute right-0 top-0 h-full items-center">
+          {/* Right navigation */}
+          <div className="hidden md:flex md:w-1/4 items-center justify-end h-full">
             <nav className="flex space-x-6 lg:space-x-8 h-full items-center">
               <Link to="/" className="nav-link text-gray-800 hover:text-primary py-2">Home</Link>
               <Link to="/solutions" className="nav-link text-gray-800 hover:text-primary py-2">Products</Link>
