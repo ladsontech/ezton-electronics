@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -33,10 +32,15 @@ export function PackagesManager() {
     price: 0,
     images: []
   });
+  const [featuresText, setFeaturesText] = useState('');
 
   useEffect(() => {
     fetchPackages();
   }, []);
+
+  useEffect(() => {
+    setFeaturesText(currentPackage.features?.join(', ') || '');
+  }, [currentPackage.features, editMode]);
 
   const fetchPackages = async () => {
     try {
@@ -61,10 +65,8 @@ export function PackagesManager() {
     setCurrentPackage(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleFeaturesChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    // Split by commas and trim whitespace from each feature
-    const features = e.target.value.split(',').map(feature => feature.trim()).filter(feature => feature !== '');
-    setCurrentPackage(prev => ({ ...prev, features }));
+  const handleFeaturesTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setFeaturesText(e.target.value);
   };
 
   const handleImagesChange = (images: string[]) => {
@@ -80,6 +82,7 @@ export function PackagesManager() {
       price: 0,
       images: []
     });
+    setFeaturesText('');
     setEditMode(false);
   };
 
@@ -90,6 +93,7 @@ export function PackagesManager() {
       features: pkg.features || []
     });
     setEditMode(true);
+    setFeaturesText((pkg.features || []).join(', '));
   };
 
   const handleDeletePackage = async (id: string) => {
@@ -120,8 +124,8 @@ export function PackagesManager() {
         return;
       }
 
-      // Clean up features - split by commas and new lines, trim whitespace
-      const cleanedFeatures = currentPackage.features
+      const cleanedFeatures = featuresText
+        .split(',')
         .map(feature => feature.trim())
         .filter(feature => feature.length > 0);
       
@@ -229,18 +233,20 @@ export function PackagesManager() {
                         Features (separate with commas)
                       </label>
                       <Textarea
-                        value={currentPackage.features?.join(', ') || ''}
-                        onChange={handleFeaturesChange}
+                        value={featuresText}
+                        onChange={handleFeaturesTextChange}
                         placeholder="Enter features separated by commas (e.g., Feature 1, Feature 2, Feature 3)"
                         rows={4}
                       />
-                      {currentPackage.features?.length > 0 && (
+                      {featuresText.trim().length > 0 && (
                         <div className="mt-2">
                           <p className="text-xs text-gray-500 mb-1">Features preview:</p>
                           <ul className="text-xs text-gray-700 pl-5 list-disc">
-                            {currentPackage.features.map((feature, index) => (
-                              <li key={index}>{feature}</li>
-                            ))}
+                            {featuresText.split(',').map((feature, index) => {
+                              const trimmed = feature.trim();
+                              if (!trimmed) return null;
+                              return <li key={index}>{trimmed}</li>;
+                            })}
                           </ul>
                         </div>
                       )}

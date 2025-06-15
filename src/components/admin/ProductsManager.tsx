@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -41,11 +40,16 @@ export function ProductsManager() {
     images: [],
     category_id: ''
   });
+  const [featuresText, setFeaturesText] = useState('');
 
   useEffect(() => {
     fetchProducts();
     fetchCategories();
   }, []);
+
+  useEffect(() => {
+    setFeaturesText(currentProduct.features?.join(', ') || '');
+  }, [currentProduct.features, editMode]);
 
   const fetchProducts = async () => {
     try {
@@ -85,10 +89,8 @@ export function ProductsManager() {
     setCurrentProduct(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleFeaturesChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    // Split by commas and trim whitespace from each feature
-    const features = e.target.value.split(',').map(feature => feature.trim()).filter(feature => feature !== '');
-    setCurrentProduct(prev => ({ ...prev, features }));
+  const handleFeaturesTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setFeaturesText(e.target.value);
   };
 
   const handleImagesChange = (images: string[]) => {
@@ -105,6 +107,7 @@ export function ProductsManager() {
       images: [],
       category_id: categories[0]?.id || ''
     });
+    setFeaturesText('');
     setEditMode(false);
   };
 
@@ -115,6 +118,7 @@ export function ProductsManager() {
       features: product.features || []
     });
     setEditMode(true);
+    setFeaturesText((product.features || []).join(', '));
   };
 
   const handleDeleteProduct = async (id: string) => {
@@ -143,8 +147,15 @@ export function ProductsManager() {
         return;
       }
       
+      // New: parse the featuresText into array for saving
+      const parsedFeatures = featuresText
+        .split(',')
+        .map(f => f.trim())
+        .filter(f => f.length > 0);
+
       const productData = {
         ...currentProduct,
+        features: parsedFeatures,
         price: currentProduct.price || null,
         updated_at: new Date().toISOString()
       };
@@ -261,18 +272,20 @@ export function ProductsManager() {
                     Features (separate with commas)
                   </label>
                   <Textarea
-                    value={currentProduct.features?.join(', ') || ''}
-                    onChange={handleFeaturesChange}
+                    value={featuresText}
+                    onChange={handleFeaturesTextChange}
                     placeholder="Enter features separated by commas (e.g., Feature 1, Feature 2, Feature 3)"
                     rows={4}
                   />
-                  {currentProduct.features?.length > 0 && (
+                  {featuresText.trim().length > 0 && (
                     <div className="mt-2">
                       <p className="text-xs text-gray-500 mb-1">Features preview:</p>
                       <ul className="text-xs text-gray-700 pl-5 list-disc">
-                        {currentProduct.features.map((feature, index) => (
-                          <li key={index}>{feature}</li>
-                        ))}
+                        {featuresText.split(',').map((feature, index) => {
+                          const trimmed = feature.trim();
+                          if (!trimmed) return null;
+                          return <li key={index}>{trimmed}</li>;
+                        })}
                       </ul>
                     </div>
                   )}
