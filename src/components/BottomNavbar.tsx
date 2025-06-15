@@ -14,11 +14,11 @@ const BottomNavbar = () => {
           <span className="text-xs mt-1">Home</span>
         </Link>
         <Link 
-          to="/solutions" 
+          to="/packages"
           className="flex flex-col items-center justify-center text-gray-600 hover:text-primary"
         >
           <Package className="h-5 w-5" />
-          <span className="text-xs mt-1">Products</span>
+          <span className="text-xs mt-1">Packages</span>
         </Link>
         <Link 
           to="/projects" 

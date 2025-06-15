@@ -2,10 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
-import { Loader2, Download } from "lucide-react";
-import dynamic from "next/dynamic";
-
-const ReactToPdf = (window as any).ReactToPdf || require("react-to-pdf").default;
+import { Loader2 } from "lucide-react";
 
 interface Product {
   id: string;
@@ -53,22 +50,7 @@ export default function ProductDetails() {
 
   return (
     <section className="max-w-3xl mx-auto px-4 py-10">
-      {/* PDF Button */}
-      <div className="flex justify-end mb-6">
-        <ReactToPdf targetRef={contentRef} filename={`Ezton_${product.title}.pdf`} options={{ orientation: "portrait", unit: "pt", format: "a4" }} scale={0.86}>
-          {({ toPdf }: any) => (
-            <button
-              onClick={toPdf}
-              className="inline-flex items-center px-4 py-2 text-sm font-medium rounded-lg bg-primary text-white gap-2 hover:bg-primary/90 shadow"
-              aria-label="Save as PDF"
-              type="button"
-            >
-              <Download className="w-5 h-5" /> Save as PDF
-            </button>
-          )}
-        </ReactToPdf>
-      </div>
-      {/* Product details to export */}
+      {/* Product details */}
       <div ref={contentRef} className="bg-white p-6 rounded-lg shadow border">
         <div className="flex flex-col md:flex-row gap-6">
           <div className="flex-1">

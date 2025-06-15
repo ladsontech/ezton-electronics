@@ -14,6 +14,7 @@ import Admin from "./pages/Admin";
 import AdminProductsPage from "@/pages/AdminProductsPage";
 import AdminPackagesPage from "@/pages/AdminPackagesPage";
 import AdminProjectsPage from "@/pages/AdminProjectsPage";
+import PackagesPage from "./pages/Packages";
 
 const queryClient = new QueryClient();
 
@@ -26,6 +27,7 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/solutions" element={<Solutions />} />
+          <Route path="/packages" element={<PackagesPage />} />
           <Route path="/projects" element={<Projects />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/products/:productId" element={<ProductDetails />} />
