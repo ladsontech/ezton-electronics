@@ -79,9 +79,23 @@ const slides = [
 ];
 
 const TechHeroCarousel = () => {
+  const [api, setApi] = React.useState<ReturnType<typeof Carousel>["props"]["setApi"] extends (api: infer T) => void ? T : any>(null);
+
+  // Set up auto-slide using Embla API
+  React.useEffect(() => {
+    if (!api) return;
+
+    const interval = setInterval(() => {
+      api.scrollNext?.();
+    }, 4000);
+
+    // Pause auto-slide on hover (optional: if needed, add hover logic)
+    return () => clearInterval(interval);
+  }, [api]);
+
   return (
     <div className="relative w-full max-w-2xl mx-auto animate-fade-in">
-      <Carousel opts={{ loop: true }}>
+      <Carousel opts={{ loop: true }} setApi={setApi}>
         <CarouselContent>
           {slides.map((slide, idx) => (
             <CarouselItem key={idx}>
@@ -123,4 +137,5 @@ const TechHeroCarousel = () => {
     </div>
   );
 };
+
 export default TechHeroCarousel;
