@@ -1,17 +1,24 @@
 
 import { Link } from "react-router-dom";
-import { Home, Package, Image, PhoneCall } from "lucide-react";
+import { Home, ShoppingBag, Package, Image, PhoneCall } from "lucide-react";
 
 const BottomNavbar = () => {
   return (
     <div className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 z-50">
-      <div className="grid grid-cols-4 h-16">
+      <div className="grid grid-cols-5 h-16">
         <Link 
           to="/" 
           className="flex flex-col items-center justify-center text-gray-600 hover:text-primary"
         >
           <Home className="h-5 w-5" />
           <span className="text-xs mt-1">Home</span>
+        </Link>
+        <Link 
+          to="/solutions"
+          className="flex flex-col items-center justify-center text-gray-600 hover:text-primary"
+        >
+          <ShoppingBag className="h-5 w-5" />
+          <span className="text-xs mt-1">Products</span>
         </Link>
         <Link 
           to="/packages"
@@ -40,3 +47,4 @@ const BottomNavbar = () => {
 };
 
 export default BottomNavbar;
+
