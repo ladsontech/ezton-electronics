@@ -10,7 +10,6 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { Link, useLocation } from "react-router-dom";
 
 const menu = [
   {
@@ -36,8 +35,6 @@ const menu = [
 ];
 
 export function AppSidebar() {
-  const location = useLocation();
-
   return (
     <Sidebar>
       <SidebarContent>
@@ -47,11 +44,11 @@ export function AppSidebar() {
             <SidebarMenu>
               {menu.map(item => (
                 <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild isActive={location.pathname.startsWith(item.url)}>
-                    <Link to={item.url}>
+                  <SidebarMenuButton asChild>
+                    <a href={item.url}>
                       <item.icon className="mr-2" />
                       <span>{item.title}</span>
-                    </Link>
+                    </a>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}

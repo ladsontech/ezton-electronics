@@ -1,6 +1,14 @@
 
-import { ProductsManager } from "@/components/admin/ProductsManager";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function AdminProductsPage() {
-  return <ProductsManager />;
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // Redirect to main admin page
+    navigate("/admin");
+  }, [navigate]);
+
+  return null;
 }
