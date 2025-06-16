@@ -1,3 +1,4 @@
+
 import { ArrowDownCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
 import TechHeroCarousel from "./TechHeroCarousel";
@@ -49,7 +50,7 @@ const Hero = () => {
             <p className="text-lg sm:text-xl md:text-2xl text-red-600 font-normal mb-9 max-w-2xl mx-auto opacity-0 animate-fade-in" style={{
             animationDelay: "0.43s",
             animationFillMode: "forwards",
-            textShadow: "0 2px 12px #fff, 0 1px 18px #fff8, 0 0px 2px #2222"
+            textShadow: "0 2px 4px rgba(0,0,0,0.8), 0 1px 8px rgba(0,0,0,0.6), 0 0px 2px rgba(0,0,0,0.9)"
           }}>
               Quality with standards
             </p>
