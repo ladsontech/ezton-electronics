@@ -56,7 +56,7 @@ const Hero = () => {
               <span className="inline-flex items-center justify-center space-x-2">
                 <span className="h-px w-3 sm:w-4 bg-black"></span>
                 <span className="text-slate-100">Quality with standards</span>
-                <span className="h-px w-3 sm:w-4 bg-black"></span>
+                <span className="h-px w-3 sm:w-4 bg-black text-2xl font-extrabold"></span>
               </span>
             </p>
 
