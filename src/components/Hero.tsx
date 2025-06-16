@@ -1,4 +1,5 @@
 
+
 import { ArrowDownCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
 import TechHeroCarousel from "./TechHeroCarousel";
@@ -47,12 +48,16 @@ const Hero = () => {
               </span>
             </h1>
             {/* Supporting paragraph */}
-            <p className="text-lg sm:text-xl md:text-2xl text-red-600 font-normal mb-9 max-w-2xl mx-auto opacity-0 animate-fade-in" style={{
+            <p className="text-lg sm:text-xl md:text-2xl text-red-500 font-normal mb-9 max-w-2xl mx-auto opacity-0 animate-fade-in" style={{
             animationDelay: "0.43s",
             animationFillMode: "forwards",
             textShadow: "0 2px 4px rgba(0,0,0,0.8), 0 1px 8px rgba(0,0,0,0.6), 0 0px 2px rgba(0,0,0,0.9)"
           }}>
-              Quality with standards
+              <span className="inline-flex items-center justify-center space-x-2">
+                <span className="h-px w-4 bg-black"></span>
+                <span>Quality with standards</span>
+                <span className="h-px w-4 bg-black"></span>
+              </span>
             </p>
 
             {/* Animated Tech Card Carousel */}
@@ -94,3 +99,4 @@ const Hero = () => {
     </section>;
 };
 export default Hero;
+
