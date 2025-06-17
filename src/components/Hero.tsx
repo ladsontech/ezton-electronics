@@ -7,7 +7,7 @@ const Hero = () => {
   return <section className="relative overflow-hidden bg-gradient-to-br from-blue-50 via-white to-purple-50 py-16 sm:py-20 md:py-28 min-h-[600px] sm:min-h-[670px]">
       {/* Background Image */}
       <div 
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-5 blur-sm"
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-5"
         style={{
           backgroundImage: "url('/images/hero1.jpeg')"
         }}
