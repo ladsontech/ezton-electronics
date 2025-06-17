@@ -4,6 +4,7 @@ import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
 import WhyChooseUs from '@/components/WhyChooseUs';
 import Services from '@/components/Services';
+import WhatWeDo from '@/components/WhatWeDo';
 import ContactSection from '@/components/ContactSection';
 import Footer from '@/components/Footer';
 import FloatingCTA from '@/components/FloatingCTA';
@@ -25,6 +26,7 @@ const Index = () => {
       <Hero />
       <WhyChooseUs />
       <Services />
+      <WhatWeDo />
       
       {/* Solutions link section */}
       <section className="py-16 bg-gradient-to-b from-white to-primary/5">
