@@ -1,17 +1,12 @@
-
 import { ArrowDownCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
 import TechHeroCarousel from "./TechHeroCarousel";
-
 const Hero = () => {
   return <section className="relative overflow-hidden bg-gradient-to-br from-blue-50 via-white to-purple-50 py-16 sm:py-20 md:py-28 min-h-[600px] sm:min-h-[670px]">
       {/* Background Image */}
-      <div 
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-5"
-        style={{
-          backgroundImage: "url('/images/hero1.jpeg')"
-        }}
-      />
+      <div className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-5" style={{
+      backgroundImage: "url('/images/hero1.jpeg')"
+    }} />
       
       {/* Clean background with subtle pattern */}
       <div className="absolute inset-0 bg-grid opacity-20" />
@@ -24,14 +19,7 @@ const Hero = () => {
         <div className="max-w-4xl mx-auto">
           <div className="text-center">
             {/* Tagline badge */}
-            <div className="inline-block animate-fade-in opacity-0" style={{
-            animationDelay: "0.23s",
-            animationFillMode: "forwards"
-          }}>
-              <span className="inline-flex items-center py-2 px-4 text-sm font-medium text-primary bg-primary/5 rounded-full mb-6 border border-primary/10">
-                Tech-driven Security Excellence
-              </span>
-            </div>
+            
 
             {/* Main headline */}
             <h1 className={cn("text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-playfair font-black leading-tight mb-6 opacity-0 animate-fade-in tracking-tight text-gray-900")} style={{
