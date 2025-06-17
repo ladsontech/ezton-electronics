@@ -1,3 +1,4 @@
+
 import { ArrowDownCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
 import TechHeroCarousel from "./TechHeroCarousel";
@@ -15,10 +16,10 @@ const Hero = () => {
         <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-white/0 to-white/70" />
       </div>
 
-      {/* Animated colored blobs (glows) */}
-      <div className="absolute top-[14%] left-1/4 w-32 h-24 sm:w-48 sm:h-36 bg-sky-400/25 blur-3xl rounded-full -z-0 animate-pulse" />
-      <div className="absolute right-5 bottom-16 w-40 h-28 sm:right-10 sm:bottom-24 sm:w-60 sm:h-44 bg-fuchsia-400/25 blur-2xl rounded-full -z-0 animate-pulse" />
-      <div className="absolute left-2 bottom-2 w-16 h-8 sm:left-5 sm:bottom-4 sm:w-24 sm:h-12 bg-yellow-300/25 blur-xl rounded-full -z-0 animate-pulse" />
+      {/* Animated red blobs (glows) */}
+      <div className="absolute top-[14%] left-1/4 w-32 h-24 sm:w-48 sm:h-36 bg-red-400/25 blur-3xl rounded-full -z-0 animate-pulse" />
+      <div className="absolute right-5 bottom-16 w-40 h-28 sm:right-10 sm:bottom-24 sm:w-60 sm:h-44 bg-red-500/20 blur-2xl rounded-full -z-0 animate-pulse" />
+      <div className="absolute left-2 bottom-2 w-16 h-8 sm:left-5 sm:bottom-4 sm:w-24 sm:h-12 bg-red-300/25 blur-xl rounded-full -z-0 animate-pulse" />
 
       {/* Content container */}
       <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8 relative z-20">
