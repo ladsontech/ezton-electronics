@@ -2,7 +2,6 @@
 import { useEffect } from 'react';
 import Navbar from '@/components/Navbar';
 import Products from '@/components/Products';
-import Packages from '@/components/Packages';
 import Footer from '@/components/Footer';
 import FloatingCTA from '@/components/FloatingCTA';
 import BottomNavbar from '@/components/BottomNavbar';
@@ -20,7 +19,6 @@ const Solutions = () => {
       <Navbar />
       <div className="pt-28 md:pt-32">
         <Products />
-        <Packages />
       </div>
       <Footer />
       {!isMobile && <FloatingCTA />}
