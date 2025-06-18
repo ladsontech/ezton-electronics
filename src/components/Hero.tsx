@@ -35,7 +35,7 @@ const Hero = () => {
             animationFillMode: "forwards"
           }}>
               <span className="inline-flex items-center justify-center space-x-3 text-rose-700">
-                <span className="h-px w-8 bg-gray-300"></span>
+                <span className="h-px w-8 bg-gray-300 text-slate-950 font-extrabold"></span>
                 <span>Quality with standards</span>
                 <span className="h-px w-8 bg-gray-300"></span>
               </span>
