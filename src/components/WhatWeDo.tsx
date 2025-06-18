@@ -43,15 +43,16 @@ const WhatWeDo = () => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8 lg:gap-12">
+        {/* Mobile: Stack layout */}
+        <div className="md:hidden space-y-8">
           {features.map((feature, index) => {
             const IconComponent = feature.icon;
             return (
               <div
                 key={feature.title}
-                className="group relative bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+                className="group relative bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300"
               >
-                <div className="aspect-video overflow-hidden">
+                <div className="aspect-square overflow-hidden">
                   <img
                     src={feature.image}
                     alt={feature.title}
@@ -67,8 +68,48 @@ const WhatWeDo = () => {
                   </div>
                   <p className="text-gray-600 leading-relaxed">{feature.description}</p>
                 </div>
-                {/* Subtle gradient overlay on hover */}
-                <div className="absolute inset-0 bg-gradient-to-t from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Desktop: Alternating layout */}
+        <div className="hidden md:block space-y-20">
+          {features.map((feature, index) => {
+            const IconComponent = feature.icon;
+            const isEven = index % 2 === 0;
+            
+            return (
+              <div
+                key={feature.title}
+                className={`flex items-center gap-12 lg:gap-16 ${isEven ? 'flex-row' : 'flex-row-reverse'}`}
+              >
+                {/* Square Image Card */}
+                <div className="flex-1 max-w-md">
+                  <div className="group relative bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                    <div className="aspect-square overflow-hidden">
+                      <img
+                        src={feature.image}
+                        alt={feature.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                    </div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+                  </div>
+                </div>
+
+                {/* Content */}
+                <div className="flex-1">
+                  <div className="flex items-center gap-4 mb-4">
+                    <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center">
+                      <IconComponent className="w-6 h-6 text-primary" />
+                    </div>
+                    <h3 className="text-2xl lg:text-3xl font-bold text-gray-900">{feature.title}</h3>
+                  </div>
+                  <p className="text-lg text-gray-600 leading-relaxed">
+                    {feature.description}
+                  </p>
+                </div>
               </div>
             );
           })}

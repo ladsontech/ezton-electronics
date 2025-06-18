@@ -1,18 +1,20 @@
+
 import { ArrowDownCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
 import TechHeroCarousel from "./TechHeroCarousel";
+
 const Hero = () => {
   return <section className="relative overflow-hidden bg-gradient-to-br from-blue-50 via-white to-purple-50 py-16 sm:py-20 md:py-28 min-h-[600px] sm:min-h-[670px]">
-      {/* Background Image */}
-      <div className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-5" style={{
+      {/* Background Image - More Visible */}
+      <div className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-25" style={{
       backgroundImage: "url('/images/hero1.jpeg')"
     }} />
       
       {/* Clean background with subtle pattern */}
-      <div className="absolute inset-0 bg-grid opacity-20" />
+      <div className="absolute inset-0 bg-grid opacity-10" />
       
-      {/* Subtle gradient overlay for depth */}
-      <div className="absolute inset-0 bg-gradient-to-b from-white/50 via-transparent to-white/30" />
+      {/* Lighter gradient overlay for more visible background */}
+      <div className="absolute inset-0 bg-gradient-to-b from-white/30 via-transparent to-white/20" />
 
       {/* Content container */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20">
@@ -75,4 +77,5 @@ const Hero = () => {
       </div>
     </section>;
 };
+
 export default Hero;
