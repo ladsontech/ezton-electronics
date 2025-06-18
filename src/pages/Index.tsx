@@ -5,6 +5,7 @@ import Hero from '@/components/Hero';
 import WhyChooseUs from '@/components/WhyChooseUs';
 import Services from '@/components/Services';
 import WhatWeDo from '@/components/WhatWeDo';
+import FeaturedProducts from '@/components/FeaturedProducts';
 import ContactSection from '@/components/ContactSection';
 import Footer from '@/components/Footer';
 import FloatingCTA from '@/components/FloatingCTA';
@@ -27,6 +28,7 @@ const Index = () => {
       <WhyChooseUs />
       <Services />
       <WhatWeDo />
+      <FeaturedProducts />
       
       {/* Solutions link section */}
       <section className="py-16 bg-gradient-to-b from-white to-primary/5">
@@ -38,7 +40,7 @@ const Index = () => {
           <p className="text-lg text-muted-foreground mb-8 max-w-3xl mx-auto">
             Discover our comprehensive range of security packages tailored to your needs, featuring advanced cameras and monitoring systems.
           </p>
-          <Link to="/solutions" className="inline-flex items-center justify-center rounded-lg bg-gradient-to-r from-primary to-blue-600 px-6 py-3 text-base font-medium text-white hover:from-primary/90 hover:to-blue-600/90 transition-all shadow-md">
+          <Link to="/packages" className="inline-flex items-center justify-center rounded-lg bg-gradient-to-r from-primary to-blue-600 px-6 py-3 text-base font-medium text-white hover:from-primary/90 hover:to-blue-600/90 transition-all shadow-md">
             View All Packages <ArrowRight className="h-4 w-4 ml-2" />
           </Link>
         </div>
