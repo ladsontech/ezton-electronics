@@ -1,8 +1,6 @@
-
 import { ArrowDownCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
 import TechHeroCarousel from "./TechHeroCarousel";
-
 const Hero = () => {
   return <section className="relative overflow-hidden bg-gradient-to-br from-blue-50 via-white to-purple-50 py-16 sm:py-20 md:py-28 min-h-[600px] sm:min-h-[670px]">
       {/* Background Image - More Visible */}
@@ -36,7 +34,7 @@ const Hero = () => {
             animationDelay: "0.43s",
             animationFillMode: "forwards"
           }}>
-              <span className="inline-flex items-center justify-center space-x-3">
+              <span className="inline-flex items-center justify-center space-x-3 text-rose-700">
                 <span className="h-px w-8 bg-gray-300"></span>
                 <span>Quality with standards</span>
                 <span className="h-px w-8 bg-gray-300"></span>
@@ -77,5 +75,4 @@ const Hero = () => {
       </div>
     </section>;
 };
-
 export default Hero;
