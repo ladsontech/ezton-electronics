@@ -149,6 +149,7 @@ const Hero = () => {
         }
       `}</style>
     </section>
+  )
   );
 };
 
