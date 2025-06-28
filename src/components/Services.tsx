@@ -130,18 +130,18 @@ const ServiceCard = ({
 
 const Services = () => {
   return (
-    <section id="services" className="py-16 md:py-24 relative bg-white">
+    <section id="services" className="py-12 md:py-16 relative bg-white">
       <div className="absolute right-0 top-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl -z-10" />
       <div className="absolute left-0 bottom-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl -z-10" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-3xl mx-auto mb-16">
+        <div className="text-center max-w-3xl mx-auto mb-12">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">Our Services</h2>
           <p className="text-lg text-muted-foreground">
             Comprehensive security and electrical solutions tailored to your needs.
           </p>
         </div>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {services.map((service, index) => (
             <ServiceCard
               key={service.title}

@@ -1,4 +1,3 @@
-
 import { Shield, Users, Award, Clock } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -27,21 +26,21 @@ const features = [
 
 const WhyChooseUs = () => {
   return (
-    <section id="why-choose-us" className="py-16 md:py-24 bg-secondary/50">
+    <section id="why-choose-us" className="py-12 md:py-16 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-3xl mx-auto mb-16">
+        <div className="text-center max-w-3xl mx-auto mb-12">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">Why Choose Ezton E & E?</h2>
           <p className="text-lg text-muted-foreground">
             With years of experience in security and electrical solutions, we're committed to providing cutting-edge technology and exceptional service.
           </p>
         </div>
         
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           {features.map((feature, index) => (
             <div 
               key={feature.title}
               className={cn(
-                "feature-card group hover-lift",
+                "feature-card group hover-lift bg-white",
                 "opacity-0 animate-fade-in"
               )}
               style={{ animationDelay: `${0.1 + index * 0.1}s`, animationFillMode: "forwards" }}

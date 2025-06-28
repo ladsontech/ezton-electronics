@@ -1,4 +1,3 @@
-
 import { Camera, Shield, Sun, Zap } from "lucide-react";
 
 const WhatWeDo = () => {
@@ -30,9 +29,9 @@ const WhatWeDo = () => {
   ];
 
   return (
-    <section className="py-16 md:py-20 bg-gradient-to-b from-white to-gray-50">
+    <section className="py-12 md:py-16 bg-gradient-to-b from-white to-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-3xl mx-auto mb-16">
+        <div className="text-center max-w-3xl mx-auto mb-12">
           <span className="inline-block px-4 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
             What We Do
           </span>
@@ -44,7 +43,7 @@ const WhatWeDo = () => {
         </div>
 
         {/* Mobile: Stack layout */}
-        <div className="md:hidden space-y-8">
+        <div className="md:hidden space-y-6">
           {features.map((feature, index) => {
             const IconComponent = feature.icon;
             return (
@@ -74,7 +73,7 @@ const WhatWeDo = () => {
         </div>
 
         {/* Desktop: Alternating layout */}
-        <div className="hidden md:block space-y-20">
+        <div className="hidden md:block space-y-16">
           {features.map((feature, index) => {
             const IconComponent = feature.icon;
             const isEven = index % 2 === 0;
