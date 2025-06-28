@@ -207,6 +207,25 @@
   animation: slide-up 0.3s ease forwards;
 }
 
+/* Float animation for Hero component floating cards */
+@keyframes float {
+  0%, 100% { 
+    transform: translateY(0px); 
+  }
+  50% { 
+    transform: translateY(-10px); 
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-float-delayed {
+  animation: float 3s ease-in-out infinite;
+  animation-delay: 1s;
+}
+
 /* Ensure the floating button appears above the bottom navbar on mobile */
 @media (max-width: 768px) {
   .fixed.bottom-4.right-4 {

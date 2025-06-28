@@ -116,7 +116,7 @@ const Hero = () => {
               </div>
             </div>
 
-            <div className="absolute -bottom-6 -right-6 bg-white rounded-lg p-4 shadow-lg animate-float" style={{ animationDelay: '1s' }}>
+            <div className="absolute -bottom-6 -right-6 bg-white rounded-lg p-4 shadow-lg animate-float animate-float-delayed">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
                   <Zap className="w-5 h-5 text-blue-600" />
@@ -138,18 +138,7 @@ const Hero = () => {
           </a>
         </div>
       </div>
-
-      <style jsx>{`
-        @keyframes float {
-          0%, 100% { transform: translateY(0px); }
-          50% { transform: translateY(-10px); }
-        }
-        .animate-float {
-          animation: float 3s ease-in-out infinite;
-        }
-      `}</style>
     </section>
-  )
   );
 };
 
