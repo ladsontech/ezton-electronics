@@ -1,4 +1,3 @@
-
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
@@ -18,7 +17,6 @@ export default defineConfig(({ mode }) => ({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.ico', 'robots.txt', 'images/*.{png,jpg,jpeg}'],
       manifest: {
-        id: "ezton-electronics-pwa",
         name: "Ezton E&E Ltd",
         short_name: "Ezton",
         description: "Premium security and electrical solutions including CCTV, solar systems, and access control for homes and businesses in Uganda.",
@@ -35,14 +33,6 @@ export default defineConfig(({ mode }) => ({
           "security",
           "shopping"
         ],
-        prefer_related_applications: false,
-        display_override: [
-          "fullscreen",
-          "window-controls-overlay"
-        ],
-        launch_handler: {
-          client_mode: "auto"
-        },
         icons: [
           {
             src: '/images/ezton_logo.png',
